@@ -252,6 +252,7 @@ input[type="text"], input[type="password"], select.field {
   cursor: pointer;
 }
 .sheet-tabs .tabset button.on { color: var(--ink); font-weight: 600; border-bottom-color: var(--accent); }
+.sheet-note { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
 .chips { display: flex; gap: 8px; padding-top: 16px; }
 .chip { font: inherit; font-size: 13px; background: none; border: 1px solid; border-radius: 4px; padding: 5px 14px; min-height: 32px; cursor: pointer; }
 .chip.all { color: var(--ink); border-color: var(--line); }

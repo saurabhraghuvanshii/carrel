@@ -1,0 +1,12 @@
+{
+  "id": "eta-on-road-graph",
+  "title": "Arrival time with traffic lights",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Ride dispatch",
+  "order": 105,
+  "tags": ["graph", "shortest path", "heap", "follow-up"],
+  "buildsOn": ["network-delay"],
+  "leadsTo": [],
+  "generator": "eta-lights"
+}

@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4 2 12\n0 5\n3 9\n8 12\n4 6",
+      "expected": "[[0, 3], [6, 8], [9, 12]]",
+      "display": "shifts = [[0, 5], [3, 9], [8, 12], [4, 6]]\nm      = 2\ndayEnd = 12\noutput = [[0, 3], [6, 8], [9, 12]]\n\nOnly one driver works before 3, from 6 to 8 and from 9 on."
+    },
+    {
+      "label": "Example 2",
+      "input": "2 1 10\n2 4\n4 7",
+      "expected": "[[0, 2], [7, 10]]",
+      "display": "shifts = [[2, 4], [4, 7]]\nm      = 1\ndayEnd = 10\noutput = [[0, 2], [7, 10]]\n\nThe two shifts touch at 4, so there is no gap there."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: always covered", "input": "1 1 10\n0 10", "expected": "[]" },
+    { "label": "Edge 2: more drivers needed than exist", "input": "1 2 10\n0 10", "expected": "[[0, 10]]" },
+    { "label": "Edge 3: shifts that only touch", "input": "3 1 9\n0 3\n3 6\n6 9", "expected": "[]" },
+    { "label": "Edge 4: a gap at the end only", "input": "2 2 9\n0 7\n0 8", "expected": "[[7, 9]]" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 2 5\n0 10 10\n1 50 99\n2 -50 10\n3 20 30\n9 30 40",
+      "expected": "4",
+      "display": "requests = [[0, 10, 10], [1, 50, 99], [2, -50, 10], [3, 20, 30], [9, 30, 40]]\nlimit    = 2\nwindow   = 5\noutput   = 4\n\nZone (0, 0) gets [0, 1] and [3] (the first was full), then 9 is too late for the batch that started at 3. Zone (−1, 0) gets [2]. Rounding −50 / 100 toward zero would put it in zone (0, 0) and give 3."
+    },
+    {
+      "label": "Example 2",
+      "input": "4 3 0\n5 5 5\n5 5 5\n5 5 5\n5 5 5",
+      "expected": "2",
+      "display": "requests = [[5, 5, 5], [5, 5, 5], [5, 5, 5], [5, 5, 5]]\nlimit    = 3\nwindow   = 0\noutput   = 2\n\nSame time, same zone: three fit in one batch, the fourth starts another."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one request", "input": "1 1 0\n0 0 0", "expected": "1" },
+    { "label": "Edge 2: window 0, different times", "input": "2 5 0\n0 1 1\n1 1 1", "expected": "2" },
+    { "label": "Edge 3: zone edges below zero", "input": "3 10 10\n0 -100 0\n0 -101 0\n0 -1 0", "expected": "2" },
+    { "label": "Edge 4: zone edges above zero", "input": "3 10 10\n0 99 0\n0 100 0\n0 0 0", "expected": "2" },
+    { "label": "Edge 5: the window counts from the first request", "input": "3 10 5\n0 1 1\n4 1 1\n8 1 1", "expected": "2" }
+  ]
+}

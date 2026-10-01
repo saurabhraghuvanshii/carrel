@@ -1,0 +1,12 @@
+{
+  "id": "driver-shift-gaps",
+  "title": "Understaffed hours",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Ride dispatch",
+  "order": 103,
+  "tags": ["intervals", "sweep line", "follow-up"],
+  "buildsOn": ["rooms-needed", "merge-intervals"],
+  "leadsTo": [],
+  "generator": "shift-gaps"
+}

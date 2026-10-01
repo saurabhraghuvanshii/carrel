@@ -171,6 +171,7 @@
     if (token !== renderToken) return;
 
     const sheets = [['patterns', 'Patterns'], ['real', 'Real interviews']];
+    const notes = { real: 'Pattern commonly seen in online assessments' };
     const all = problems.filter((p) => p.sheet === ui.sheet);
     const numbers = new Map(all.map((p, i) => [p.id, i + 1]));
     const shown = all.filter((p) => ui.filter === 'all' || p.difficulty === ui.filter);
@@ -179,6 +180,7 @@
       el('div', { class: 'tabset' }, sheets.map(([id, name]) =>
         el('button', { class: id === ui.sheet ? 'on' : '', text: name, onclick: () => { ui.sheet = id; renderSheets(); } }))),
       archiveButtons());
+    const note = notes[ui.sheet] ? el('p', { class: 'sheet-note', text: notes[ui.sheet] }) : null;
 
     const chips = el('div', { class: 'chips' }, ['all', 'easy', 'medium', 'hard'].map((f) =>
       el('button', { class: `chip ${f}${ui.filter === f ? ' on' : ''}`, text: cap(f), onclick: () => { ui.filter = f; renderSheets(); } })));
@@ -227,7 +229,7 @@
         byDifficulty ? el('div', { class: 'hint', text: byDifficulty }) : null),
       el('p', { class: 'aside-note ruled', text: 'Problems are in learning order. Each one uses an idea from the one before it.' }));
 
-    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, importBox(), tabs, chips, list), aside));
+    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, importBox(), tabs, note, chips, list), aside));
   }
 
   // ---- export and import ----

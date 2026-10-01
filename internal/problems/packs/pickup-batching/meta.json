@@ -1,0 +1,12 @@
+{
+  "id": "pickup-batching",
+  "title": "Batch pickups by zone",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Ride dispatch",
+  "order": 104,
+  "tags": ["hash map", "grouping", "follow-up"],
+  "buildsOn": ["group-by-letters"],
+  "leadsTo": [],
+  "generator": "pickup-batches"
+}

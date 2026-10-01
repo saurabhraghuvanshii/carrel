@@ -1,0 +1,12 @@
+{
+  "id": "ride-pool-match",
+  "title": "Fill the shuttle",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Ride dispatch",
+  "order": 106,
+  "tags": ["greedy", "intervals", "follow-up"],
+  "buildsOn": ["remove-overlaps", "rooms-needed"],
+  "leadsTo": [],
+  "generator": "pool-match"
+}

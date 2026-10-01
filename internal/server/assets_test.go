@@ -65,3 +65,13 @@ func TestWebAssetsStaySmall(t *testing.T) {
 		t.Fatalf("web/ is %d KB, over the %d KB limit", total>>10, limit>>10)
 	}
 }
+
+func TestRealSheetShowsItsDescription(t *testing.T) {
+	b, err := fs.ReadFile(webFS, "web/app.js")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(b), "real: 'Pattern commonly seen in online assessments'") {
+		t.Error("app.js does not give the Real interviews sheet its description line")
+	}
+}

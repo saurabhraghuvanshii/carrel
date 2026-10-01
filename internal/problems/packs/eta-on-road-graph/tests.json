@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4 4\n1 5 1 1\n0 1 2\n1 3 2\n0 2 3\n2 3 3",
+      "expected": "6",
+      "display": "n      = 4\nperiod = [1, 5, 1, 1]\nroads  = [(0, 1, 2), (1, 3, 2), (0, 2, 3), (2, 3, 3)]\noutput = 6\n\nThrough junction 1 the car arrives at 2 but must wait for the light until 5, reaching 3 at 7. Through junction 2 it arrives at 6."
+    },
+    {
+      "label": "Example 2",
+      "input": "3 1\n1 1 1\n0 1 5",
+      "expected": "-1",
+      "display": "n      = 3\nperiod = [1, 1, 1]\nroads  = [(0, 1, 5)]\noutput = -1\n\nNo road reaches junction 2."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: time 0 is green everywhere", "input": "2 1\n10 1\n0 1 3", "expected": "3" },
+    { "label": "Edge 2: no roads", "input": "2 0\n1 1", "expected": "-1" },
+    { "label": "Edge 3: the light at the end does not matter", "input": "3 2\n1 1 50\n0 2 4\n2 1 1", "expected": "4" },
+    { "label": "Edge 4: a loop and a repeated road", "input": "3 4\n1 4 1\n0 0 1\n0 1 1\n0 1 2\n1 2 1", "expected": "5" }
+  ]
+}

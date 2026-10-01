@@ -17,6 +17,13 @@ func Validate(lib *Library) error {
 		errs = append(errs, fmt.Errorf("%s: "+format, append([]any{id}, args...)...))
 	}
 
+	groupStart := map[string]int{}
+	for _, p := range lib.List() {
+		if o, ok := groupStart[p.Sheet+"/"+p.Group]; !ok || p.Order < o {
+			groupStart[p.Sheet+"/"+p.Group] = p.Order
+		}
+	}
+
 	for _, p := range lib.List() {
 		switch p.Difficulty {
 		case "easy", "medium", "hard":
@@ -35,7 +42,7 @@ func Validate(lib *Library) error {
 		if !testgen.Has(p.Generator) {
 			fail(p.ID, "generator %q is not registered in internal/testgen", p.Generator)
 		}
-		if !slices.Contains(strings.Split(strings.ReplaceAll(p.Statement, "\r", ""), "\n"), "## Constraints") {
+		if !hasHeading(p.Statement, "## Constraints") {
 			fail(p.ID, "statement has no \"## Constraints\" heading")
 		}
 		if len(p.Examples) < 2 {
@@ -49,9 +56,20 @@ func Validate(lib *Library) error {
 				fail(p.ID, "%q: input %s", c.Label, msg)
 			}
 		}
+		patternLinks := 0
 		for _, id := range p.BuildsOn {
-			if _, ok := lib.Get(id); !ok {
+			if before, ok := lib.Get(id); !ok {
 				fail(p.ID, "buildsOn names %q, which does not exist", id)
+			} else if before.Sheet == "patterns" {
+				patternLinks++
+			}
+		}
+		if p.Sheet == "real" {
+			if !hasHeading(p.Statement, "## Follow-up") {
+				fail(p.ID, "real-interview statement has no \"## Follow-up\" heading")
+			}
+			if patternLinks == 0 && p.Order != groupStart[p.Sheet+"/"+p.Group] {
+				fail(p.ID, "real-interview problem needs a buildsOn link into the patterns sheet")
 			}
 		}
 		for _, id := range p.LeadsTo {
@@ -67,6 +85,10 @@ func Validate(lib *Library) error {
 		errs = append(errs, fmt.Errorf("buildsOn has a cycle: %s", strings.Join(cycle, " -> ")))
 	}
 	return errors.Join(errs...)
+}
+
+func hasHeading(statement, heading string) bool {
+	return slices.Contains(strings.Split(strings.ReplaceAll(statement, "\r", ""), "\n"), heading)
 }
 
 // inputProblem rejects trailing spaces, a leading blank line and more than one

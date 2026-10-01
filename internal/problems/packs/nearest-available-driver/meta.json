@@ -6,7 +6,7 @@
   "group": "Ride dispatch",
   "order": 101,
   "tags": ["grid", "ordering", "follow-up"],
-  "buildsOn": [],
+  "buildsOn": ["closest-points"],
   "leadsTo": [],
   "generator": "nearest-driver"
 }

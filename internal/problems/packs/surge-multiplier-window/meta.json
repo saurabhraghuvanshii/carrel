@@ -1,0 +1,12 @@
+{
+  "id": "surge-multiplier-window",
+  "title": "Surge pricing over a window",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Ride dispatch",
+  "order": 102,
+  "tags": ["sliding window", "follow-up"],
+  "buildsOn": ["best-window-sum"],
+  "leadsTo": [],
+  "generator": "surge-window"
+}

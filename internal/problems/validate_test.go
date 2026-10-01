@@ -128,3 +128,30 @@ func TestValidateRejectsBadStatementAndTests(t *testing.T) {
 		wantError(t, validate(t, fsys), `"Example 1": input`)
 	}
 }
+
+func TestValidateRealSheetRules(t *testing.T) {
+	inRides := func(order int, buildsOn ...string) func(m *Meta) {
+		return func(m *Meta) { m.Sheet, m.Group, m.Order, m.BuildsOn = "real", "Rides", order, buildsOn }
+	}
+	withFollowUp := func(fsys fstest.MapFS, id string) {
+		fsys[id+"/statement.md"] = &fstest.MapFile{Data: []byte(goodStatement + "\n## Follow-up\n\nWhat if it grows?\n")}
+	}
+
+	fsys := fstest.MapFS{}
+	pack(fsys, "basics", nil)
+	pack(fsys, "first", inRides(101))
+	pack(fsys, "second", inRides(102, "first", "basics"))
+	withFollowUp(fsys, "first")
+	withFollowUp(fsys, "second")
+	if err := validate(t, fsys); err != nil {
+		t.Fatalf("the first of a group may skip the patterns link: %v", err)
+	}
+
+	pack(fsys, "third", inRides(103, "second"))
+	withFollowUp(fsys, "third")
+	wantError(t, validate(t, fsys), `third: real-interview problem needs a buildsOn link`)
+
+	fsys = fstest.MapFS{}
+	pack(fsys, "first", inRides(101))
+	wantError(t, validate(t, fsys), `first: real-interview statement has no "## Follow-up"`)
+}
