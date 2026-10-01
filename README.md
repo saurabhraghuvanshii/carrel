@@ -137,5 +137,4 @@ Your own code is not sandboxed beyond a time limit, the same as running it yours
 - Function-style wrappers for more languages (Python, JavaScript, Go)
 - `dsa pull` to download extra problem packs
 - Export and import of all solutions as one zip
-- Spaced repetition and a "next problem" path through the learning order
 - More problems: the aim is about 100 patterns problems and a real-interview sheet

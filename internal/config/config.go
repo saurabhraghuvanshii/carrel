@@ -21,6 +21,8 @@ type Config struct {
 	Accent string `json:"accent"` // brick | forest | amber | slate | plum
 	Lang   string `json:"lang"`   // java | cpp
 	AI     AI     `json:"ai"`
+
+	RemindReviews bool `json:"remindReviews"` // show solved problems again after 3, 10 and 30 days
 }
 
 func Default() Config {

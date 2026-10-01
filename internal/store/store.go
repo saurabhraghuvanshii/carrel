@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"sync"
+	"time"
 )
 
 var idPattern = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{0,63}$`)
@@ -18,10 +19,11 @@ var exts = map[string]string{"java": ".java", "cpp": ".cpp"}
 type Store struct {
 	dir string
 	mu  sync.Mutex
+	now func() time.Time
 }
 
 func New(home string) (*Store, error) {
-	s := &Store{dir: home}
+	s := &Store{dir: home, now: time.Now}
 	return s, os.MkdirAll(filepath.Join(home, "solutions"), 0o700)
 }
 
@@ -66,41 +68,103 @@ func (s *Store) Save(id, lang, code string) error {
 	return os.Rename(tmp, p)
 }
 
-// Progress maps problem id to "tried" or "solved".
-func (s *Store) Progress() map[string]string {
+// Entry is one problem's progress. A solved problem also carries its review
+// schedule: due 3 days after solving, then 10, then 30, then never again.
+type Entry struct {
+	Status     string     `json:"status"` // tried | solved
+	UpdatedAt  time.Time  `json:"updatedAt"`
+	ReviewStep int        `json:"reviewStep,omitempty"`
+	ReviewDue  *time.Time `json:"reviewDue,omitempty"`
+}
+
+var reviewGaps = []time.Duration{3 * 24 * time.Hour, 10 * 24 * time.Hour, 30 * 24 * time.Hour}
+
+// DueForReview reports whether a solved problem should be practised again.
+func (e Entry) DueForReview(now time.Time) bool {
+	return e.Status == "solved" && e.ReviewDue != nil && !now.Before(*e.ReviewDue)
+}
+
+func (s *Store) progressPath() string { return filepath.Join(s.dir, "progress.json") }
+
+// Progress maps problem id to its entry.
+func (s *Store) Progress() map[string]Entry {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	return s.readProgress()
 }
 
-func (s *Store) readProgress() map[string]string {
-	m := map[string]string{}
-	b, err := os.ReadFile(filepath.Join(s.dir, "progress.json"))
-	if err == nil {
-		_ = json.Unmarshal(b, &m)
+// readProgress also reads the first format, {id: "tried"}, and dates those
+// entries with the file's modification time. Mark writes the new format.
+func (s *Store) readProgress() map[string]Entry {
+	m := map[string]Entry{}
+	b, err := os.ReadFile(s.progressPath())
+	if err != nil {
+		return m
+	}
+	var raw map[string]json.RawMessage
+	if json.Unmarshal(b, &raw) != nil {
+		return m
+	}
+	var fileTime time.Time
+	if info, err := os.Stat(s.progressPath()); err == nil {
+		fileTime = info.ModTime().UTC().Truncate(time.Second)
+	}
+	for id, v := range raw {
+		var old string
+		if json.Unmarshal(v, &old) == nil {
+			m[id] = Entry{Status: old, UpdatedAt: fileTime}
+			continue
+		}
+		var e Entry
+		if json.Unmarshal(v, &e) == nil {
+			m[id] = e
+		}
 	}
 	return m
 }
 
-// Mark records progress. A solved problem is never downgraded to tried.
+// Mark records progress. A solved problem is never downgraded to tried, but
+// its time is updated. Solving schedules the next review.
 func (s *Store) Mark(id, status string) error {
 	if !idPattern.MatchString(id) {
 		return fmt.Errorf("invalid problem id %q", id)
 	}
+	if status != "tried" && status != "solved" {
+		return fmt.Errorf("invalid status %q", status)
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	m := s.readProgress()
-	if m[id] == "solved" {
-		return nil
+	e := m[id]
+	now := s.now().UTC()
+	switch {
+	case status == "solved" && e.Status != "solved":
+		e.ReviewStep = 0
+		e.ReviewDue = after(now, 0)
+	case status == "solved" && e.DueForReview(now):
+		e.ReviewStep++
+		e.ReviewDue = after(now, e.ReviewStep)
 	}
-	m[id] = status
+	if e.Status != "solved" {
+		e.Status = status
+	}
+	e.UpdatedAt = now
+	m[id] = e
 	b, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {
 		return err
 	}
-	tmp := filepath.Join(s.dir, "progress.json.tmp")
+	tmp := s.progressPath() + ".tmp"
 	if err := os.WriteFile(tmp, b, 0o600); err != nil {
 		return err
 	}
-	return os.Rename(tmp, filepath.Join(s.dir, "progress.json"))
+	return os.Rename(tmp, s.progressPath())
+}
+
+func after(now time.Time, step int) *time.Time {
+	if step >= len(reviewGaps) {
+		return nil
+	}
+	t := now.Add(reviewGaps[step])
+	return &t
 }

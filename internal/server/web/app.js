@@ -65,6 +65,7 @@
       theme: next.theme,
       accent: next.accent,
       lang: next.lang,
+      remindReviews: next.remindReviews,
       ai: {
         provider: cfg.ai.provider,
         model: cfg.ai.model,
@@ -123,8 +124,30 @@
 
   // ---- sheets ----
 
-  function renderSheets() {
+  const statusLabel = (p) => p.review ? 'Review'
+    : p.status === 'solved' ? 'Solved'
+    : p.status === 'tried' ? 'Tried'
+    : p.ready ? 'Ready next' : 'Not started';
+  const statusClass = (p) => p.review ? 'review' : p.status || (p.ready ? 'ready' : '');
+  const titleOf = (pid) => (problems.find((x) => x.id === pid) || { title: pid }).title;
+
+  async function renderSheets() {
+    const token = renderToken;
     crumb.textContent = 'Sheets';
+    let next = null;
+    let progress = null;
+    try {
+      [problems, progress, next] = await Promise.all([
+        api('GET', '/problems'),
+        api('GET', '/progress'),
+        api('GET', '/next?sheet=' + ui.sheet).catch(() => null),
+      ]);
+    } catch (e) {
+      if (token === renderToken) view.replaceChildren(el('div', { class: 'page' }, el('p', { text: 'Could not load the sheets: ' + e.message })));
+      return;
+    }
+    if (token !== renderToken) return;
+
     const sheets = [['patterns', 'Patterns'], ['real', 'Real interviews']];
     const all = problems.filter((p) => p.sheet === ui.sheet);
     const numbers = new Map(all.map((p, i) => [p.id, i + 1]));
@@ -142,18 +165,46 @@
     let lastGroup = null;
     for (const p of shown) {
       if (p.group !== lastGroup) {
-        list.append(el('div', { class: 'group-title', text: p.group }));
+        list.append(el('div', { class: 'group-title', text: `${Math.floor(p.order / 100)} · ${p.group}` }));
         lastGroup = p.group;
       }
-      const label = p.status === 'solved' ? 'Solved' : p.status === 'tried' ? 'Tried' : 'Not started';
-      list.append(el('a', { class: 'list-row', href: '#/p/' + encodeURIComponent(p.id) },
+      const needs = p.needs && p.needs.length ? 'Needs: ' + p.needs.map(titleOf).join(', ') : null;
+      list.append(el('a', { class: 'list-row', href: '#/p/' + encodeURIComponent(p.id), title: needs },
         el('span', { class: 'num', text: pad2(numbers.get(p.id)) }),
         el('span', { text: p.title }),
         el('span', { class: 'dif ' + p.difficulty, text: cap(p.difficulty) }),
         el('span', { class: 'tags', text: (p.tags || []).join(', ') }),
-        el('span', { class: 'status' }, el('span', { class: 'dot ' + (p.status || '') }), label)));
+        el('span', { class: 'status' }, el('span', { class: 'dot ' + statusClass(p) }), statusLabel(p))));
     }
-    view.replaceChildren(el('div', { class: 'page' }, tabs, chips, list));
+
+    const sp = progress[ui.sheet];
+    const share = sp.total ? Math.round((100 * sp.solved) / sp.total) : 0;
+    const byDifficulty = ['easy', 'medium', 'hard']
+      .filter((d) => sp.byDifficulty[d].total)
+      .map((d) => `${cap(d)} ${sp.byDifficulty[d].solved} of ${sp.byDifficulty[d].total}`).join(' · ');
+    const sheetName = (id) => (sheets.find(([s]) => s === id) || [id, id])[1];
+
+    const continueBox = next
+      ? el('div', { class: 'aside-block' },
+        el('div', { class: 'aside-label', text: next.reason === 'continue' ? 'Continue' : 'Up next' }),
+        el('div', { class: 'aside-title', text: next.title }),
+        el('div', { class: 'hint', text: `${sheetName(next.sheet)} · ${next.group}` }),
+        el('a', { class: 'btn primary open', href: '#/p/' + encodeURIComponent(next.id), text: 'Open' }))
+      : el('div', { class: 'aside-block' },
+        el('div', { class: 'aside-label', text: 'Continue' }),
+        el('div', { class: 'aside-title', text: sp.total ? 'Every problem in this sheet is solved.' : 'No problems here yet.' }));
+
+    const aside = el('aside', { class: 'aside' },
+      continueBox,
+      el('div', { class: 'aside-block ruled' },
+        el('div', { class: 'aside-label', text: 'Progress' }),
+        el('div', { text: `${sp.solved} of ${sp.total} solved` }),
+        el('div', { class: 'bar-track', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': String(sp.total), 'aria-valuenow': String(sp.solved), 'aria-label': 'Solved in this sheet' },
+          el('div', { class: 'bar-fill', style: `width:${share}%` })),
+        byDifficulty ? el('div', { class: 'hint', text: byDifficulty }) : null),
+      el('p', { class: 'aside-note ruled', text: 'Problems are in learning order. Each one uses an idea from the one before it.' }));
+
+    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, tabs, chips, list), aside));
   }
 
   // ---- practice ----
@@ -171,7 +222,6 @@
       return;
     }
     crumb.textContent = `${p.sheet === 'real' ? 'Real interviews' : 'Patterns'} / ${p.group}`;
-    const titleOf = (pid) => (problems.find((x) => x.id === pid) || { title: pid }).title;
     const linkList = (label, ids) => ids && ids.length
       ? [label + ' ', ...ids.flatMap((x, i) => [i ? ', ' : '', el('a', { href: '#/p/' + encodeURIComponent(x), text: titleOf(x) })]), '. ']
       : [];
@@ -226,6 +276,7 @@
         savedLabel.textContent = 'Saved on this computer';
         lastReport = summarise(rep);
         renderReport(out, rep, mode);
+        if (mode === 'submit' && rep.status === 'ok' && rep.passed === rep.total) showNext(out, p);
       } catch (e) {
         out.replaceChildren(el('div', { class: 'message', text: e.message }));
       } finally {
@@ -265,6 +316,18 @@
     editor.focus();
   }
 
+  async function showNext(out, p) {
+    const line = el('div', { class: 'next-line' }, 'Solved.');
+    const summary = out.querySelector('.summary');
+    if (summary) summary.after(line); else out.prepend(line);
+    try {
+      const n = await api('GET', `/next?sheet=${p.sheet}&after=${encodeURIComponent(p.id)}`);
+      line.append(' Next: ', el('a', { href: '#/p/' + encodeURIComponent(n.id), text: n.title }));
+    } catch (_) {
+      line.append(' Every problem in this sheet is solved.');
+    }
+  }
+
   function summarise(rep) {
     const bad = rep.results.filter((r) => !r.passed).slice(0, 3)
       .map((r) => `${r.label}: input ${JSON.stringify(r.input || '')}, expected ${r.expected}, got ${r.got}`);
@@ -292,7 +355,7 @@
     for (const r of rep.results) {
       if (r.kind === 'random' && r.passed) continue;
       const detail = r.passed
-        ? `got ${r.got}`
+        ? (r.got ? `got ${r.got}` : '')
         : `input\n${r.input}\nexpected ${r.expected}\ngot      ${r.got || '(nothing)'}`;
       kids.push(el('div', { class: 'row' },
         el('span', { class: 'hint', text: r.label }),
@@ -369,12 +432,30 @@
         el('span', { class: t.found ? 'ok' : 'bad', style: 'font-weight:500;color:var(--' + (t.found ? 'pass' : 'fail') + ')', text: t.found ? 'Found' : 'Missing' }),
       ]).flat()));
 
+    const remind = el('button', { class: 'switch', role: 'switch', 'aria-checked': String(!!cfg.remindReviews), 'aria-label': 'Remind me to revisit solved problems',
+      onclick: async () => {
+        try {
+          await saveConfig({ remindReviews: !cfg.remindReviews });
+          remind.setAttribute('aria-checked', String(cfg.remindReviews));
+        } catch (e) {
+          practiceNote.textContent = e.message;
+        }
+      } });
+    const practiceNote = el('div', { class: 'note' });
+    const practice = el('section', { class: 'sec' },
+      el('h2', { text: 'Practice' }),
+      el('div', { class: 'switch-row' },
+        el('div', {}, el('div', { text: 'Remind me to revisit solved problems' }),
+          el('div', { class: 'note', text: 'A solved problem shows Review in the list 3 days later, then 10 days, then 30 days after you solve it again.' })),
+        remind),
+      practiceNote);
+
     const files = el('section', { class: 'sec' },
       el('h2', { text: 'Your solutions' }),
       el('div', {}, el('div', { class: 'field-label', text: 'Saved in' }), el('div', { class: 'mono', text: doctor.solutionsDir }),
         el('div', { class: 'note', text: 'Plain files. Open them in any editor, or put the folder in git.' })));
 
-    view.replaceChildren(el('div', { class: 'page' }, appearance, ai, langs, files));
+    view.replaceChildren(el('div', { class: 'page' }, appearance, practice, ai, langs, files));
   }
 
   // ---- start ----
@@ -397,10 +478,4 @@
     route();
   })();
 
-  // Keep the sheets list fresh after practising.
-  window.addEventListener('hashchange', async () => {
-    if ((location.hash || '#/') === '#/') {
-      try { problems = await api('GET', '/problems'); renderSheets(); } catch (_) { /* ignore */ }
-    }
-  });
 })();

@@ -34,6 +34,7 @@ type Server struct {
 	mu    sync.Mutex
 	cfg   config.Config
 	hosts map[string]bool
+	now   func() time.Time
 }
 
 func New(home string, lib *problems.Library) (*Server, error) {
@@ -45,7 +46,7 @@ func New(home string, lib *problems.Library) (*Server, error) {
 	if err != nil {
 		cfg = config.Default() // a damaged config file should not stop practice
 	}
-	return &Server{home: home, lib: lib, store: st, cfg: cfg, hosts: map[string]bool{}}, nil
+	return &Server{home: home, lib: lib, store: st, cfg: cfg, hosts: map[string]bool{}, now: time.Now}, nil
 }
 
 // SetAddr records the address we listen on. Requests for any other Host are
@@ -64,6 +65,8 @@ func (s *Server) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /api/problems", s.listProblems)
 	mux.HandleFunc("GET /api/problems/{id}", s.getProblem)
+	mux.HandleFunc("GET /api/next", s.next)
+	mux.HandleFunc("GET /api/progress", s.progress)
 	mux.HandleFunc("PUT /api/solution", s.saveSolution)
 	mux.HandleFunc("POST /api/run", s.run)
 	mux.HandleFunc("GET /api/doctor", s.doctor)
@@ -134,19 +137,145 @@ type listItem struct {
 	Group      string   `json:"group"`
 	Order      int      `json:"order"`
 	Tags       []string `json:"tags"`
-	Status     string   `json:"status"` // "", tried, solved
+	Status     string   `json:"status"`           // "", tried, solved
+	Ready      bool     `json:"ready,omitempty"`  // unsolved, has prerequisites, all solved
+	Needs      []string `json:"needs,omitempty"`  // unsolved prerequisites
+	Review     bool     `json:"review,omitempty"` // solved and due again (only when reminders are on)
 }
 
 func (s *Server) listProblems(w http.ResponseWriter, _ *http.Request) {
 	progress := s.store.Progress()
+	s.mu.Lock()
+	remind := s.cfg.RemindReviews
+	s.mu.Unlock()
+	now := s.now()
 	items := []listItem{}
 	for _, p := range s.lib.List() {
-		items = append(items, listItem{
+		e := progress[p.ID]
+		it := listItem{
 			ID: p.ID, Title: p.Title, Difficulty: p.Difficulty, Sheet: p.Sheet,
-			Group: p.Group, Order: p.Order, Tags: p.Tags, Status: progress[p.ID],
-		})
+			Group: p.Group, Order: p.Order, Tags: p.Tags, Status: e.Status,
+			Review: remind && e.DueForReview(now),
+		}
+		if e.Status != "solved" {
+			it.Needs = unsolved(p.BuildsOn, progress)
+			it.Ready = len(p.BuildsOn) > 0 && len(it.Needs) == 0
+		}
+		items = append(items, it)
 	}
 	writeJSON(w, http.StatusOK, items)
+}
+
+func unsolved(ids []string, progress map[string]store.Entry) []string {
+	var out []string
+	for _, id := range ids {
+		if progress[id].Status != "solved" {
+			out = append(out, id)
+		}
+	}
+	return out
+}
+
+// next suggests one problem in a sheet. In order: a problem that the one just
+// solved (?after=) leads to and that is ready; the most recently tried
+// problem; the first unsolved problem whose prerequisites are solved; the
+// first unsolved problem. 404 when the sheet is all solved.
+func (s *Server) next(w http.ResponseWriter, r *http.Request) {
+	sheet := r.URL.Query().Get("sheet")
+	if sheet != "patterns" && sheet != "real" {
+		writeErr(w, http.StatusBadRequest, "sheet must be patterns or real")
+		return
+	}
+	progress := s.store.Progress()
+	ready := func(p *problems.Problem) bool {
+		return progress[p.ID].Status != "solved" && len(unsolved(p.BuildsOn, progress)) == 0
+	}
+	answer := func(p *problems.Problem, reason string) {
+		writeJSON(w, http.StatusOK, map[string]string{
+			"id": p.ID, "title": p.Title, "sheet": p.Sheet, "group": p.Group, "reason": reason,
+		})
+	}
+
+	if done, ok := s.lib.Get(r.URL.Query().Get("after")); ok {
+		for _, id := range done.LeadsTo {
+			if p, ok := s.lib.Get(id); ok && ready(p) {
+				answer(p, "leads")
+				return
+			}
+		}
+	}
+
+	var inSheet []*problems.Problem
+	for _, p := range s.lib.List() {
+		if p.Sheet == sheet {
+			inSheet = append(inSheet, p)
+		}
+	}
+	var latest *problems.Problem
+	for _, p := range inSheet {
+		e := progress[p.ID]
+		if e.Status == "tried" && (latest == nil || e.UpdatedAt.After(progress[latest.ID].UpdatedAt)) {
+			latest = p
+		}
+	}
+	if latest != nil {
+		answer(latest, "continue")
+		return
+	}
+	for _, p := range inSheet {
+		if ready(p) {
+			answer(p, "ready")
+			return
+		}
+	}
+	for _, p := range inSheet {
+		if progress[p.ID].Status != "solved" {
+			answer(p, "any")
+			return
+		}
+	}
+	writeErr(w, http.StatusNotFound, "every problem in this sheet is solved")
+}
+
+type counts struct {
+	Solved int `json:"solved"`
+	Tried  int `json:"tried"`
+	Total  int `json:"total"`
+}
+
+func (c *counts) add(status string) {
+	c.Total++
+	switch status {
+	case "solved":
+		c.Solved++
+	case "tried":
+		c.Tried++
+	}
+}
+
+type sheetProgress struct {
+	counts
+	ByDifficulty map[string]*counts `json:"byDifficulty"`
+}
+
+func (s *Server) progress(w http.ResponseWriter, _ *http.Request) {
+	progress := s.store.Progress()
+	out := map[string]*sheetProgress{}
+	for _, sheet := range []string{"patterns", "real"} {
+		out[sheet] = &sheetProgress{ByDifficulty: map[string]*counts{"easy": {}, "medium": {}, "hard": {}}}
+	}
+	for _, p := range s.lib.List() {
+		sp, ok := out[p.Sheet]
+		if !ok {
+			continue
+		}
+		status := progress[p.ID].Status
+		sp.add(status)
+		if c, ok := sp.ByDifficulty[p.Difficulty]; ok {
+			c.add(status)
+		}
+	}
+	writeJSON(w, http.StatusOK, out)
 }
 
 func (s *Server) getProblem(w http.ResponseWriter, r *http.Request) {
@@ -271,15 +400,16 @@ type aiView struct {
 }
 
 type configView struct {
-	Theme  string `json:"theme"`
-	Accent string `json:"accent"`
-	Lang   string `json:"lang"`
-	AI     aiView `json:"ai"`
+	Theme         string `json:"theme"`
+	Accent        string `json:"accent"`
+	Lang          string `json:"lang"`
+	RemindReviews bool   `json:"remindReviews"`
+	AI            aiView `json:"ai"`
 }
 
 func view(c config.Config) configView {
 	return configView{
-		Theme: c.Theme, Accent: c.Accent, Lang: c.Lang,
+		Theme: c.Theme, Accent: c.Accent, Lang: c.Lang, RemindReviews: c.RemindReviews,
 		AI: aiView{Provider: c.AI.Provider, Model: c.AI.Model, HasKey: c.AI.APIKey != "", ExplainOnly: c.AI.ExplainOnly},
 	}
 }
@@ -305,7 +435,9 @@ func (s *Server) putConfig(w http.ResponseWriter, r *http.Request) {
 		Theme  string `json:"theme"`
 		Accent string `json:"accent"`
 		Lang   string `json:"lang"`
-		AI     struct {
+
+		RemindReviews bool `json:"remindReviews"`
+		AI            struct {
 			Provider    string `json:"provider"`
 			Model       string `json:"model"`
 			APIKey      string `json:"apiKey"` // empty means keep the saved key
@@ -326,6 +458,7 @@ func (s *Server) putConfig(w http.ResponseWriter, r *http.Request) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.cfg.Theme, s.cfg.Accent, s.cfg.Lang = req.Theme, req.Accent, req.Lang
+	s.cfg.RemindReviews = req.RemindReviews
 	s.cfg.AI.Provider = req.AI.Provider
 	s.cfg.AI.Model = strings.TrimSpace(req.AI.Model)
 	s.cfg.AI.ExplainOnly = req.AI.ExplainOnly

@@ -7,6 +7,6 @@
   "order": 601,
   "tags": ["linked list", "pointers"],
   "buildsOn": [],
-  "leadsTo": [],
+  "leadsTo": ["lru-cache"],
   "generator": "reverse-list"
 }
