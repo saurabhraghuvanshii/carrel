@@ -25,6 +25,7 @@ type Config struct {
 	AI     AI     `json:"ai"`
 
 	RemindReviews bool `json:"remindReviews"` // show solved problems again after 3, 10 and 30 days
+	FocusLayout   bool `json:"focusLayout"`   // practice screen as one centred column
 }
 
 func Default() Config {

@@ -20,12 +20,19 @@
     return n;
   }
 
+  const UNREACHABLE = 'Cannot reach Carrel. Check that it is still running in your terminal, then try again.';
+
   async function api(method, path, body) {
-    const res = await fetch('/api' + path, {
-      method,
-      headers: { 'Content-Type': 'application/json', 'X-Carrel': '1' },
-      body: body ? JSON.stringify(body) : undefined,
-    });
+    let res;
+    try {
+      res = await fetch('/api' + path, {
+        method,
+        headers: { 'Content-Type': 'application/json', 'X-Carrel': '1' },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+    } catch (_) {
+      throw new Error(UNREACHABLE);
+    }
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || res.statusText);
     return data;
@@ -33,12 +40,23 @@
 
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
   const pad2 = (n) => String(n).padStart(2, '0');
+  const problemLink = (id) => '#/p/' + encodeURIComponent(id);
+  const sheetName = (id) => (id === 'real' ? 'Real interviews' : 'Patterns');
+
+  function errorPage(text, retry) {
+    return el('div', { class: 'page' }, el('div', { class: 'empty', role: 'alert' },
+      el('p', { text }),
+      retry ? el('button', { class: 'btn', text: 'Try again', onclick: retry }) : null));
+  }
 
   // ---- state ----
 
   let cfg = null;
   let problems = [];
-  const ui = { sheet: 'patterns', filter: 'all' };
+  const ui = { sheet: 'patterns', filter: 'all', interview: false };
+  let current = null; // the problem on the practice screen
+  let pageCleanup = []; // timers of the page being left
+  let keepFocus = false; // set when [ or ] opens a problem, so the next press still works
   let pendingSave = null; // { timer, fn }
   let activeEditor = null;
   let renderToken = 0; // a slow page load must not draw over a newer page
@@ -66,6 +84,7 @@
       accent: next.accent,
       lang: next.lang,
       remindReviews: next.remindReviews,
+      focusLayout: next.focusLayout,
       ai: {
         provider: cfg.ai.provider,
         model: cfg.ai.model,
@@ -136,6 +155,8 @@
 
   function route() {
     renderToken++;
+    for (const fn of pageCleanup.splice(0)) fn();
+    current = null;
     if (activeEditor) { activeEditor.destroy(); activeEditor = null; }
     const h = location.hash || '#/';
     if (h.startsWith('#/p/')) return renderPractice(decodeURIComponent(h.slice(4)));
@@ -156,6 +177,7 @@
   async function renderSheets() {
     const token = renderToken;
     crumb.textContent = 'Sheets';
+    document.title = 'Sheets · Carrel';
     let next = null;
     let progress = null;
     try {
@@ -165,28 +187,36 @@
         api('GET', '/next?sheet=' + ui.sheet).catch(() => null),
       ]);
     } catch (e) {
-      if (token === renderToken) view.replaceChildren(el('div', { class: 'page' }, el('p', { text: 'Could not load the sheets: ' + e.message })));
+      if (token === renderToken) view.replaceChildren(errorPage('Could not load the sheets. ' + e.message, route));
       return;
     }
     if (token !== renderToken) return;
 
-    const sheets = [['patterns', 'Patterns'], ['real', 'Real interviews']];
-    const notes = { real: 'Pattern commonly seen in online assessments' };
+    const sheets = ['patterns', 'real'];
+    const notes = { patterns: 'Classic problems in learning order', real: 'Pattern commonly seen in online assessments' };
     const all = problems.filter((p) => p.sheet === ui.sheet);
     const numbers = new Map(all.map((p, i) => [p.id, i + 1]));
     const shown = all.filter((p) => ui.filter === 'all' || p.difficulty === ui.filter);
 
     const tabs = el('div', { class: 'sheet-tabs' },
-      el('div', { class: 'tabset' }, sheets.map(([id, name]) =>
-        el('button', { class: id === ui.sheet ? 'on' : '', text: name, onclick: () => { ui.sheet = id; renderSheets(); } }))),
+      el('div', { class: 'tabset' }, sheets.map((id) =>
+        el('button', { class: id === ui.sheet ? 'on' : '', 'aria-pressed': String(id === ui.sheet), text: sheetName(id), onclick: () => { ui.sheet = id; renderSheets(); } }))),
       archiveButtons());
-    const note = notes[ui.sheet] ? el('p', { class: 'sheet-note', text: notes[ui.sheet] }) : null;
+    const note = el('p', { class: 'sheet-note', text: notes[ui.sheet] });
 
     const chips = el('div', { class: 'chips' }, ['all', 'easy', 'medium', 'hard'].map((f) =>
-      el('button', { class: `chip ${f}${ui.filter === f ? ' on' : ''}`, text: cap(f), onclick: () => { ui.filter = f; renderSheets(); } })));
+      el('button', { class: `chip ${f}${ui.filter === f ? ' on' : ''}`, 'aria-pressed': String(ui.filter === f), text: cap(f), onclick: () => { ui.filter = f; renderSheets(); } })));
 
     const list = el('div');
-    if (!shown.length) list.append(el('p', { class: 'hint', text: 'No problems here yet.' }));
+    if (!problems.length) {
+      list.append(el('div', { class: 'empty' },
+        el('p', { text: 'No problems found.' }),
+        el('p', { class: 'hint', text: 'The built-in problems did not load. Packs you put in the packs folder inside your Carrel folder are listed here too.' })));
+    } else if (!all.length) {
+      list.append(el('p', { class: 'empty', text: 'No problems in this sheet yet.' }));
+    } else if (!shown.length) {
+      list.append(el('p', { class: 'empty', text: `No ${ui.filter} problems in this sheet.` }));
+    }
     let lastGroup = null;
     for (const p of shown) {
       if (p.group !== lastGroup) {
@@ -194,7 +224,7 @@
         lastGroup = p.group;
       }
       const needs = p.needs && p.needs.length ? 'Needs: ' + p.needs.map(titleOf).join(', ') : null;
-      list.append(el('a', { class: 'list-row', href: '#/p/' + encodeURIComponent(p.id), title: needs },
+      list.append(el('a', { class: 'list-row', href: problemLink(p.id), title: needs },
         el('span', { class: 'num', text: pad2(numbers.get(p.id)) }),
         el('span', { text: p.title }),
         el('span', { class: 'dif ' + p.difficulty, text: cap(p.difficulty) }),
@@ -207,14 +237,12 @@
     const byDifficulty = ['easy', 'medium', 'hard']
       .filter((d) => sp.byDifficulty[d].total)
       .map((d) => `${cap(d)} ${sp.byDifficulty[d].solved} of ${sp.byDifficulty[d].total}`).join(' · ');
-    const sheetName = (id) => (sheets.find(([s]) => s === id) || [id, id])[1];
-
     const continueBox = next
       ? el('div', { class: 'aside-block' },
         el('div', { class: 'aside-label', text: next.reason === 'continue' ? 'Continue' : 'Up next' }),
         el('div', { class: 'aside-title', text: next.title }),
         el('div', { class: 'hint', text: `${sheetName(next.sheet)} · ${next.group}` }),
-        el('a', { class: 'btn primary open', href: '#/p/' + encodeURIComponent(next.id), text: 'Open' }))
+        el('a', { class: 'btn primary open', href: problemLink(next.id), text: 'Open' }))
       : el('div', { class: 'aside-block' },
         el('div', { class: 'aside-label', text: 'Continue' }),
         el('div', { class: 'aside-title', text: sp.total ? 'Every problem in this sheet is solved.' : 'No problems here yet.' }));
@@ -229,7 +257,7 @@
         byDifficulty ? el('div', { class: 'hint', text: byDifficulty }) : null),
       el('p', { class: 'aside-note ruled', text: 'Problems are in learning order. Each one uses an idea from the one before it.' }));
 
-    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, importBox(), tabs, note, chips, list), aside));
+    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, el('h1', { class: 'visually-hidden', text: 'Sheets' }), importBox(), tabs, note, chips, list), aside));
   }
 
   // ---- export and import ----
@@ -238,7 +266,7 @@
   const count = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 
   function archiveButtons() {
-    const picker = el('input', { type: 'file', accept: '.zip,application/zip', class: 'visually-hidden', tabindex: '-1', 'aria-hidden': 'true',
+    const picker = el('input', { type: 'file', accept: '.zip,application/zip', class: 'visually-hidden', tabindex: '-1', 'aria-label': 'Zip file to import',
       onchange: () => { if (picker.files[0]) importFile(picker.files[0], false); } });
     return el('div', { class: 'archive' },
       picker,
@@ -251,7 +279,7 @@
     try {
       const res = await fetch('/api/import' + (overwrite ? '?overwrite=true' : ''), {
         method: 'POST', headers: { 'Content-Type': 'application/zip', 'X-Carrel': '1' }, body: file,
-      });
+      }).catch(() => { throw new Error(UNREACHABLE); });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || res.statusText);
       importNotice = { file, report: data };
@@ -296,8 +324,18 @@
 
   // ---- practice ----
 
+  let doctorCache = null; // compilers are looked up once, and again after a visit to Settings
+
+  function missingTools(lang) {
+    if (!doctorCache) doctorCache = api('GET', '/doctor').catch(() => { doctorCache = null; return { tools: [] }; });
+    const needed = lang === 'java' ? ['javac', 'java'] : ['g++'];
+    return doctorCache.then((d) => d.tools.filter((t) => needed.includes(t.name) && !t.found).map((t) => t.name));
+  }
+
   async function renderPractice(id) {
     const token = renderToken;
+    const autofocus = !keepFocus;
+    keepFocus = false;
     view.replaceChildren(el('div', { class: 'page' }, el('p', { class: 'hint', text: 'Loading...' })));
     let p;
     try {
@@ -305,12 +343,15 @@
       if (token !== renderToken) return;
     } catch (e) {
       if (token !== renderToken) return;
-      view.replaceChildren(el('div', { class: 'page' }, el('p', { text: e.message }), el('a', { href: '#/', text: 'Back to sheets' })));
+      view.replaceChildren(el('div', { class: 'page' }, el('div', { class: 'empty', role: 'alert' },
+        el('p', { text: e.message === UNREACHABLE ? e.message : 'Could not open this problem: ' + e.message }),
+        el('a', { class: 'btn', href: '#/', text: 'Back to sheets' }))));
       return;
     }
-    crumb.textContent = `${p.sheet === 'real' ? 'Real interviews' : 'Patterns'} / ${p.group}`;
+    current = p;
+    document.title = p.title + ' · Carrel';
     const linkList = (label, ids) => ids && ids.length
-      ? [label + ' ', ...ids.flatMap((x, i) => [i ? ', ' : '', el('a', { href: '#/p/' + encodeURIComponent(x), text: titleOf(x) })]), '. ']
+      ? [label + ' ', ...ids.flatMap((x, i) => [i ? ', ' : '', el('a', { href: problemLink(x), text: titleOf(x) })]), '. ']
       : [];
 
     // Examples go right after the description; Constraints and anything after it follow them.
@@ -320,36 +361,67 @@
     const rest = cut < 0 ? '' : lines.slice(cut).join('\n');
 
     const statement = el('div', { class: 'statement' },
-      el('div', { class: 'meta-row' }, el('span', { class: 'tag ' + p.difficulty, text: cap(p.difficulty) }), el('span', { text: (p.tags || []).map(cap).join(', ') })),
+      el('div', { class: 'meta-row' }, el('span', { class: 'tag ' + p.difficulty, text: cap(p.difficulty) }), el('span', { class: 'topics', text: (p.tags || []).map(cap).join(', ') })),
       el('h1', { text: p.title }),
       renderMarkdown(intro),
-      (p.examples || []).map((ex) => el('div', { class: 'example' },
+      el('div', { class: 'examples' }, (p.examples || []).map((ex) => el('div', { class: 'example' },
         el('div', { class: 'label', text: ex.label }),
-        el('pre', { text: ex.display || ex.input }))),
+        el('pre', { text: ex.display || ex.input })))),
       renderMarkdown(rest),
       el('div', { class: 'links' }, linkList('Builds on:', p.buildsOn), linkList('Leads to:', p.leadsTo)));
 
     const fileName = p.lang === 'java' ? 'Solution.java' : 'solution.cpp';
-    const savedLabel = el('span', {}, 'Saved on this computer');
-    const savedBox = el('span', { class: 'saved' }, el('i'), savedLabel);
+    const savedLabel = el('span', { text: 'Saved on this computer' });
+    const retrySave = el('button', { class: 'link', text: 'Try again', hidden: true, onclick: () => save() });
+    const savedBox = el('span', { class: 'saved', role: 'status' }, el('i'), savedLabel, retrySave);
     const editorBox = el('div', { class: 'editor' });
 
-    const out = el('div', { class: 'results' }, el('div', { class: 'hint', text: 'Run the examples to see how your code does. Submit also checks fresh random cases.' }));
+    const verdict = el('div', { class: 'verdict', role: 'status', 'aria-live': 'polite' });
+    const report = el('div', { class: 'report' },
+      el('div', { class: 'hint', text: 'Run the examples to see how your code does. Submit also checks fresh random cases.' }));
+    const out = el('div', { class: 'results' }, verdict, report);
     const runBtn = el('button', { class: 'btn strong', text: 'Run examples', onclick: () => run('examples') });
     const submitBtn = el('button', { class: 'btn primary', text: 'Submit', onclick: () => run('submit') });
+    const keysHint = 'Ctrl + Enter runs · Ctrl + Shift + Enter submits';
+    const barStatus = el('span', { class: 'bar-status hint', 'aria-hidden': 'true', text: keysHint });
+    const setBar = (text, cls) => {
+      barStatus.textContent = text || keysHint;
+      barStatus.className = 'bar-status ' + (text ? cls : 'hint');
+    };
+
+    const toolNotice = el('div', { class: 'notice', role: 'status' });
+    missingTools(p.lang).then((names) => {
+      if (token !== renderToken || !names.length) return;
+      toolNotice.replaceChildren(
+        `${names.join(' and ')} ${names.length === 1 ? 'was' : 'were'} not found on this computer, so your code cannot run yet. `,
+        el('a', { href: '#/settings', text: 'See Languages in Settings.' }));
+    });
 
     let lastReport = '';
+    let running = false;
+    let submitted = false;
+    let stopReveal = () => {};
+    pageCleanup.push(() => stopReveal());
 
+    function markSaved() {
+      savedBox.classList.remove('failed');
+      savedBox.removeAttribute('title');
+      savedLabel.textContent = 'Saved on this computer';
+      retrySave.hidden = true;
+    }
     async function save() {
       try {
         await api('PUT', '/solution', { problem: p.id, lang: p.lang, code: editor.getValue() });
-        savedLabel.textContent = 'Saved on this computer';
+        markSaved();
       } catch (e) {
-        savedLabel.textContent = 'Could not save: ' + e.message;
+        savedBox.classList.add('failed');
+        savedLabel.textContent = 'Not saved';
+        savedBox.title = e.message;
+        retrySave.hidden = false;
       }
     }
     function scheduleSave() {
-      savedLabel.textContent = 'Saving...';
+      if (!savedBox.classList.contains('failed')) savedLabel.textContent = 'Saving...';
       if (pendingSave) clearTimeout(pendingSave.timer);
       pendingSave = { fn: async () => { await save(); }, timer: setTimeout(async () => { pendingSave = null; await save(); }, 600) };
     }
@@ -361,25 +433,67 @@
     });
     activeEditor = editor;
 
+    // Interview mode: no hints, no AI, a timer, and no more example runs after a submit.
+    const timer = el('span', { class: 'timer', role: 'timer', 'aria-label': 'Time on this problem' });
+    let startedAt = Date.now();
+    let stoppedAt = 0;
+    const tick = () => {
+      const secs = Math.floor(((stoppedAt || Date.now()) - startedAt) / 1000);
+      timer.textContent = `${pad2(Math.floor(secs / 60))}:${pad2(secs % 60)}`;
+    };
+    const ticker = setInterval(tick, 1000);
+    pageCleanup.push(() => clearInterval(ticker));
+    const interviewSwitch = el('button', { class: 'switch small', role: 'switch', 'aria-label': 'Interview mode',
+      onclick: () => {
+        ui.interview = !ui.interview;
+        startedAt = Date.now();
+        stoppedAt = 0;
+        applyInterview();
+      } });
+    function syncButtons() {
+      const locked = ui.interview && submitted;
+      runBtn.disabled = running || locked;
+      submitBtn.disabled = running;
+      runBtn.title = locked ? 'Interview mode: the examples are closed after a submit' : '';
+    }
+    function applyInterview() {
+      root.classList.toggle('interview', ui.interview);
+      interviewSwitch.setAttribute('aria-checked', String(ui.interview));
+      crumb.textContent = ui.interview ? sheetName(p.sheet) : `${sheetName(p.sheet)} / ${p.group}`;
+      tick();
+      syncButtons();
+    }
+
     async function run(mode) {
+      if (running || (mode === 'examples' && ui.interview && submitted)) return;
+      stopReveal();
       if (pendingSave) { clearTimeout(pendingSave.timer); pendingSave = null; }
-      runBtn.disabled = submitBtn.disabled = true;
-      out.replaceChildren(el('div', { class: 'hint', text: mode === 'submit' ? 'Submitting...' : 'Running...' }));
+      running = true;
+      syncButtons();
+      const waiting = mode === 'submit' ? 'Submitting...' : 'Running...';
+      verdict.replaceChildren(el('div', { class: 'hint', text: waiting }));
+      report.replaceChildren();
+      setBar(waiting, 'hint');
       try {
         const rep = await api('POST', '/run', { problem: p.id, lang: p.lang, code: editor.getValue(), mode });
-        savedLabel.textContent = 'Saved on this computer';
+        if (token !== renderToken) return;
+        markSaved();
         lastReport = summarise(rep);
-        renderReport(out, rep, mode);
-        if (mode === 'submit' && rep.status === 'ok' && rep.passed === rep.total) showNext(out, p);
+        if (mode === 'submit') submitted = true;
+        const solved = mode === 'submit' && rep.status === 'ok' && rep.passed === rep.total;
+        if (solved) { stoppedAt = Date.now(); tick(); }
+        stopReveal = renderReport({ verdict, report, setBar }, rep, () => { if (solved) showNext(verdict, p); });
       } catch (e) {
-        out.replaceChildren(el('div', { class: 'message', text: e.message }));
+        verdict.replaceChildren(el('div', { class: 'message', text: e.message }));
+        setBar(e.message, 'fail');
       } finally {
-        runBtn.disabled = submitBtn.disabled = false;
+        running = false;
+        syncButtons();
       }
     }
 
     const question = el('input', { type: 'text', placeholder: 'Ask for a hint or an explanation', 'aria-label': 'Ask AI' });
-    const answer = el('div', { class: 'answer' });
+    const answer = el('div', { class: 'answer', 'aria-live': 'polite' });
     const askBtn = el('button', { class: 'btn', text: 'Ask AI', onclick: async () => {
       askBtn.disabled = true;
       answer.replaceChildren(el('div', { class: 'hint', text: 'Thinking...' }));
@@ -392,34 +506,48 @@
         askBtn.disabled = false;
       }
     } });
+    const ai = el('div', { class: 'ai' },
+      el('div', { class: 'hint' }, 'Ask AI explains and gives hints. ',
+        cfg.ai.hasKey || cfg.ai.provider === 'ollama'
+          ? (cfg.ai.explainOnly ? 'It will not write the full solution.' : 'Explain only is off.')
+          : el('a', { href: '#/settings', text: 'Add your key in Settings.' })),
+      el('div', { class: 'ai-row' }, question, askBtn),
+      answer);
 
-    const work = el('div', { class: 'work' },
-      el('div', { class: 'tabs' }, el('span', { class: 'file', text: fileName }), savedBox),
-      editorBox,
-      el('div', { class: 'console' },
-        el('div', { class: 'actions' },
-          el('div', { class: 'group' }, runBtn, submitBtn),
-          el('span', { class: 'hint', text: 'Ctrl + Enter runs · Ctrl + Shift + Enter submits' })),
-        out,
-        el('div', { class: 'ai' },
-          el('div', { class: 'hint' }, 'Ask AI explains and gives hints. ',
-            cfg.ai.hasKey || cfg.ai.provider === 'ollama'
-              ? (cfg.ai.explainOnly ? 'It will not write the full solution.' : 'Explain only is off.')
-              : el('a', { href: '#/settings', text: 'Add your key in Settings.' })),
-          el('div', { class: 'ai-row' }, question, askBtn),
-          answer)));
+    const tabs = el('div', { class: 'tabs' },
+      el('span', { class: 'file', text: fileName }),
+      el('div', { class: 'tabs-right' },
+        timer,
+        el('span', { class: 'interview-toggle' }, el('span', { 'aria-hidden': 'true', text: 'Interview mode' }), interviewSwitch),
+        savedBox));
+    const buttons = el('div', { class: 'group' }, runBtn, submitBtn);
 
-    view.replaceChildren(el('div', { class: 'practice' }, statement, work));
-    editor.focus();
+    let root;
+    if (cfg.focusLayout) {
+      root = el('div', { class: 'practice focus' },
+        el('div', { class: 'focus-scroll' },
+          el('div', { class: 'focus-col' }, statement, el('div', { class: 'editor-box' }, tabs, editorBox), toolNotice, out, ai)),
+        el('div', { class: 'focus-bar' }, el('div', { class: 'focus-col' }, barStatus, buttons)));
+    } else {
+      root = el('div', { class: 'practice' }, statement,
+        el('div', { class: 'work' }, tabs, editorBox,
+          el('div', { class: 'console' },
+            toolNotice,
+            el('div', { class: 'actions' }, buttons, el('span', { class: 'hint', text: keysHint })),
+            out,
+            ai)));
+    }
+    applyInterview();
+    view.replaceChildren(root);
+    if (autofocus) editor.focus();
   }
 
-  async function showNext(out, p) {
+  async function showNext(verdict, p) {
     const line = el('div', { class: 'next-line' }, 'Solved.');
-    const summary = out.querySelector('.summary');
-    if (summary) summary.after(line); else out.prepend(line);
+    verdict.append(line);
     try {
       const n = await api('GET', `/next?sheet=${p.sheet}&after=${encodeURIComponent(p.id)}`);
-      line.append(' Next: ', el('a', { href: '#/p/' + encodeURIComponent(n.id), text: n.title }));
+      line.append(' Next: ', el('a', { href: problemLink(n.id), text: n.title }));
     } catch (_) {
       line.append(' Every problem in this sheet is solved.');
     }
@@ -431,48 +559,195 @@
     return `Status ${rep.status}. Passed ${rep.passed} of ${rep.total}. ${rep.message || ''} ${bad.join(' | ')}`.trim();
   }
 
-  function renderReport(out, rep, mode) {
-    const kids = [];
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const REVEAL_MS = 900;
+  const SQUARE_MS = 120; // the same as sq-fill in style.css
+
+  function caseRow(r, label) {
+    let detail = `input\n${r.input}\nexpected ${r.expected}\ngot      ${r.got || '(nothing)'}`;
+    if (r.note) detail += `\nwhy      ${r.note}`;
+    const word = r.passed ? 'Passed' : r.got === '(crashed)' ? 'Crashed' : r.got === '(not run)' ? 'Not run' : 'Failed';
+    return el('div', { class: 'row' },
+      el('span', { class: 'hint', text: label || r.label }),
+      el('span', { class: 'detail', text: detail }),
+      el('span', { class: r.passed ? 'ok' : 'bad', text: word }));
+  }
+
+  // Draws a run report and returns a function that stops a reveal still playing.
+  function renderReport({ verdict, report, setBar }, rep, done) {
+    const say = (cls, text, ...more) => {
+      verdict.replaceChildren(el('div', { class: 'summary ' + cls },
+        cls === 'pass' ? el('span', { class: 'check', 'aria-hidden': 'true' }) : null, text), ...more);
+      setBar(text, cls);
+    };
+    const failed = rep.results.filter((r) => !r.passed);
+
     if (rep.status === 'compile_error') {
-      kids.push(el('div', { class: 'summary fail', text: 'It did not compile' }), el('pre', { class: 'message', text: rep.message }));
-      return out.replaceChildren(...kids);
+      say('fail', 'It did not compile');
+      report.replaceChildren(el('pre', { class: 'message', text: rep.message }));
+      return () => {};
     }
     if (rep.status === 'tooling_missing' || rep.status === 'internal_error') {
-      kids.push(el('div', { class: 'summary fail', text: 'Could not run your code' }), el('div', { class: 'message', text: rep.message }));
-      return out.replaceChildren(...kids);
+      say('fail', 'Could not run your code');
+      report.replaceChildren(el('div', { class: 'message' }, rep.message,
+        rep.status === 'tooling_missing' ? [' ', el('a', { href: '#/settings', text: 'See Languages in Settings.' })] : null));
+      return () => {};
     }
-    const allPassed = rep.status === 'ok' && rep.passed === rep.total;
-    const lead = { memory_limit: 'Memory limit reached. ', timeout: 'Time limit reached. ', runtime_error: 'Your program crashed. ' }[rep.status] || '';
-    let headline = `${lead}Passed ${rep.passed} of ${rep.total}`;
-    if (allPassed && mode === 'submit') headline = `All ${rep.total} tests passed. Marked solved.`;
-    else if (allPassed) headline = `Examples ${rep.passed} of ${rep.total} passed`;
-    kids.push(el('div', { class: 'summary ' + (allPassed ? 'pass' : 'fail'), text: headline }));
-    if (rep.message) kids.push(el('div', { class: 'message', text: rep.message }));
+    if (rep.status !== 'ok') {
+      const lead = { memory_limit: 'Memory limit reached. ', timeout: 'Time limit reached. ', runtime_error: 'Your program crashed. ' }[rep.status] || '';
+      say('fail', `${lead}Passed ${rep.passed} of ${rep.total}`);
+      report.replaceChildren(
+        el('div', { class: 'message', text: rep.message }),
+        ...failed.map((r) => caseRow(r)),
+        el('div', { class: 'hint', text: `Took ${rep.durationMs} ms` }));
+      return () => {};
+    }
 
-    const randomPassed = rep.results.filter((r) => r.kind === 'random' && r.passed).length;
-    for (const r of rep.results) {
-      if (r.kind === 'random' && r.passed) continue;
-      let detail = r.passed
-        ? (r.got ? `got ${r.got}` : '')
-        : `input\n${r.input}\nexpected ${r.expected}\ngot      ${r.got || '(nothing)'}`;
-      if (r.note) detail += `\nwhy      ${r.note}`;
-      const verdict = r.passed ? 'Passed' : r.got === '(crashed)' ? 'Crashed' : r.got === '(not run)' ? 'Not run' : 'Failed';
-      kids.push(el('div', { class: 'row' },
-        el('span', { class: 'hint', text: r.label }),
-        el('span', { class: 'detail', text: detail }),
-        el('span', { class: r.passed ? 'ok' : 'bad', text: verdict })));
+    const n = rep.results.length;
+    const firstBad = rep.results.findIndex((r) => !r.passed);
+    const fixed = rep.results.filter((r) => r.kind !== 'random').length;
+    const facts = [`${fixed} fixed`];
+    if (n > fixed) facts.push(`${n - fixed} random`);
+    if (rep.seed) facts.push(`seed ${rep.seed}`);
+    facts.push(`${rep.durationMs} ms`);
+
+    const detail = el('div', { class: 'case' });
+    const open = (i) => {
+      squares.forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
+      detail.replaceChildren(caseRow(rep.results[i], `Case ${i + 1} · ${rep.results[i].label}`));
+    };
+    const squares = rep.results.map((r, i) => {
+      const b = el('button', { type: 'button', class: 'sq ' + (r.passed ? 'pass' : 'fail'), 'aria-pressed': 'false',
+        'aria-label': `Case ${i + 1}, ${r.kind}, ${r.passed ? 'passed' : 'failed'}`, onclick: () => open(i) });
+      b.style.setProperty('--i', i);
+      return b;
+    });
+    const step = Math.min(14, (REVEAL_MS - SQUARE_MS) / n);
+    const grid = el('div', { class: 'grid', role: 'group', 'aria-label': 'Test cases' }, squares);
+    grid.style.setProperty('--step', step + 'ms');
+    const failedList = failed.length
+      ? el('ul', { class: 'visually-hidden', 'aria-label': 'Failed cases' }, rep.results.map((r, i) => r.passed ? null
+        : el('li', { text: `Case ${i + 1}, ${r.label}, failed. Input: ${r.input}. Expected: ${r.expected}. Got: ${r.got || 'nothing'}.` })))
+      : null;
+    report.replaceChildren(grid, detail, failedList);
+
+    const finish = () => {
+      grid.classList.remove('reveal');
+      if (firstBad < 0) {
+        say('pass', `Passed ${n} of ${n}`, el('div', { class: 'hint', text: facts.join(', ') }));
+      } else {
+        say('fail', `Failed on case ${firstBad + 1} of ${n}`, el('div', { class: 'hint', text: `${rep.passed} of ${n} passed, ${facts.join(', ')}` }));
+        open(firstBad);
+      }
+      done();
+    };
+    if (reducedMotion.matches || !n) {
+      finish();
+      return () => {};
     }
-    if (randomPassed) kids.push(el('div', { class: 'hint', text: `${randomPassed} random cases passed.${rep.seed ? ' Seed ' + rep.seed + '.' : ''}` }));
-    kids.push(el('div', { class: 'hint', text: `Took ${rep.durationMs} ms` }));
-    out.replaceChildren(...kids);
+
+    // The server answers with every result at once, so this is a short reveal, not progress.
+    const counter = el('div', { class: 'summary', 'aria-hidden': 'true' });
+    verdict.replaceChildren(counter);
+    grid.classList.add('reveal');
+    const total = (n - 1) * step + SQUARE_MS;
+    const start = performance.now();
+    let frame = requestAnimationFrame(function draw(now) {
+      if (now - start >= total) return finish();
+      counter.textContent = `Running case ${Math.min(n, Math.floor(Math.max(0, now - start) / step) + 1)} of ${n}`;
+      setBar(counter.textContent, 'hint');
+      frame = requestAnimationFrame(draw);
+    });
+    return () => cancelAnimationFrame(frame);
   }
+
+  // ---- quick search and keys ----
+
+  let closeSearch = null;
+
+  function openSearch() {
+    if (closeSearch) return;
+    const back = document.activeElement;
+    const input = el('input', { type: 'text', placeholder: 'Find a problem', 'aria-label': 'Find a problem', autocomplete: 'off',
+      role: 'combobox', 'aria-expanded': 'true', 'aria-controls': 'search-list', 'aria-autocomplete': 'list' });
+    const list = el('ul', { id: 'search-list', role: 'listbox', 'aria-label': 'Matching problems' });
+    const none = el('div', { class: 'hint', role: 'status' });
+    const shade = el('div', { class: 'shade', onmousedown: (e) => { if (e.target === shade) close(); } },
+      el('div', { class: 'search', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Find a problem' },
+        input, list, none, el('div', { class: 'hint', text: 'Up and down to choose · Enter opens · Esc closes' })));
+    let hits = [];
+    let at = 0;
+    function close() {
+      shade.remove();
+      closeSearch = null;
+      if (back && back.isConnected) back.focus();
+    }
+    const go = (p) => { close(); location.hash = problemLink(p.id); };
+    function draw() {
+      const q = input.value.trim().toLowerCase();
+      hits = problems.filter((p) => !q || [p.title, p.group, ...(p.tags || [])].some((s) => s.toLowerCase().includes(q))).slice(0, 8);
+      at = Math.max(0, Math.min(at, hits.length - 1));
+      list.replaceChildren(...hits.map((p, i) => el('li', { id: 'search-hit-' + i, role: 'option', 'aria-selected': String(i === at), onclick: () => go(p) },
+        el('span', { text: p.title }),
+        el('span', { class: 'hint', text: `${sheetName(p.sheet)} · ${p.group}` }))));
+      none.textContent = hits.length ? '' : 'No problem matches.';
+      if (hits.length) input.setAttribute('aria-activedescendant', 'search-hit-' + at);
+      else input.removeAttribute('aria-activedescendant');
+    }
+    input.addEventListener('input', () => { at = 0; draw(); });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowDown') at++;
+      else if (e.key === 'ArrowUp') at--;
+      else if (e.key === 'Enter' && hits[at]) go(hits[at]);
+      else if (e.key !== 'Tab') return;
+      e.preventDefault();
+      e.stopPropagation();
+      if (closeSearch) draw();
+    });
+    closeSearch = close;
+    document.body.append(shade);
+    draw();
+    input.focus();
+  }
+
+  function stepProblem(by) {
+    const sheet = problems.filter((x) => x.sheet === current.sheet);
+    const to = sheet[sheet.findIndex((x) => x.id === current.id) + by];
+    if (!to) return;
+    keepFocus = true;
+    location.hash = problemLink(to.id);
+  }
+
+  let gPressedAt = 0;
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey || closeSearch) return;
+    const target = e.target instanceof Element ? e.target : null;
+    const inEditor = target && target.closest('.cm-editor');
+    if (e.key === 'Escape') {
+      if (activeEditor && !inEditor) { e.preventDefault(); activeEditor.focus(); }
+      return;
+    }
+    // Single keys belong to whatever the learner is typing in.
+    if (inEditor || (target && target.closest('input, textarea, select, [contenteditable="true"]'))) return;
+    const afterG = Date.now() - gPressedAt < 1500;
+    gPressedAt = e.key === 'g' ? Date.now() : 0;
+    if (e.key === '/') { e.preventDefault(); openSearch(); }
+    else if (e.key === 's' && afterG) location.hash = '#/';
+    else if ((e.key === '[' || e.key === ']') && current) stepProblem(e.key === ']' ? 1 : -1);
+  });
 
   // ---- settings ----
 
   async function renderSettings() {
+    const token = renderToken;
     crumb.textContent = 'Settings';
-    const doctor = await api('GET', '/doctor').catch(() => ({ tools: [], solutionsDir: '' }));
-    const note = el('div', { class: 'note' });
+    document.title = 'Settings · Carrel';
+    doctorCache = null;
+    let doctorError = '';
+    const doctor = await api('GET', '/doctor').catch((e) => { doctorError = e.message; return { tools: [], solutionsDir: '' }; });
+    if (token !== renderToken) return;
+    const note = el('div', { class: 'note', role: 'status' });
 
     const themes = [['paper', 'Paper', 'Warm off-white'], ['ink', 'Ink', 'Warm charcoal'], ['system', 'Match my system', 'Paper by day, Ink by night']];
     const accents = [['brick', '#A8432B'], ['forest', '#2F5D50'], ['amber', '#B8792A'], ['slate', '#4A5A6A'], ['plum', '#6B4A63']];
@@ -486,7 +761,7 @@
             el('strong', { text: name }), el('span', { text: desc }))))),
       el('div', {}, el('div', { class: 'field-label', text: 'Accent colour' }),
         el('div', { class: 'swatches' }, accents.map(([id, color]) =>
-          el('button', { class: 'swatch' + (cfg.accent === id ? ' on' : ''), style: 'background:' + color, 'aria-label': cap(id) + (cfg.accent === id ? ', selected' : ''),
+          el('button', { class: 'swatch' + (cfg.accent === id ? ' on' : ''), style: 'background:' + color, 'aria-label': cap(id), 'aria-pressed': String(cfg.accent === id),
             onclick: async () => { await saveConfig({ accent: id }); renderSettings(); } }))),
         el('div', { class: 'note', text: 'Easy, Medium and Hard tags keep their own colours in every theme.' })));
 
@@ -541,6 +816,7 @@
 
     const langs = el('section', { class: 'sec' },
       el('h2', { text: 'Languages' }),
+      doctorError ? el('div', { class: 'message', role: 'alert', text: 'Could not check the compilers. ' + doctorError }) : null,
       el('div', { class: 'tools' }, doctor.tools.map((t) => [
         el('span', { text: t.name }),
         el('span', { class: 'path', text: t.found ? `${t.version || ''} ${t.path}`.trim() : 'Not found. Install it and make sure it is on your PATH.' }),
@@ -556,9 +832,22 @@
           practiceNote.textContent = e.message;
         }
       } });
-    const practiceNote = el('div', { class: 'note' });
+    const focus = el('button', { class: 'switch', role: 'switch', 'aria-checked': String(!!cfg.focusLayout), 'aria-label': 'Focus layout',
+      onclick: async () => {
+        try {
+          await saveConfig({ focusLayout: !cfg.focusLayout });
+          focus.setAttribute('aria-checked', String(cfg.focusLayout));
+        } catch (e) {
+          practiceNote.textContent = e.message;
+        }
+      } });
+    const practiceNote = el('div', { class: 'note', role: 'status' });
     const practice = el('section', { class: 'sec' },
       el('h2', { text: 'Practice' }),
+      el('div', { class: 'switch-row' },
+        el('div', {}, el('div', { text: 'Focus layout' }),
+          el('div', { class: 'note', text: 'One centred column: the problem, then the editor, with Run and Submit in a bar at the bottom.' })),
+        focus),
       el('div', { class: 'switch-row' },
         el('div', {}, el('div', { text: 'Remind me to revisit solved problems' }),
           el('div', { class: 'note', text: 'A solved problem shows Review in the list 3 days later, then 10 days, then 30 days after you solve it again.' })),
@@ -572,10 +861,26 @@
       importBox(),
       archiveButtons());
 
-    view.replaceChildren(el('div', { class: 'page' }, appearance, practice, ai, langs, files));
+    const keys = [
+      ['Ctrl + Enter', 'Run the examples (Cmd on a Mac)'],
+      ['Ctrl + Shift + Enter', 'Submit'],
+      ['[ and ]', 'Previous and next problem in the sheet'],
+      ['/', 'Find a problem'],
+      ['g, then s', 'Go to Sheets'],
+      ['Esc', 'Back to the editor'],
+      ['Esc, then Tab', 'Leave the editor'],
+    ];
+    const keyList = el('section', { class: 'sec' },
+      el('h2', { text: 'Keys' }),
+      el('dl', { class: 'keys' }, keys.flatMap(([key, what]) => [el('dt', {}, el('kbd', { text: key })), el('dd', { text: what })])),
+      el('div', { class: 'note', text: 'The single keys are off while you type in the editor or in a text box.' }));
+
+    view.replaceChildren(el('div', { class: 'page' }, el('h1', { class: 'visually-hidden', text: 'Settings' }), appearance, practice, keyList, ai, langs, files));
   }
 
   // ---- start ----
+
+  document.getElementById('skip').addEventListener('click', () => view.focus());
 
   langSel.addEventListener('change', async () => {
     await flushSave();
@@ -587,7 +892,7 @@
     try {
       [cfg, problems] = await Promise.all([api('GET', '/config'), api('GET', '/problems')]);
     } catch (e) {
-      view.replaceChildren(el('div', { class: 'page' }, el('p', { text: 'Could not reach the Carrel server: ' + e.message })));
+      view.replaceChildren(errorPage(e.message, () => location.reload()));
       return;
     }
     applyTheme();

@@ -21,17 +21,3 @@ src/partials/*.html     one file per section
 public/                 copied as is (fonts, icons, og.png, robots.txt, sitemap.xml)
 ../scripts/install.*    copied to dist/ with tokens replaced
 ```
-
-## Placeholders
-
-`{{domain}}`, `{{licence}}`, `{{repo}}`, `{{repo_slug}}` and `{{site_url}}` are replaced in every page, stylesheet, script and text file. Their values live in `src/site.config.json`. If a value is left empty the page shows a visible placeholder such as `[your-domain]`, and `-release` refuses to build.
-
-## Deploying
-
-The site is published to https://saurabhraghuvanshii.github.io/carrel by `.github/workflows/site.yml` on every push to `main` that touches the site, the install scripts or the build tool. It can also be run by hand from the Actions tab. Pages must be set to source "GitHub Actions" in the repository settings.
-
-Make sure the latest release has `carrel_<os>_<arch>.tar.gz` (`.zip` for Windows) and `checksums.txt`, because the install scripts download those names.
-
-## Open Graph image
-
-`public/og.png` is 1200 by 630: Paper background, the icon, the eyebrow in JetBrains Mono and the headline in Source Serif 4. To change it, write a small HTML page with those elements and render it with `google-chrome --headless=new --window-size=1200,630 --screenshot=og.png page.html`.

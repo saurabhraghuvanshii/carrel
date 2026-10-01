@@ -9,12 +9,13 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<button class="skip" id="skip" type="button">Skip to content</button>
 <header class="bar">
   <div class="bar-left">
     <a class="brand" href="#/">carrel</a>
     <span class="crumb" id="crumb"></span>
   </div>
-  <nav class="bar-right">
+  <nav class="bar-right" aria-label="Main">
     <a href="#/">Sheets</a>
     <label class="visually-hidden" for="lang">Language</label>
     <select id="lang" class="btn">
@@ -24,7 +25,7 @@
     <a href="#/settings">Settings</a>
   </nav>
 </header>
-<main id="view"></main>
+<main id="view" tabindex="-1"></main>
 <script src="vendor/editor.js"></script>
 <script src="app.js"></script>
 </body>

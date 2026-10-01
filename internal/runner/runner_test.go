@@ -110,6 +110,12 @@ func TestCorrectSolutionPasses(t *testing.T) {
 		if rep.Status != "ok" || rep.Passed != 10 {
 			t.Fatalf("%s: %s %d/10 %s", lang, rep.Status, rep.Passed, rep.Message)
 		}
+		// The UI lets the learner open any case, so passed ones keep their details too.
+		for i, r := range rep.Results {
+			if r.Input == "" || r.Expected == "" || r.Got != r.Expected {
+				t.Fatalf("%s case %d lost its details: %+v", lang, i+1, r)
+			}
+		}
 	}
 }
 

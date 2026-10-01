@@ -231,9 +231,7 @@ func Run(ctx context.Context, req Request) Report {
 		if passed {
 			rep.Passed++
 		}
-		if c.Kind == "example" || !passed {
-			r.Input, r.Expected, r.Got = shorten(c.Input), shorten(c.Expected), shorten(got[i])
-		}
+		r.Input, r.Expected, r.Got = shorten(c.Input), shorten(c.Expected), shorten(got[i])
 		rep.Results = append(rep.Results, r)
 	}
 

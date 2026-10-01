@@ -28,6 +28,7 @@ var webFS embed.FS
 
 const (
 	randomCases    = 50
+	seedRange      = 1_000_000 // short enough to read out, and exact as a JSON number
 	maxImportBody  = 20 << 20
 	compileTimeout = 30 * time.Second
 	runTimeout     = 10 * time.Second  // all cases together, including restarts after a crash
@@ -365,7 +366,7 @@ func (s *Server) run(w http.ResponseWriter, r *http.Request) {
 			cases = append(cases, runner.Case{Kind: "edge", Label: c.Label, Input: c.Input, Expected: c.Expected})
 		}
 		if testgen.Has(p.Generator) {
-			seed = time.Now().UnixNano()
+			seed = 1 + time.Now().UnixNano()%seedRange
 			gen, err := testgen.Generate(p.Generator, seed, randomCases)
 			if err != nil {
 				writeErr(w, http.StatusInternalServerError, err.Error())
@@ -448,12 +449,13 @@ type configView struct {
 	Accent        string `json:"accent"`
 	Lang          string `json:"lang"`
 	RemindReviews bool   `json:"remindReviews"`
+	FocusLayout   bool   `json:"focusLayout"`
 	AI            aiView `json:"ai"`
 }
 
 func view(c config.Config) configView {
 	return configView{
-		Theme: c.Theme, Accent: c.Accent, Lang: c.Lang, RemindReviews: c.RemindReviews,
+		Theme: c.Theme, Accent: c.Accent, Lang: c.Lang, RemindReviews: c.RemindReviews, FocusLayout: c.FocusLayout,
 		AI: aiView{Provider: c.AI.Provider, Model: c.AI.Model, HasKey: c.AI.APIKey != "", ExplainOnly: c.AI.ExplainOnly},
 	}
 }
@@ -481,6 +483,7 @@ func (s *Server) putConfig(w http.ResponseWriter, r *http.Request) {
 		Lang   string `json:"lang"`
 
 		RemindReviews bool `json:"remindReviews"`
+		FocusLayout   bool `json:"focusLayout"`
 		AI            struct {
 			Provider    string `json:"provider"`
 			Model       string `json:"model"`
@@ -503,6 +506,7 @@ func (s *Server) putConfig(w http.ResponseWriter, r *http.Request) {
 	defer s.mu.Unlock()
 	s.cfg.Theme, s.cfg.Accent, s.cfg.Lang = req.Theme, req.Accent, req.Lang
 	s.cfg.RemindReviews = req.RemindReviews
+	s.cfg.FocusLayout = req.FocusLayout
 	s.cfg.AI.Provider = req.AI.Provider
 	s.cfg.AI.Model = strings.TrimSpace(req.AI.Model)
 	s.cfg.AI.ExplainOnly = req.AI.ExplainOnly

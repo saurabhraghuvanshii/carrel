@@ -66,12 +66,15 @@ func TestWebAssetsStaySmall(t *testing.T) {
 	}
 }
 
-func TestRealSheetShowsItsDescription(t *testing.T) {
+func TestSheetsShowTheirDescriptions(t *testing.T) {
 	b, err := fs.ReadFile(webFS, "web/app.js")
 	if err != nil {
 		t.Fatal(err)
 	}
 	if !strings.Contains(string(b), "real: 'Pattern commonly seen in online assessments'") {
 		t.Error("app.js does not give the Real interviews sheet its description line")
+	}
+	if !strings.Contains(string(b), "patterns: 'Classic problems in learning order'") {
+		t.Error("app.js does not give the Patterns sheet its description line")
 	}
 }
