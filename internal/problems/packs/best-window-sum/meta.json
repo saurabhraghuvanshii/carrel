@@ -1,0 +1,12 @@
+{
+  "id": "best-window-sum",
+  "title": "Best window sum",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 301,
+  "tags": ["sliding window"],
+  "buildsOn": ["subarray-sum-target"],
+  "leadsTo": ["longest-unique-stretch"],
+  "generator": "window-sum"
+}

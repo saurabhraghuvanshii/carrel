@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\n2 7 3 1 8 4\n3",
+      "expected": "[7, 7, 8, 8]",
+      "display": "nums   = [2, 7, 3, 1, 8, 4]\nk      = 3\noutput = [7, 7, 8, 8]"
+    },
+    {
+      "label": "Example 2",
+      "input": "4\n5 4 3 2\n2",
+      "expected": "[5, 4, 3]",
+      "display": "nums   = [5, 4, 3, 2]\nk      = 2\noutput = [5, 4, 3]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: window of one", "input": "3\n-1 0 -2\n1", "expected": "[-1, 0, -2]" },
+    { "label": "Edge 2: the window is the whole list", "input": "4\n3 9 2 9\n4", "expected": "[9]" },
+    { "label": "Edge 3: equal values", "input": "5\n6 6 6 6 6\n2", "expected": "[6, 6, 6, 6]" }
+  ]
+}

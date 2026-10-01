@@ -1,0 +1,12 @@
+{
+  "id": "shortest-sum-at-least",
+  "title": "Shortest stretch reaching a sum",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 305,
+  "tags": ["sliding window", "two pointers"],
+  "buildsOn": ["longest-after-k-changes"],
+  "leadsTo": ["text-contains-permutation"],
+  "generator": "sum-at-least"
+}

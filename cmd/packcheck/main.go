@@ -7,14 +7,17 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"flag"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"carrel/internal/problems"
@@ -38,6 +41,7 @@ func run(args []string, out io.Writer) int {
 	refsDir := fl.String("refs", "tools/refs", "folder with the reference solutions")
 	random := fl.Int("random", 200, "random cases per pack")
 	seed := fl.Int64("seed", 1, "seed for the random cases")
+	jobs := fl.Int("jobs", min(runtime.NumCPU(), 8), "packs checked at the same time")
 	if err := fl.Parse(args); err != nil {
 		return 2
 	}
@@ -83,18 +87,29 @@ func run(args []string, out io.Writer) int {
 		}
 	}
 
-	for _, p := range selected {
-		cases, err := casesFor(p, *seed, *random)
-		if err != nil {
-			fmt.Fprintf(out, "FAIL  %s: %v\n", p.ID, err)
-			ok = false
-			continue
-		}
-		for _, rf := range refFiles {
-			if !checkLang(out, p, rf.lang, filepath.Join(*refsDir, p.ID, rf.file), cases) {
-				ok = false
+	// Packs are checked in parallel; each writes to its own buffer, and the
+	// buffers are printed in order so the report reads the same every time.
+	reports := make([]bytes.Buffer, len(selected))
+	passed := make([]bool, len(selected))
+	next := make(chan int)
+	var wg sync.WaitGroup
+	for w := 0; w < max(1, *jobs); w++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for i := range next {
+				passed[i] = checkPack(&reports[i], selected[i], *refsDir, *seed, *random)
 			}
-		}
+		}()
+	}
+	for i := range selected {
+		next <- i
+	}
+	close(next)
+	wg.Wait()
+	for i := range selected {
+		_, _ = out.Write(reports[i].Bytes())
+		ok = ok && passed[i]
 	}
 
 	if !ok {
@@ -103,6 +118,21 @@ func run(args []string, out io.Writer) int {
 	}
 	fmt.Fprintf(out, "all %d packs passed\n", len(selected))
 	return 0
+}
+
+func checkPack(out io.Writer, p *problems.Problem, refsDir string, seed int64, random int) bool {
+	cases, err := casesFor(p, seed, random)
+	if err != nil {
+		fmt.Fprintf(out, "FAIL  %s: %v\n", p.ID, err)
+		return false
+	}
+	ok := true
+	for _, rf := range refFiles {
+		if !checkLang(out, p, rf.lang, filepath.Join(refsDir, p.ID, rf.file), cases) {
+			ok = false
+		}
+	}
+	return ok
 }
 
 func casesFor(p *problems.Problem, seed int64, random int) ([]runner.Case, error) {

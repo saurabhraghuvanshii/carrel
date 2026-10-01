@@ -1,0 +1,12 @@
+{
+  "id": "longest-unique-stretch",
+  "title": "Longest stretch without repeats",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 302,
+  "tags": ["sliding window", "hash map"],
+  "buildsOn": ["best-window-sum"],
+  "leadsTo": ["two-kind-stretch"],
+  "generator": "unique-stretch"
+}

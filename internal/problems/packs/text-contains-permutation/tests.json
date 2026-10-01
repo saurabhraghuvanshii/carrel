@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "tea\nskatebox",
+      "expected": "true",
+      "display": "pattern = \"tea\"\ntext    = \"skatebox\"\noutput  = true\n\n\"ate\" is a rearrangement of \"tea\"."
+    },
+    {
+      "label": "Example 2",
+      "input": "dog\ngoodbye",
+      "expected": "false",
+      "display": "pattern = \"dog\"\ntext    = \"goodbye\"\noutput  = false"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: pattern longer than text", "input": "abc\nab", "expected": "false" },
+    { "label": "Edge 2: the whole text", "input": "loop\npool", "expected": "true" },
+    { "label": "Edge 3: repeated letters", "input": "aab\nabab", "expected": "true" },
+    { "label": "Edge 4: one letter", "input": "z\nzzz", "expected": "true" }
+  ]
+}

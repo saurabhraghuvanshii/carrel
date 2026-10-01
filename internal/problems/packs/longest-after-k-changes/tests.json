@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "BXBBXXB\n1",
+      "expected": "4",
+      "display": "text   = \"BXBBXXB\"\nk      = 1\noutput = 4\n\nChange the X in \"BXBB\" to get \"BBBB\"."
+    },
+    {
+      "label": "Example 2",
+      "input": "ACCA\n2",
+      "expected": "4",
+      "display": "text   = \"ACCA\"\nk      = 2\noutput = 4"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: no changes allowed", "input": "ABCD\n0", "expected": "1" },
+    { "label": "Edge 2: one letter", "input": "Z\n0", "expected": "1" },
+    { "label": "Edge 3: change everything", "input": "XY\n2", "expected": "2" },
+    { "label": "Edge 4: the best run is at the end", "input": "AABBBA\n1", "expected": "4" }
+  ]
+}

@@ -7,6 +7,6 @@
   "order": 103,
   "tags": ["counting", "strings"],
   "buildsOn": ["spot-the-duplicate"],
-  "leadsTo": ["group-by-letters"],
+  "leadsTo": ["group-by-letters", "text-contains-permutation"],
   "generator": "same-letters"
 }

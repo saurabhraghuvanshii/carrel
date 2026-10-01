@@ -7,6 +7,6 @@
   "order": 108,
   "tags": ["prefix sums", "hash map"],
   "buildsOn": ["longest-consecutive-run"],
-  "leadsTo": ["rotate-grid-in-place"],
+  "leadsTo": ["rotate-grid-in-place", "best-window-sum"],
   "generator": "subarray-sum"
 }

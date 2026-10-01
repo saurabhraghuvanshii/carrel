@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "pickledcarrot\ncat",
+      "expected": "\"carrot\"",
+      "display": "text    = \"pickledcarrot\"\npattern = \"cat\"\noutput  = \"carrot\""
+    },
+    {
+      "label": "Example 2",
+      "input": "Seaside\nss",
+      "expected": "\"\"",
+      "display": "text    = \"Seaside\"\npattern = \"ss\"\noutput  = \"\"\n\nThe text has only one lowercase s."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the whole text", "input": "abc\nabc", "expected": "\"abc\"" },
+    { "label": "Edge 2: a letter needed twice", "input": "aabca\naa", "expected": "\"aa\"" },
+    { "label": "Edge 3: the first of equal windows", "input": "xyyx\ny", "expected": "\"y\"" },
+    { "label": "Edge 4: pattern longer than text", "input": "ab\nabc", "expected": "\"\"" }
+  ]
+}

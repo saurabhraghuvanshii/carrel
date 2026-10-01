@@ -1,0 +1,12 @@
+{
+  "id": "smallest-covering-window",
+  "title": "Smallest window covering a pattern",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 307,
+  "tags": ["sliding window", "hash map"],
+  "buildsOn": ["text-contains-permutation"],
+  "leadsTo": ["window-maximums"],
+  "generator": "covering-window"
+}

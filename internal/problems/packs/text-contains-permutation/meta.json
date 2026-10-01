@@ -1,0 +1,12 @@
+{
+  "id": "text-contains-permutation",
+  "title": "Hidden rearrangement",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 306,
+  "tags": ["sliding window", "counting"],
+  "buildsOn": ["shortest-sum-at-least", "same-letters"],
+  "leadsTo": ["smallest-covering-window"],
+  "generator": "contains-rearrangement"
+}

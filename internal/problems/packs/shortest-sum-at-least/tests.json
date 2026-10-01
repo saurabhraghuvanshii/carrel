@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\n3 1 4 1 5 2\n7",
+      "expected": "2",
+      "display": "nums   = [3, 1, 4, 1, 5, 2]\ntarget = 7\noutput = 2\n\n[5, 2] reaches 7. [3, 1, 4] does too, but it is longer."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n2 2 2\n7",
+      "expected": "0",
+      "display": "nums   = [2, 2, 2]\ntarget = 7\noutput = 0"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value is enough", "input": "3\n1 10 1\n10", "expected": "1" },
+    { "label": "Edge 2: the whole list", "input": "4\n1 1 1 1\n4", "expected": "4" },
+    { "label": "Edge 3: one value", "input": "1\n5\n1", "expected": "1" }
+  ]
+}

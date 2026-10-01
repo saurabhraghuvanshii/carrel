@@ -1,0 +1,12 @@
+{
+  "id": "window-maximums",
+  "title": "Maximum in every window",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 308,
+  "tags": ["sliding window", "monotonic queue"],
+  "buildsOn": ["smallest-covering-window"],
+  "leadsTo": [],
+  "generator": "window-max"
+}

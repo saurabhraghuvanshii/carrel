@@ -1,0 +1,12 @@
+{
+  "id": "longest-after-k-changes",
+  "title": "Longest run after k changes",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 304,
+  "tags": ["sliding window", "counting"],
+  "buildsOn": ["two-kind-stretch"],
+  "leadsTo": ["shortest-sum-at-least"],
+  "generator": "k-changes"
+}

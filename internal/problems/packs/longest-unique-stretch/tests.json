@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "pepper2go",
+      "expected": "6",
+      "display": "text   = \"pepper2go\"\noutput = 6\n\nThe stretch \"per2go\"."
+    },
+    {
+      "label": "Example 2",
+      "input": "hello",
+      "expected": "3",
+      "display": "text   = \"hello\"\noutput = 3\n\n\"hel\"; the second l repeats."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one character", "input": "x", "expected": "1" },
+    { "label": "Edge 2: nothing repeats", "input": "abc123", "expected": "6" },
+    { "label": "Edge 3: the repeat is behind the window", "input": "abcbade", "expected": "5" }
+  ]
+}

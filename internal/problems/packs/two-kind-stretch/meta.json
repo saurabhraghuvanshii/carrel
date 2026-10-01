@@ -1,0 +1,12 @@
+{
+  "id": "two-kind-stretch",
+  "title": "Two kinds at most",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Sliding window",
+  "order": 303,
+  "tags": ["sliding window", "hash map"],
+  "buildsOn": ["longest-unique-stretch"],
+  "leadsTo": ["longest-after-k-changes"],
+  "generator": "two-kinds"
+}
