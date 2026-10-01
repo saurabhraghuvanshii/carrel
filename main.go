@@ -1,4 +1,4 @@
-// Command dsa starts a local practice server and opens it in your browser.
+// Command carrel starts a local practice server and opens it in your browser.
 package main
 
 import (
@@ -15,11 +15,11 @@ import (
 	"strings"
 	"time"
 
-	"dsa/internal/config"
-	"dsa/internal/problems"
-	"dsa/internal/runner"
-	"dsa/internal/server"
-	"dsa/internal/store"
+	"carrel/internal/config"
+	"carrel/internal/problems"
+	"carrel/internal/runner"
+	"carrel/internal/server"
+	"carrel/internal/store"
 )
 
 func main() {
@@ -67,7 +67,7 @@ func main() {
 	srv.SetAddr(ln.Addr().String())
 
 	url := "http://" + ln.Addr().String()
-	log.Printf("dsa is running at %s (press Ctrl+C to stop)", url)
+	log.Printf("Carrel is running at %s (press Ctrl+C to stop)", url)
 	log.Printf("your solutions are saved in %s", filepath.Join(home, "solutions"))
 	if !*noOpen {
 		go func() {
@@ -105,7 +105,7 @@ func openBrowser(url string) {
 }
 
 func runDoctor() {
-	fmt.Println("dsa doctor: checking the tools needed to run your code")
+	fmt.Println("carrel doctor: checking the tools needed to run your code")
 	for _, t := range runner.Doctor() {
 		if t.Found {
 			fmt.Printf("  ok       %-6s %s  (%s)\n", t.Name, t.Version, t.Path)
@@ -115,12 +115,12 @@ func runDoctor() {
 	}
 }
 
-// runExport writes all solutions and progress to a zip: dsa export [file.zip].
+// runExport writes all solutions and progress to a zip: carrel export [file.zip].
 func runExport(args []string) error {
 	if len(args) > 1 {
-		return errors.New("usage: dsa export [file.zip]")
+		return errors.New("usage: carrel export [file.zip]")
 	}
-	name := "dsa-solutions-" + time.Now().Format("2006-01-02") + ".zip"
+	name := "carrel-solutions-" + time.Now().Format("2006-01-02") + ".zip"
 	if len(args) == 1 {
 		name = args[0]
 	}
@@ -144,7 +144,7 @@ func runExport(args []string) error {
 	return nil
 }
 
-// runImport reads a zip made by export: dsa import <file.zip> [--overwrite].
+// runImport reads a zip made by export: carrel import <file.zip> [--overwrite].
 func runImport(args []string) error {
 	overwrite, name := false, ""
 	for _, a := range args {
@@ -154,11 +154,11 @@ func runImport(args []string) error {
 		case name == "" && !strings.HasPrefix(a, "-"):
 			name = a
 		default:
-			return errors.New("usage: dsa import <file.zip> [--overwrite]")
+			return errors.New("usage: carrel import <file.zip> [--overwrite]")
 		}
 	}
 	if name == "" {
-		return errors.New("usage: dsa import <file.zip> [--overwrite]")
+		return errors.New("usage: carrel import <file.zip> [--overwrite]")
 	}
 	st, err := openStore()
 	if err != nil {

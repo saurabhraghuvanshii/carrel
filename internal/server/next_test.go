@@ -7,7 +7,7 @@ import (
 	"testing/fstest"
 	"time"
 
-	"dsa/internal/problems"
+	"carrel/internal/problems"
 )
 
 // pathLib: patterns a -> c, b on its own; real r1 builds on c.
@@ -155,7 +155,7 @@ func TestListShowsReadyNeedsAndReview(t *testing.T) {
 		t.Fatal("review shown while reminders are off")
 	}
 	put := `{"theme":"paper","accent":"brick","lang":"java","remindReviews":true,"ai":{"provider":"anthropic"}}`
-	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/config", put, map[string]string{"X-DSA": "1"}); rec.Code != 200 {
+	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/config", put, map[string]string{"X-Carrel": "1"}); rec.Code != 200 {
 		t.Fatalf("put config: %d %s", rec.Code, rec.Body.String())
 	}
 	if !listByID(t, h)["a"].Review {

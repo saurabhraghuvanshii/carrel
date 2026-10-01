@@ -23,7 +23,7 @@ func doBytes(h http.Handler, method, url string, body []byte, header map[string]
 func TestExportReturnsAZip(t *testing.T) {
 	h := newTestServer(t)
 	save := `{"problem":"pair-with-target-sum","lang":"java","code":"class Solution {}"}`
-	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/solution", save, map[string]string{"X-DSA": "1"}); rec.Code != 200 {
+	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/solution", save, map[string]string{"X-Carrel": "1"}); rec.Code != 200 {
 		t.Fatalf("save: %d", rec.Code)
 	}
 
@@ -31,7 +31,7 @@ func TestExportReturnsAZip(t *testing.T) {
 	if rec.Code != 200 || rec.Header().Get("Content-Type") != "application/zip" {
 		t.Fatalf("export: %d %s", rec.Code, rec.Header().Get("Content-Type"))
 	}
-	if cd := rec.Header().Get("Content-Disposition"); !regexp.MustCompile(`^attachment; filename="dsa-solutions-\d{4}-\d{2}-\d{2}\.zip"$`).MatchString(cd) {
+	if cd := rec.Header().Get("Content-Disposition"); !regexp.MustCompile(`^attachment; filename="carrel-solutions-\d{4}-\d{2}-\d{2}\.zip"$`).MatchString(cd) {
 		t.Fatalf("Content-Disposition = %q", cd)
 	}
 	zr, err := zip.NewReader(bytes.NewReader(rec.Body.Bytes()), int64(rec.Body.Len()))
@@ -65,13 +65,13 @@ func TestImport(t *testing.T) {
 	zipType := map[string]string{"Content-Type": "application/zip"}
 
 	if rec := doBytes(h, "POST", url, zipBody, zipType); rec.Code != http.StatusForbidden {
-		t.Fatalf("import without X-DSA: %d, want 403", rec.Code)
+		t.Fatalf("import without X-Carrel: %d, want 403", rec.Code)
 	}
-	if rec := doBytes(h, "POST", url, zipBody, map[string]string{"X-DSA": "1", "Content-Type": "application/json"}); rec.Code != http.StatusUnsupportedMediaType {
+	if rec := doBytes(h, "POST", url, zipBody, map[string]string{"X-Carrel": "1", "Content-Type": "application/json"}); rec.Code != http.StatusUnsupportedMediaType {
 		t.Fatalf("import as JSON: %d, want 415", rec.Code)
 	}
 
-	withHeader := map[string]string{"X-DSA": "1", "Content-Type": "application/zip"}
+	withHeader := map[string]string{"X-Carrel": "1", "Content-Type": "application/zip"}
 	var rep struct {
 		Imported, Skipped []string
 		Rejected          []struct{ Name, Reason string }

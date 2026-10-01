@@ -1,4 +1,4 @@
-BINARY := dsa
+BINARY := carrel
 LDFLAGS := -s -w
 
 .PHONY: build run test vet doctor check-packs dist clean
@@ -24,11 +24,11 @@ check-packs:
 
 # One binary per platform, no other files needed.
 dist:
-	GOOS=linux   GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/dsa-linux-amd64 .
-	GOOS=linux   GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o dist/dsa-linux-arm64 .
-	GOOS=darwin  GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o dist/dsa-darwin-arm64 .
-	GOOS=darwin  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/dsa-darwin-amd64 .
-	GOOS=windows GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/dsa-windows-amd64.exe .
+	GOOS=linux   GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-linux-amd64 .
+	GOOS=linux   GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-linux-arm64 .
+	GOOS=darwin  GOARCH=arm64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-darwin-arm64 .
+	GOOS=darwin  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-darwin-amd64 .
+	GOOS=windows GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-windows-amd64.exe .
 
 clean:
 	rm -rf dist $(BINARY)

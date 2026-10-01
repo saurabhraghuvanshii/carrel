@@ -15,12 +15,12 @@ import (
 	"sync"
 	"time"
 
-	"dsa/internal/ai"
-	"dsa/internal/config"
-	"dsa/internal/problems"
-	"dsa/internal/runner"
-	"dsa/internal/store"
-	"dsa/internal/testgen"
+	"carrel/internal/ai"
+	"carrel/internal/config"
+	"carrel/internal/problems"
+	"carrel/internal/runner"
+	"carrel/internal/store"
+	"carrel/internal/testgen"
 )
 
 //go:embed web
@@ -96,7 +96,7 @@ func (s *Server) Handler() http.Handler {
 
 // guard protects a server that runs code on this computer:
 //   - the Host header must be our own loopback address
-//   - anything that changes state must carry X-DSA, which a web page on another
+//   - anything that changes state must carry X-Carrel, which a web page on another
 //     site cannot add without our permission
 func (s *Server) guard(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -107,7 +107,7 @@ func (s *Server) guard(next http.Handler) http.Handler {
 			http.Error(w, "forbidden host", http.StatusForbidden)
 			return
 		}
-		if r.Method != http.MethodGet && r.Method != http.MethodHead && r.Header.Get("X-DSA") != "1" {
+		if r.Method != http.MethodGet && r.Method != http.MethodHead && r.Header.Get("X-Carrel") != "1" {
 			http.Error(w, "forbidden", http.StatusForbidden)
 			return
 		}
@@ -401,7 +401,7 @@ func (s *Server) export(w http.ResponseWriter, _ *http.Request) {
 		writeErr(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	name := "dsa-solutions-" + s.now().Format("2006-01-02") + ".zip"
+	name := "carrel-solutions-" + s.now().Format("2006-01-02") + ".zip"
 	w.Header().Set("Content-Type", "application/zip")
 	w.Header().Set("Content-Disposition", `attachment; filename="`+name+`"`)
 	_, _ = w.Write(buf.Bytes())

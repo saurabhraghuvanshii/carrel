@@ -17,9 +17,9 @@ import (
 	"strings"
 	"time"
 
-	"dsa/internal/problems"
-	"dsa/internal/runner"
-	"dsa/internal/testgen"
+	"carrel/internal/problems"
+	"carrel/internal/runner"
+	"carrel/internal/testgen"
 )
 
 var refFiles = []struct{ lang, file string }{

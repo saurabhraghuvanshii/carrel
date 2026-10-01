@@ -1,5 +1,5 @@
 // Bundled by esbuild into internal/server/web/vendor/editor.js.
-// app.js uses window.DSAEditor.create(parent, { doc, language, onChange, onRun }).
+// app.js uses window.CarrelEditor.create(parent, { doc, language, onChange, onRun }).
 import { EditorState, Prec } from '@codemirror/state';
 import {
   EditorView, keymap, lineNumbers, highlightActiveLine, highlightActiveLineGutter, drawSelection,
@@ -73,4 +73,4 @@ function create(parent, { doc = '', language = 'java', onChange, onRun } = {}) {
   };
 }
 
-window.DSAEditor = { create };
+window.CarrelEditor = { create };

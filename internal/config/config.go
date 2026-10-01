@@ -1,10 +1,12 @@
-// Package config reads and writes the user's settings in ~/.dsa/config.json.
+// Package config reads and writes the user's settings in ~/.carrel/config.json.
 // The AI key lives here, on this computer only, never inside a project folder.
 package config
 
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -34,17 +36,37 @@ func Default() Config {
 	}
 }
 
-// Home returns the data folder: $DSA_HOME if set, otherwise ~/.dsa.
+// Home returns the data folder: $CARREL_HOME if set, otherwise ~/.carrel.
 func Home() (string, error) {
-	if h := os.Getenv("DSA_HOME"); h != "" {
+	if h := os.Getenv("CARREL_HOME"); h != "" {
 		return h, os.MkdirAll(h, 0o700)
 	}
 	u, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
 	}
-	h := filepath.Join(u, ".dsa")
+	h := filepath.Join(u, ".carrel")
+	if err := moveOldHome(filepath.Join(u, ".dsa"), h); err != nil {
+		return "", err
+	}
 	return h, os.MkdirAll(h, 0o700)
+}
+
+// moveOldHome carries data over from the project's earlier name. If ~/.carrel
+// does not exist yet and ~/.dsa does, the old folder is renamed once.
+func moveOldHome(old, home string) error {
+	if _, err := os.Stat(home); !errors.Is(err, os.ErrNotExist) {
+		return nil
+	}
+	info, err := os.Stat(old)
+	if err != nil || !info.IsDir() {
+		return nil
+	}
+	if err := os.Rename(old, home); err != nil {
+		return fmt.Errorf("cannot move your data from %s to %s: %w", old, home, err)
+	}
+	log.Printf("moved your solutions and settings from %s to %s", old, home)
+	return nil
 }
 
 func Load(home string) (Config, error) {

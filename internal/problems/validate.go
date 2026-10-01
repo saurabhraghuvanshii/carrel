@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"dsa/internal/testgen"
+	"carrel/internal/testgen"
 )
 
 // Validate checks the structure of every pack and the links between them.

@@ -120,11 +120,11 @@ func Run(ctx context.Context, req Request) Report {
 	}
 	for _, tool := range sp.tools {
 		if _, err := exec.LookPath(tool); err != nil {
-			return finish("tooling_missing", tool+" was not found on your PATH. Install it, then run `dsa doctor`.")
+			return finish("tooling_missing", tool+" was not found on your PATH. Install it, then run `carrel doctor`.")
 		}
 	}
 
-	dir, err := os.MkdirTemp("", "dsa-run-*")
+	dir, err := os.MkdirTemp("", "carrel-run-*")
 	if err != nil {
 		return finish("internal_error", err.Error())
 	}

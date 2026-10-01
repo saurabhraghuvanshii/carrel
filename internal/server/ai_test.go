@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"dsa/internal/ai"
+	"carrel/internal/ai"
 )
 
 const secretKey = "sk-very-secret-0123456789"
@@ -27,12 +27,12 @@ func TestAIErrorsAndLogsNeverContainTheKey(t *testing.T) {
 	h := s.Handler()
 
 	put := `{"theme":"paper","accent":"brick","lang":"java","ai":{"provider":"anthropic","model":"m","apiKey":"` + secretKey + `","explainOnly":true}}`
-	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/config", put, map[string]string{"X-DSA": "1"}); rec.Code != 200 {
+	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/config", put, map[string]string{"X-Carrel": "1"}); rec.Code != 200 {
 		t.Fatalf("put config: %d", rec.Code)
 	}
 	ask := `{"problem":"pair-with-target-sum","lang":"java","code":"x","question":"why?"}`
 	for _, url := range []string{"/api/ai", "/api/ai/test"} {
-		rec := do(h, "POST", "http://127.0.0.1:7777"+url, ask, map[string]string{"X-DSA": "1"})
+		rec := do(h, "POST", "http://127.0.0.1:7777"+url, ask, map[string]string{"X-Carrel": "1"})
 		if rec.Code != 502 || !strings.Contains(rec.Body.String(), "invalid key [your key]") {
 			t.Fatalf("%s: %d %s", url, rec.Code, rec.Body.String())
 		}
@@ -54,7 +54,7 @@ func TestAIWithoutKeyAsksForOne(t *testing.T) {
 		t.Fatal("should not call the provider")
 		return "", nil
 	}
-	rec := do(s.Handler(), "POST", "http://127.0.0.1:7777/api/ai/test", "{}", map[string]string{"X-DSA": "1"})
+	rec := do(s.Handler(), "POST", "http://127.0.0.1:7777/api/ai/test", "{}", map[string]string{"X-Carrel": "1"})
 	if rec.Code != 400 || !strings.Contains(rec.Body.String(), "API key") {
 		t.Fatalf("%d %s", rec.Code, rec.Body.String())
 	}

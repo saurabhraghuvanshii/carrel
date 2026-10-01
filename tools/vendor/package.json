@@ -1,5 +1,5 @@
 {
-  "name": "dsa-vendor",
+  "name": "carrel-vendor",
   "private": true,
   "description": "Builds the offline editor bundle and copies the fonts into internal/server/web. Dev-time only.",
   "type": "module",

@@ -19,14 +19,14 @@ const (
 	maxImportFile    = 1 << 20
 )
 
-const exportReadme = `Solutions exported from dsa.
+const exportReadme = `Solutions exported from Carrel.
 
 solutions/<problem>.java   your Java code for each problem
 solutions/<problem>.cpp    your C++ code for each problem
 progress.json              which problems you tried or solved
 
 They are plain files. Open them in any editor, or bring them back with
-"Import solutions" in dsa (or: dsa import <this file>).
+"Import solutions" in Carrel (or: carrel import <this file>).
 `
 
 // ExportZip writes every saved solution and the progress file as a zip.

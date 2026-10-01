@@ -23,7 +23,7 @@
   async function api(method, path, body) {
     const res = await fetch('/api' + path, {
       method,
-      headers: { 'Content-Type': 'application/json', 'X-DSA': '1' },
+      headers: { 'Content-Type': 'application/json', 'X-Carrel': '1' },
       body: body ? JSON.stringify(body) : undefined,
     });
     const data = await res.json().catch(() => ({}));
@@ -248,7 +248,7 @@
     await flushSave();
     try {
       const res = await fetch('/api/import' + (overwrite ? '?overwrite=true' : ''), {
-        method: 'POST', headers: { 'Content-Type': 'application/zip', 'X-DSA': '1' }, body: file,
+        method: 'POST', headers: { 'Content-Type': 'application/zip', 'X-Carrel': '1' }, body: file,
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || res.statusText);
@@ -351,7 +351,7 @@
       if (pendingSave) clearTimeout(pendingSave.timer);
       pendingSave = { fn: async () => { await save(); }, timer: setTimeout(async () => { pendingSave = null; await save(); }, 600) };
     }
-    const editor = window.DSAEditor.create(editorBox, {
+    const editor = window.CarrelEditor.create(editorBox, {
       doc: p.code,
       language: p.lang,
       onChange: scheduleSave,
@@ -585,7 +585,7 @@
     try {
       [cfg, problems] = await Promise.all([api('GET', '/config'), api('GET', '/problems')]);
     } catch (e) {
-      view.replaceChildren(el('div', { class: 'page' }, el('p', { text: 'Could not reach the dsa server: ' + e.message })));
+      view.replaceChildren(el('div', { class: 'page' }, el('p', { text: 'Could not reach the Carrel server: ' + e.message })));
       return;
     }
     applyTheme();

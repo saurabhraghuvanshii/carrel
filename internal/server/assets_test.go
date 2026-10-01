@@ -28,6 +28,13 @@ func TestWebAssetsAreOffline(t *testing.T) {
 		t.Error("index.html does not load vendor/editor.js")
 	}
 
+	for _, icon := range []string{"favicon.ico", "icon.svg"} {
+		read(icon)
+		if !strings.Contains(read("index.html"), `href="`+icon+`"`) {
+			t.Errorf("index.html does not link %s", icon)
+		}
+	}
+
 	urls := regexp.MustCompile(`url\("([^"]+)"\)`).FindAllStringSubmatch(read("style.css"), -1)
 	if len(urls) == 0 {
 		t.Fatal("style.css names no font files")

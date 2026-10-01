@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"dsa/internal/problems"
+	"carrel/internal/problems"
 )
 
 func builtinServer(t *testing.T) *Server {
@@ -46,17 +46,17 @@ func TestGuardBlocksForeignHostAndMissingHeader(t *testing.T) {
 	}
 	body := `{"problem":"pair-with-target-sum","lang":"java","code":"x"}`
 	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/solution", body, nil); rec.Code != 403 {
-		t.Fatalf("a write without X-DSA should be refused, got %d", rec.Code)
+		t.Fatalf("a write without X-Carrel should be refused, got %d", rec.Code)
 	}
-	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/solution", body, map[string]string{"X-DSA": "1"}); rec.Code != 200 {
-		t.Fatalf("a write with X-DSA should work, got %d", rec.Code)
+	if rec := do(h, "PUT", "http://127.0.0.1:7777/api/solution", body, map[string]string{"X-Carrel": "1"}); rec.Code != 200 {
+		t.Fatalf("a write with X-Carrel should work, got %d", rec.Code)
 	}
 }
 
 func TestConfigNeverReturnsTheKey(t *testing.T) {
 	h := newTestServer(t)
 	put := `{"theme":"ink","accent":"forest","lang":"cpp","ai":{"provider":"anthropic","model":"m","apiKey":"secret-key","explainOnly":true}}`
-	rec := do(h, "PUT", "http://127.0.0.1:7777/api/config", put, map[string]string{"X-DSA": "1"})
+	rec := do(h, "PUT", "http://127.0.0.1:7777/api/config", put, map[string]string{"X-Carrel": "1"})
 	if rec.Code != 200 {
 		t.Fatalf("put config: %d %s", rec.Code, rec.Body.String())
 	}

@@ -1,11 +1,11 @@
-# dsa
+# Carrel
 
 Practice data structures and algorithms in your browser. One small Go program, no account, nothing uploaded. Your solutions are plain files on your own computer.
 
 ```
-dsa            # starts a local server and opens your browser
-dsa doctor     # checks that Java and C++ compilers are installed
-dsa export     # saves all your solutions and progress to a zip
+carrel           # starts a local server and opens your browser
+carrel doctor    # checks that Java and C++ compilers are installed
+carrel export    # saves all your solutions and progress to a zip
 ```
 
 ## Run it
@@ -13,28 +13,28 @@ dsa export     # saves all your solutions and progress to a zip
 You need Go 1.22 or newer, plus the compilers for the languages you want to practise in (`javac` and `java` for Java, `g++` for C++).
 
 ```
-make build     # makes ./dsa
-./dsa
+make build     # makes ./carrel
+./carrel
 make test      # unit tests
 make check-packs   # runs reference solutions against every problem pack
 make dist      # one binary per platform in dist/
 ```
 
-Your data lives in `~/.dsa` (or `$DSA_HOME`):
+Your data lives in `~/.carrel` (or `$CARREL_HOME`):
 
 ```
-~/.dsa/solutions/<problem>.java   your code, as plain files
-~/.dsa/solutions/<problem>.cpp
-~/.dsa/progress.json              tried / solved
-~/.dsa/config.json                theme, accent colour, AI settings (owner-only permissions)
-~/.dsa/packs/                     optional extra problem packs, same layout as below
+~/.carrel/solutions/<problem>.java   your code, as plain files
+~/.carrel/solutions/<problem>.cpp
+~/.carrel/progress.json              tried / solved
+~/.carrel/config.json                theme, accent colour, AI settings (owner-only permissions)
+~/.carrel/packs/                     optional extra problem packs, same layout as below
 ```
 
 ## Moving your solutions
 
 ```
-dsa export [file.zip]              # all solutions and progress in one zip
-dsa import <file.zip> [--overwrite]
+carrel export [file.zip]              # all solutions and progress in one zip
+carrel import <file.zip> [--overwrite]
 ```
 
 The same two actions are the Export all and Import solutions buttons on the Sheets screen and in Settings. Import only accepts `solutions/<problem>.java`, `solutions/<problem>.cpp` and `progress.json`; anything else in the zip is listed as rejected and never written. Solutions you already have are skipped unless you choose to replace them. Progress is merged: a solved problem stays solved. Limits: 20 MB, 2000 files, 1 MB per solution.
@@ -47,7 +47,7 @@ cmd/packcheck/                checks every pack with the reference solutions
 tools/refs/                   reference solutions (not shipped in the binary)
 internal/server/              HTTP API and the embedded web UI (web/)
 tools/vendor/                 builds the editor bundle and copies the fonts (Node, dev only)
-internal/problems/            loads problem packs (embedded, plus ~/.dsa/packs)
+internal/problems/            loads problem packs (embedded, plus ~/.carrel/packs)
 internal/testgen/             seeded random test generators
 internal/runner/              compile and run Java or C++ with time and memory limits
 internal/store/               solutions and progress as plain files
@@ -58,7 +58,7 @@ internal/ai/                  Anthropic, OpenAI or Ollama, explain-only by defau
 Pressing Run or Submit:
 
 1. The browser sends your code to the Go server.
-2. The code is saved to `~/.dsa/solutions`.
+2. The code is saved to `~/.carrel/solutions`.
 3. The runner writes your code and the problem's driver to a temp folder, compiles once, and runs every case in one process.
 4. Submit uses the examples, the fixed edge cases, and 50 fresh random cases from a new seed each time.
 5. The results come back with the seed, so a failure can be reproduced.
@@ -135,7 +135,7 @@ This program runs code on your computer, so the server is locked down:
 
 - it listens on `127.0.0.1` only
 - requests for any other Host are refused, which blocks DNS rebinding
-- anything that changes state needs an `X-DSA` header that other websites cannot add
+- anything that changes state needs an `X-Carrel` header that other websites cannot add
 - problem ids and languages are validated before they touch a file path
 - the API key is never sent back to the browser
 
@@ -153,5 +153,5 @@ If a solution crashes, the case it was on is marked as crashed and the rest run 
 
 - A memory limit for C++ on Windows
 - Function-style wrappers for more languages (Python, JavaScript, Go)
-- `dsa pull` to download extra problem packs
+- `carrel pull` to download extra problem packs
 - More problems: the aim is about 100 patterns problems and a real-interview sheet
