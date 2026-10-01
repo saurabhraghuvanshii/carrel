@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "kitchen\nchicken",
+      "expected": "4",
+      "display": "first  = \"kitchen\"\nsecond = \"chicken\"\noutput = 4\n\nFor example \"chen\"."
+    },
+    {
+      "label": "Example 2",
+      "input": "abc\nxyz",
+      "expected": "0",
+      "display": "first  = \"abc\"\nsecond = \"xyz\"\noutput = 0"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the same word", "input": "level\nlevel", "expected": "5" },
+    { "label": "Edge 2: one letter shared", "input": "a\nba", "expected": "1" },
+    { "label": "Edge 3: one word inside the other", "input": "ace\nabcde", "expected": "3" }
+  ]
+}

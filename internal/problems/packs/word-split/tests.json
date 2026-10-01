@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "carpets\n3\ncarpet car pets",
+      "expected": "true",
+      "display": "text   = \"carpets\"\nwords  = [\"carpet\", \"car\", \"pets\"]\noutput = true\n\ncar + pets. Taking the longer \"carpet\" first leaves \"s\", which is not a word."
+    },
+    {
+      "label": "Example 2",
+      "input": "catdog\n3\nca tdo cat",
+      "expected": "false",
+      "display": "text   = \"catdog\"\nwords  = [\"ca\", \"tdo\", \"cat\"]\noutput = false\n\n\"cat\" leaves \"dog\", and \"ca\" + \"tdo\" leaves \"g\"."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the text is one word", "input": "tree\n1\ntree", "expected": "true" },
+    { "label": "Edge 2: a word used twice", "input": "abab\n1\nab", "expected": "true" },
+    { "label": "Edge 3: a long run with a stray letter", "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\n5\na aa aaa aaaa aaaaa", "expected": "false" },
+    { "label": "Edge 4: a long run that splits", "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n2\naaa aaaaaaa", "expected": "true" }
+  ]
+}

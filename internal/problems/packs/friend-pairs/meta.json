@@ -1,0 +1,12 @@
+{
+  "id": "friend-pairs",
+  "title": "Pair up or stay alone",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1202,
+  "tags": ["dynamic programming", "counting"],
+  "buildsOn": ["stair-ways"],
+  "leadsTo": ["house-skipper"],
+  "generator": "friend-pairs"
+}

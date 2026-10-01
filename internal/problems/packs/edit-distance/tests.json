@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "horse\nshore",
+      "expected": "2",
+      "display": "first  = \"horse\"\nsecond = \"shore\"\noutput = 2\n\nInsert s at the front, then delete the s before the e."
+    },
+    {
+      "label": "Example 2",
+      "input": "plant\nplanet",
+      "expected": "1",
+      "display": "first  = \"plant\"\nsecond = \"planet\"\noutput = 1\n\nInsert e."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the same word", "input": "same\nsame", "expected": "0" },
+    { "label": "Edge 2: one letter each", "input": "a\nb", "expected": "1" },
+    { "label": "Edge 3: nothing in common", "input": "abc\nxyz", "expected": "3" },
+    { "label": "Edge 4: grow a word", "input": "a\naaaa", "expected": "3" }
+  ]
+}

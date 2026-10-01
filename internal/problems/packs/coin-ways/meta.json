@@ -1,0 +1,12 @@
+{
+  "id": "coin-ways",
+  "title": "Ways to pay",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1205,
+  "tags": ["dynamic programming", "counting"],
+  "buildsOn": ["fewest-coins"],
+  "leadsTo": ["grid-path-count"],
+  "generator": "coin-ways"
+}

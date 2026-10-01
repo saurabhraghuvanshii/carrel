@@ -1,0 +1,12 @@
+{
+  "id": "can-split-equal",
+  "title": "Split into equal halves",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1209,
+  "tags": ["dynamic programming", "subset sum"],
+  "buildsOn": ["longest-rising-run"],
+  "leadsTo": ["zero-one-knapsack"],
+  "generator": "split-equal"
+}

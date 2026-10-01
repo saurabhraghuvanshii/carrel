@@ -1,0 +1,12 @@
+{
+  "id": "common-subsequence",
+  "title": "Longest shared subsequence",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1211,
+  "tags": ["dynamic programming", "strings"],
+  "buildsOn": ["zero-one-knapsack"],
+  "leadsTo": ["word-split"],
+  "generator": "common-subsequence"
+}

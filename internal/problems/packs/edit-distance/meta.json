@@ -1,0 +1,12 @@
+{
+  "id": "edit-distance",
+  "title": "Fewest edits",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1213,
+  "tags": ["dynamic programming", "strings"],
+  "buildsOn": ["word-split"],
+  "leadsTo": [],
+  "generator": "edit-distance"
+}

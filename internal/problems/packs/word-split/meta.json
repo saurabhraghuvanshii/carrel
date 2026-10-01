@@ -1,0 +1,12 @@
+{
+  "id": "word-split",
+  "title": "Split text into words",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1212,
+  "tags": ["dynamic programming", "strings", "trie"],
+  "buildsOn": ["common-subsequence"],
+  "leadsTo": ["edit-distance"],
+  "generator": "word-split"
+}

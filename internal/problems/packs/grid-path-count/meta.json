@@ -1,0 +1,12 @@
+{
+  "id": "grid-path-count",
+  "title": "Count paths through a grid",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1206,
+  "tags": ["dynamic programming", "grid"],
+  "buildsOn": ["coin-ways"],
+  "leadsTo": ["count-search-trees"],
+  "generator": "grid-path-count"
+}

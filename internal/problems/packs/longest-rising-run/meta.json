@@ -1,0 +1,12 @@
+{
+  "id": "longest-rising-run",
+  "title": "Longest rising subsequence",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1208,
+  "tags": ["dynamic programming", "binary search"],
+  "buildsOn": ["count-search-trees"],
+  "leadsTo": ["can-split-equal"],
+  "generator": "rising-run"
+}

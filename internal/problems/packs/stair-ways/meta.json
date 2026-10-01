@@ -1,0 +1,12 @@
+{
+  "id": "stair-ways",
+  "title": "Ways up the stairs",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1201,
+  "tags": ["dynamic programming"],
+  "buildsOn": [],
+  "leadsTo": ["friend-pairs"],
+  "generator": "stair-ways"
+}

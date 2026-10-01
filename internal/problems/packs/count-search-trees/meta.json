@@ -1,0 +1,12 @@
+{
+  "id": "count-search-trees",
+  "title": "Count search tree shapes",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1207,
+  "tags": ["dynamic programming", "trees", "counting"],
+  "buildsOn": ["grid-path-count"],
+  "leadsTo": ["longest-rising-run"],
+  "generator": "count-search-trees"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "zero-one-knapsack",
+  "title": "Pack the bag",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1210,
+  "tags": ["dynamic programming", "knapsack"],
+  "buildsOn": ["can-split-equal"],
+  "leadsTo": ["common-subsequence"],
+  "generator": "knapsack"
+}

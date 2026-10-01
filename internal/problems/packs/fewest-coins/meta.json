@@ -1,0 +1,12 @@
+{
+  "id": "fewest-coins",
+  "title": "Fewest coins",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1204,
+  "tags": ["dynamic programming"],
+  "buildsOn": ["house-skipper"],
+  "leadsTo": ["coin-ways"],
+  "generator": "fewest-coins"
+}

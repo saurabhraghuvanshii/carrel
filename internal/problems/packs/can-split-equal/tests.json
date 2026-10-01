@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n3 1 4 2 2",
+      "expected": "true",
+      "display": "nums   = [3, 1, 4, 2, 2]\noutput = true\n\n3 + 1 + 2 and 4 + 2 both make 6."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n2 3 7",
+      "expected": "false",
+      "display": "nums   = [2, 3, 7]\noutput = false\n\nThe total is 12, but no selection makes 6."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value", "input": "1\n1", "expected": "false" },
+    { "label": "Edge 2: two equal values", "input": "2\n6 6", "expected": "true" },
+    { "label": "Edge 3: odd total", "input": "3\n1 1 1", "expected": "false" },
+    { "label": "Edge 4: even total, still no split", "input": "4\n2 2 3 5", "expected": "false" }
+  ]
+}

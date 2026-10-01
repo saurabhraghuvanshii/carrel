@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3",
+      "expected": "3",
+      "display": "n      = 3\noutput = 3\n\n1 + 1 + 1, 1 + 2 and 2 + 1."
+    },
+    {
+      "label": "Example 2",
+      "input": "5",
+      "expected": "8",
+      "display": "n      = 5\noutput = 8"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one step", "input": "1", "expected": "1" },
+    { "label": "Edge 2: two steps", "input": "2", "expected": "2" },
+    { "label": "Edge 3: the largest staircase", "input": "45", "expected": "1836311903" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "house-skipper",
+  "title": "Never two neighbours",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Dynamic programming",
+  "order": 1203,
+  "tags": ["dynamic programming", "arrays"],
+  "buildsOn": ["friend-pairs"],
+  "leadsTo": ["fewest-coins"],
+  "generator": "house-skipper"
+}
