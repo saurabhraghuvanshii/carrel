@@ -7,6 +7,6 @@
   "order": 202,
   "tags": ["two pointers", "strings"],
   "buildsOn": ["sorted-pair-sum"],
-  "leadsTo": ["remove-repeats-sorted"],
+  "leadsTo": ["remove-repeats-sorted", "split-into-palindromes"],
   "generator": "palindrome"
 }

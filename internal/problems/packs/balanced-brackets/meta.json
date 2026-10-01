@@ -7,6 +7,6 @@
   "order": 401,
   "tags": ["stack"],
   "buildsOn": [],
-  "leadsTo": ["remove-adjacent-twins"],
+  "leadsTo": ["remove-adjacent-twins", "valid-bracket-strings"],
   "generator": "brackets"
 }

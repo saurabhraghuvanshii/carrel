@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3 3\ncat\noxe\ndog\ncod",
+      "expected": "true",
+      "display": "grid   = c a t\n         o x e\n         d o g\nword   = \"cod\"\noutput = true\n\nDown the left column."
+    },
+    {
+      "label": "Example 2",
+      "input": "3 3\ncat\noxe\ndog\ncoc",
+      "expected": "false",
+      "display": "grid   = c a t\n         o x e\n         d o g\nword   = \"coc\"\noutput = false\n\nThe grid has one c, and a cell cannot be used twice."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one cell", "input": "1 1\nq\nq", "expected": "true" },
+    { "label": "Edge 2: would need a cell twice", "input": "1 2\nab\naba", "expected": "false" },
+    { "label": "Edge 3: a turn in the path", "input": "2 2\nab\ndc\nabcd", "expected": "true" },
+    { "label": "Edge 4: no neighbour fits", "input": "3 3\ncat\noxe\ndog\ntoe", "expected": "false" }
+  ]
+}

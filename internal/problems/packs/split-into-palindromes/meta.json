@@ -1,0 +1,12 @@
+{
+  "id": "split-into-palindromes",
+  "title": "Cut a word into mirror pieces",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1007,
+  "tags": ["backtracking"],
+  "buildsOn": ["valid-bracket-strings", "palindrome-check"],
+  "leadsTo": ["word-in-grid"],
+  "generator": "palindrome-splits"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "all-subsets",
+  "title": "Every subset",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1002,
+  "tags": ["backtracking"],
+  "buildsOn": ["no-adjacent-ones"],
+  "leadsTo": ["all-orderings"],
+  "generator": "all-subsets"
+}

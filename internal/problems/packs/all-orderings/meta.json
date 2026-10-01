@@ -1,0 +1,12 @@
+{
+  "id": "all-orderings",
+  "title": "Every ordering",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1003,
+  "tags": ["backtracking"],
+  "buildsOn": ["all-subsets"],
+  "leadsTo": ["sums-to-target"],
+  "generator": "all-orderings"
+}

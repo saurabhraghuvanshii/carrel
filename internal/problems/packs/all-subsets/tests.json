@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "pq",
+      "expected": "[\"\", \"p\", \"pq\", \"q\"]",
+      "display": "word   = \"pq\"\noutput = [\"\", \"p\", \"pq\", \"q\"]"
+    },
+    {
+      "label": "Example 2",
+      "input": "dog",
+      "expected": "[\"\", \"d\", \"dg\", \"do\", \"dog\", \"g\", \"o\", \"og\"]",
+      "display": "word   = \"dog\"\noutput = [\"\", \"d\", \"dg\", \"do\", \"dog\", \"g\", \"o\", \"og\"]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "z", "expected": "[\"\", \"z\"]" },
+    { "label": "Edge 2: letters out of alphabet order", "input": "ba", "expected": "[\"\", \"a\", \"b\", \"ba\"]" },
+    { "label": "Edge 3: four letters", "input": "wxyz", "expected": "[\"\", \"w\", \"wx\", \"wxy\", \"wxyz\", \"wxz\", \"wy\", \"wyz\", \"wz\", \"x\", \"xy\", \"xyz\", \"xz\", \"y\", \"yz\", \"z\"]" }
+  ]
+}

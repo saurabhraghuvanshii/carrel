@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "noon",
+      "expected": "[[\"n\", \"o\", \"o\", \"n\"], [\"n\", \"oo\", \"n\"], [\"noon\"]]",
+      "display": "word   = \"noon\"\noutput = [[\"n\", \"o\", \"o\", \"n\"], [\"n\", \"oo\", \"n\"], [\"noon\"]]"
+    },
+    {
+      "label": "Example 2",
+      "input": "xy",
+      "expected": "[[\"x\", \"y\"]]",
+      "display": "word   = \"xy\"\noutput = [[\"x\", \"y\"]]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "a", "expected": "[[\"a\"]]" },
+    { "label": "Edge 2: three equal letters", "input": "aaa", "expected": "[[\"a\", \"a\", \"a\"], [\"a\", \"aa\"], [\"aa\", \"a\"], [\"aaa\"]]" },
+    { "label": "Edge 3: a short mirror in the middle", "input": "abba", "expected": "[[\"a\", \"b\", \"b\", \"a\"], [\"a\", \"bb\", \"a\"], [\"abba\"]]" }
+  ]
+}

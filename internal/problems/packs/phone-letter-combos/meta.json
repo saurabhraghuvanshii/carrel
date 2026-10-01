@@ -1,0 +1,12 @@
+{
+  "id": "phone-letter-combos",
+  "title": "Letters from a phone keypad",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1005,
+  "tags": ["backtracking"],
+  "buildsOn": ["sums-to-target"],
+  "leadsTo": ["valid-bracket-strings"],
+  "generator": "phone-letters"
+}

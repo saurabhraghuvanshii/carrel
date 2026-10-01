@@ -1,0 +1,12 @@
+{
+  "id": "word-in-grid",
+  "title": "Find a word in a letter grid",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1008,
+  "tags": ["backtracking", "grid"],
+  "buildsOn": ["split-into-palindromes"],
+  "leadsTo": ["queens-on-board"],
+  "generator": "grid-word"
+}

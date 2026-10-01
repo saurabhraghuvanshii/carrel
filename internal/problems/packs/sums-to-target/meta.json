@@ -1,0 +1,12 @@
+{
+  "id": "sums-to-target",
+  "title": "Combinations that reach a target",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1004,
+  "tags": ["backtracking"],
+  "buildsOn": ["all-orderings"],
+  "leadsTo": ["phone-letter-combos"],
+  "generator": "combo-sum"
+}

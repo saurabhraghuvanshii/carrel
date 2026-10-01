@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4\n.#..\n....\n....\n....",
+      "expected": "1",
+      "display": "board  = . # . .\n         . . . .\n         . . . .\n         . . . .\noutput = 1\n\nA plain 4 by 4 board has two answers; the hole blocks one of them."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n...\n...\n...",
+      "expected": "0",
+      "display": "board  = 3 by 3, no holes\noutput = 0"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one usable square", "input": "1\n.", "expected": "1" },
+    { "label": "Edge 2: one hole", "input": "1\n#", "expected": "0" },
+    { "label": "Edge 3: five by five, no holes", "input": "5\n.....\n.....\n.....\n.....\n.....", "expected": "10" }
+  ]
+}

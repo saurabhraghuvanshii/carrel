@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "47",
+      "expected": "[\"gp\", \"gq\", \"gr\", \"gs\", \"hp\", \"hq\", \"hr\", \"hs\", \"ip\", \"iq\", \"ir\", \"is\"]",
+      "display": "digits = \"47\"\noutput = [\"gp\", \"gq\", \"gr\", \"gs\", \"hp\", \"hq\", \"hr\", \"hs\", \"ip\", \"iq\", \"ir\", \"is\"]"
+    },
+    {
+      "label": "Example 2",
+      "input": "9",
+      "expected": "[\"w\", \"x\", \"y\", \"z\"]",
+      "display": "digits = \"9\"\noutput = [\"w\", \"x\", \"y\", \"z\"]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the same digit twice", "input": "22", "expected": "[\"aa\", \"ab\", \"ac\", \"ba\", \"bb\", \"bc\", \"ca\", \"cb\", \"cc\"]" },
+    { "label": "Edge 2: two four-letter keys", "input": "79", "expected": "[\"pw\", \"px\", \"py\", \"pz\", \"qw\", \"qx\", \"qy\", \"qz\", \"rw\", \"rx\", \"ry\", \"rz\", \"sw\", \"sx\", \"sy\", \"sz\"]" },
+    { "label": "Edge 3: one digit", "input": "5", "expected": "[\"j\", \"k\", \"l\"]" }
+  ]
+}

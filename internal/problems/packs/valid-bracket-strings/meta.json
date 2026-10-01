@@ -1,0 +1,12 @@
+{
+  "id": "valid-bracket-strings",
+  "title": "Every balanced bracket string",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1006,
+  "tags": ["backtracking"],
+  "buildsOn": ["phone-letter-combos", "balanced-brackets"],
+  "leadsTo": ["split-into-palindromes"],
+  "generator": "bracket-strings"
+}

@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "ab",
+      "expected": "[\"ab\", \"ba\"]",
+      "display": "word   = \"ab\"\noutput = [\"ab\", \"ba\"]"
+    },
+    {
+      "label": "Example 2",
+      "input": "cat",
+      "expected": "[\"act\", \"atc\", \"cat\", \"cta\", \"tac\", \"tca\"]",
+      "display": "word   = \"cat\"\noutput = [\"act\", \"atc\", \"cat\", \"cta\", \"tac\", \"tca\"]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "z", "expected": "[\"z\"]" },
+    { "label": "Edge 2: two letters out of order", "input": "ji", "expected": "[\"ij\", \"ji\"]" },
+    { "label": "Edge 3: four letters", "input": "abcd", "expected": "[\"abcd\", \"abdc\", \"acbd\", \"acdb\", \"adbc\", \"adcb\", \"bacd\", \"badc\", \"bcad\", \"bcda\", \"bdac\", \"bdca\", \"cabd\", \"cadb\", \"cbad\", \"cbda\", \"cdab\", \"cdba\", \"dabc\", \"dacb\", \"dbac\", \"dbca\", \"dcab\", \"dcba\"]" }
+  ]
+}

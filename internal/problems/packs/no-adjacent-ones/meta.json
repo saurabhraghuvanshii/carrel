@@ -1,0 +1,12 @@
+{
+  "id": "no-adjacent-ones",
+  "title": "Binary strings without neighbouring ones",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1001,
+  "tags": ["backtracking", "recursion"],
+  "buildsOn": [],
+  "leadsTo": ["all-subsets"],
+  "generator": "no-adjacent-ones"
+}

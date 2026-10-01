@@ -1,0 +1,12 @@
+{
+  "id": "queens-on-board",
+  "title": "Queens on a board with holes",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Backtracking",
+  "order": 1009,
+  "tags": ["backtracking"],
+  "buildsOn": ["word-in-grid"],
+  "leadsTo": [],
+  "generator": "queens-holes"
+}
