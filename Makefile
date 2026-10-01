@@ -1,7 +1,7 @@
 BINARY := carrel
 LDFLAGS := -s -w
 
-.PHONY: build run test vet doctor check-packs dist clean
+.PHONY: build run test vet doctor check-packs dist clean site site-serve
 
 build:
 	go build -ldflags "$(LDFLAGS)" -o $(BINARY) .
@@ -30,5 +30,12 @@ dist:
 	GOOS=darwin  GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-darwin-amd64 .
 	GOOS=windows GOARCH=amd64 go build -ldflags "$(LDFLAGS)" -o dist/carrel-windows-amd64.exe .
 
+# The public website, built from site/src into site/dist.
+site:
+	go run ./tools/sitebuild -src site/src -out site/dist
+
+site-serve:
+	go run ./tools/sitebuild -src site/src -out site/dist -serve 127.0.0.1:8080
+
 clean:
-	rm -rf dist $(BINARY)
+	rm -rf dist site/dist $(BINARY)

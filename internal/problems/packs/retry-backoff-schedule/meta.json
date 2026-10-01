@@ -1,0 +1,12 @@
+{
+  "id": "retry-backoff-schedule",
+  "title": "Retries before the deadline",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Orders and payments",
+  "order": 303,
+  "tags": ["math", "simulation", "follow-up"],
+  "buildsOn": ["power-of-two-check"],
+  "leadsTo": [],
+  "generator": "retry-backoff"
+}

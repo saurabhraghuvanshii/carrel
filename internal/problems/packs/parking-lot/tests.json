@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "9\nnew 1 2\npark 10 1\npark 11 1\npark 12 2\npark 13 2\nfreeSpots\nleave 11\npark 13 2\nleave 99",
+      "expected": "null 0 1 2 -1 0 1 1 -1",
+      "display": "calls   = ParkingLot(1, 2), park(10, 1), park(11, 1),\n          park(12, 2), park(13, 2), freeSpots(), leave(11),\n          park(13, 2), leave(99)\nresults = null, 0, 1, 2, -1, 0, 1, 1, -1\n\nSpot 0 is small; spots 1 and 2 are large. Car 11 is small but the small spot is taken, so it gets large spot 1. Car 13 has to wait until car 11 leaves."
+    },
+    {
+      "label": "Example 2",
+      "input": "6\nnew 2 0\npark 5 2\npark 5 1\npark 5 1\nleave 5\nfreeSpots",
+      "expected": "null -1 0 -1 0 2",
+      "display": "calls   = ParkingLot(2, 0), park(5, 2), park(5, 1), park(5, 1),\n          leave(5), freeSpots()\nresults = null, -1, 0, -1, 0, 2\n\nWith no large spots a large car never fits. A car cannot park twice."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: leave when not parked", "input": "3\nnew 1 1\nleave 3\nfreeSpots", "expected": "null -1 2" },
+    { "label": "Edge 2: the lowest freed spot is used first", "input": "8\nnew 3 0\npark 1 1\npark 2 1\npark 3 1\nleave 2\nleave 1\npark 4 1\npark 5 1", "expected": "null 0 1 2 1 0 0 1" },
+    { "label": "Edge 3: a small car in a large spot blocks a large car", "input": "5\nnew 0 1\npark 1 1\npark 2 2\nleave 1\npark 2 2", "expected": "null 0 -1 0 0" },
+    { "label": "Edge 4: a small car prefers a small spot again", "input": "6\nnew 1 1\npark 1 1\npark 2 1\nleave 1\nleave 2\npark 3 1", "expected": "null 0 1 0 1 0" }
+  ]
+}

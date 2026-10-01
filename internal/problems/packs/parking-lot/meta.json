@@ -1,0 +1,12 @@
+{
+  "id": "parking-lot",
+  "title": "Parking garage",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Scheduling and booking",
+  "order": 504,
+  "tags": ["heap", "hash map", "design", "follow-up"],
+  "buildsOn": ["kth-largest", "minimum-stack"],
+  "leadsTo": [],
+  "generator": "parking-lot"
+}

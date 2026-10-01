@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 5\npizza pasta pizza pie salad\npi p sal x pizza",
+      "expected": "[3, 4, 1, 0, 2]",
+      "display": "searches = [\"pizza\", \"pasta\", \"pizza\", \"pie\", \"salad\"]\nprefixes = [\"pi\", \"p\", \"sal\", \"x\", \"pizza\"]\noutput   = [3, 4, 1, 0, 2]\n\n\"pizza\" was searched twice, so it counts twice."
+    },
+    {
+      "label": "Example 2",
+      "input": "1 2\ntea\nteam te",
+      "expected": "[0, 1]",
+      "display": "searches = [\"tea\"]\nprefixes = [\"team\", \"te\"]\noutput   = [0, 1]\n\nA prefix longer than the search does not match."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "1 1\na\na", "expected": "[1]" },
+    { "label": "Edge 2: the same search three times", "input": "3 3\nrice rice rice\nr rice ricer", "expected": "[3, 3, 0]" },
+    { "label": "Edge 3: nothing matches", "input": "2 3\nsoup stew\nb sa se", "expected": "[0, 0, 0]" },
+    { "label": "Edge 4: the letters appear later in the search", "input": "2 2\napple grape\nap pe", "expected": "[1, 0]" }
+  ]
+}

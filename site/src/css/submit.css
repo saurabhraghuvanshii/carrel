@@ -1,0 +1,13 @@
+.sub-h2 { max-width: 680px; }
+.sub-grid { gap: 16px; margin: 44px 0 0; padding: 0; list-style: none; }
+.sub-stage { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); padding: 18px 18px 20px; animation: kHi 8s ease-out infinite; }
+.sub-n { font-size: 13px; color: var(--accent); }
+.sub-stage h3 { margin: 6px 0 8px; font-size: 21px; line-height: 1.25; font-weight: 600; color: var(--ink); }
+.sub-stage p { margin: 0; font-size: 15px; }
+.sub-fail { margin-top: 32px; max-width: 640px; }
+.sub-label { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+
+@keyframes kHi {
+  0% { background: var(--code); border-color: var(--accent); }
+  25%, 100% { background: var(--panel); border-color: var(--line); }
+}

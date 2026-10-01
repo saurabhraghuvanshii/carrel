@@ -1,0 +1,12 @@
+{
+  "id": "suggestion-counts",
+  "title": "How many suggestions?",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Search and text",
+  "order": 601,
+  "tags": ["strings", "trie", "follow-up"],
+  "buildsOn": ["common-start"],
+  "leadsTo": [],
+  "generator": "suggestion-counts"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "nearest-store",
+  "title": "Distance to the nearest store",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Maps and delivery",
+  "order": 701,
+  "tags": ["binary search", "sorting", "follow-up"],
+  "buildsOn": ["find-in-sorted"],
+  "leadsTo": [],
+  "generator": "nearest-store"
+}

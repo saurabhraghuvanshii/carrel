@@ -1,0 +1,24 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3 7\n2 9 4",
+      "expected": "9",
+      "display": "stops  = [2, 9, 4]\nstart  = 7\noutput = 9\n\nWalk right to 9 (2 metres), then left to 2 (7 metres). Going left first would cost 5 + 7 = 12."
+    },
+    {
+      "label": "Example 2",
+      "input": "2 3\n7 12",
+      "expected": "9",
+      "display": "stops  = [7, 12]\nstart  = 3\noutput = 9\n\nBoth stops are to the right, so the walk ends at 12."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the only stop is at the van", "input": "1 6\n6", "expected": "0" },
+    { "label": "Edge 2: everything to the left", "input": "3 10\n1 4 0", "expected": "10" },
+    { "label": "Edge 3: the same distance on both sides", "input": "2 10\n0 20", "expected": "30" },
+    { "label": "Edge 4: the whole street", "input": "2 500000000\n0 1000000000", "expected": "1500000000" },
+    { "label": "Edge 5: one stop at the van, one away", "input": "2 8\n8 3", "expected": "5" },
+    { "label": "Edge 6: the nearest stop first is a trap", "input": "3 5\n4 7 0", "expected": "9" }
+  ]
+}

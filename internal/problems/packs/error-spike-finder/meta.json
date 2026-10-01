@@ -1,0 +1,12 @@
+{
+  "id": "error-spike-finder",
+  "title": "Worst burst of errors",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Logs and analytics",
+  "order": 404,
+  "tags": ["sliding window", "two pointers", "follow-up"],
+  "buildsOn": ["best-window-sum", "shortest-sum-at-least"],
+  "leadsTo": [],
+  "generator": "error-spike"
+}

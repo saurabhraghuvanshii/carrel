@@ -1,0 +1,137 @@
+.win { padding-bottom: 24px; }
+.win-fig { margin: 0; }
+.win-card { overflow: hidden; }
+
+.win-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--bg); }
+.win-top-l { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.win-brand { font-weight: 500; font-size: 14px; color: var(--ink); }
+.win-crumb { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.win-top-r { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--muted); }
+.win-chip { border: 1px solid var(--line); border-radius: 5px; padding: 2px 10px; color: var(--ink); }
+
+.win-grid { display: grid; grid-template-columns: 210px minmax(0, 1fr) minmax(0, 1.15fr); }
+.win-side { padding: 16px; border-right: 1px solid var(--line); }
+.win-group { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.win-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px; font-size: 14px; line-height: 1.4; }
+.win-item.sel { background: var(--code); border-radius: 6px; color: var(--ink); }
+.win-dots { position: relative; width: 8px; height: 8px; flex: none; }
+.d-tried { position: absolute; left: 0; top: 0; opacity: 0; animation: kTried 9s linear infinite; }
+.d-solved { position: absolute; left: 0; top: 0; animation: kPass 9s linear infinite; }
+
+.win-stmt { padding: 20px; border-right: 1px solid var(--line); }
+.win-title { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.win-title h3 { margin: 0; font-size: 22px; line-height: 1.25; font-weight: 600; color: var(--ink); }
+.win-stmt p { margin: 12px 0 0; font-size: 15.5px; line-height: 1.65; }
+.win-ex { margin-top: 14px; background: var(--code); border-radius: 6px; padding: 10px 12px; font-size: 12.5px; line-height: 1.7; color: var(--ink); }
+
+.win-editor { min-width: 0; }
+.win-tools { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 16px; border-bottom: 1px solid var(--line); }
+.win-file { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.win-btns { display: flex; gap: 8px; flex: none; }
+.win-btns .btn { cursor: default; }
+.press { animation: kPress 9s ease-out infinite; }
+.win-code { display: flex; padding: 14px 0; background: var(--panel); overflow-x: auto; }
+.win-gutter { margin: 0; padding: 0 12px 0 16px; font-size: 13px; line-height: 1.75; color: var(--muted); text-align: right; user-select: none; }
+.win-src { margin: 0; padding-right: 16px; font-size: 13px; line-height: 1.75; color: var(--ink); }
+.caret { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); vertical-align: text-bottom; animation: kBlink 1.1s steps(1) infinite; }
+
+.win-results { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 20px; border-top: 1px solid var(--line); background: var(--bg); }
+.win-layers { position: relative; flex: 1; min-width: 0; height: 84px; width: 100%; }
+.win-layer { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+.win-l1 { font-size: 14px; color: var(--ink); }
+.win-run { font-size: 16px; }
+.win-l2 { font-size: 14px; color: var(--muted); }
+.win-pass { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 500; color: var(--easy); }
+.win-seed { font-size: 13px; color: var(--muted); }
+.l-idle { opacity: 0; animation: kIdle 9s linear infinite; }
+.l-run { opacity: 0; animation: kRun 9s linear infinite; }
+.l-pass { opacity: 1; animation: kPass 9s linear infinite; }
+.count { animation: kCount 9s linear infinite; counter-reset: n var(--n); }
+.count::after { content: counter(n); }
+
+.win-tests { position: relative; width: 172px; height: 76px; flex: none; }
+.win-cells { display: grid; grid-template-columns: repeat(11, 12px); gap: 4px; }
+.win-sq { display: block; width: 12px; height: 12px; border-radius: 2px; border: 1px solid var(--line); background: transparent; flex: none; }
+.win-sq.on { background: var(--easy); border-color: var(--easy); }
+.win-fills { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 4px; }
+.win-fillrow { height: 12px; overflow: hidden; width: 100%; }
+.win-fillinner { display: flex; gap: 4px; width: 172px; }
+.r0 { animation: kRow0 9s steps(11, start) infinite; }
+.r1 { animation: kRow1 9s steps(11, start) infinite; }
+.r2 { animation: kRow2 9s steps(11, start) infinite; }
+.r3 { animation: kRow3 9s steps(11, start) infinite; }
+.r4 { animation: kRow4 9s steps(11, start) infinite; }
+
+.win-caption { margin: 14px 0 0; font-size: 13px; color: var(--muted); }
+
+@keyframes kIdle {
+  0%, 13% { opacity: 1; }
+  14%, 98% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes kRun {
+  0%, 14% { opacity: 0; }
+  15%, 61% { opacity: 1; }
+  62%, 100% { opacity: 0; }
+}
+@keyframes kPass {
+  0%, 61% { opacity: 0; }
+  63%, 96% { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+@keyframes kTried {
+  0%, 61% { opacity: 1; }
+  63%, 96% { opacity: 0; }
+  98%, 100% { opacity: 1; }
+}
+@keyframes kPress {
+  0%, 12% { transform: none; filter: none; }
+  13%, 15% { transform: translateY(1px); filter: brightness(0.88); }
+  16%, 100% { transform: none; filter: none; }
+}
+@keyframes kCount {
+  0%, 15.5% { --n: 0; }
+  60%, 100% { --n: 55; }
+}
+@keyframes kRow0 {
+  0%, 15.5% { width: 0; }
+  24.4%, 96% { width: 100%; }
+  98%, 100% { width: 0; }
+}
+@keyframes kRow1 {
+  0%, 24.4% { width: 0; }
+  33.3%, 96% { width: 100%; }
+  98%, 100% { width: 0; }
+}
+@keyframes kRow2 {
+  0%, 33.3% { width: 0; }
+  42.2%, 96% { width: 100%; }
+  98%, 100% { width: 0; }
+}
+@keyframes kRow3 {
+  0%, 42.2% { width: 0; }
+  51.1%, 96% { width: 100%; }
+  98%, 100% { width: 0; }
+}
+@keyframes kRow4 {
+  0%, 51.1% { width: 0; }
+  60%, 96% { width: 100%; }
+  98%, 100% { width: 0; }
+}
+@keyframes kBlink {
+  0%, 50% { opacity: 1; }
+  50.1%, 100% { opacity: 0; }
+}
+
+@media (max-width: 800px) {
+  .win-grid { grid-template-columns: minmax(0, 1fr); }
+  .win-top-r { gap: 12px; }
+  .win-results { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .win-layers { flex: none; height: 84px; }
+  .win-src, .win-gutter { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .l-pass, .d-solved { opacity: 1; }
+  .l-idle, .l-run, .d-tried { opacity: 0; }
+}
+.win-code pre { font-variant-ligatures: none; }

@@ -1,0 +1,12 @@
+{
+  "id": "top-pages",
+  "title": "Most viewed pages",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Logs and analytics",
+  "order": 401,
+  "tags": ["hash map", "sorting", "follow-up"],
+  "buildsOn": ["most-frequent-items"],
+  "leadsTo": [],
+  "generator": "top-pages"
+}

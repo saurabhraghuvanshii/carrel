@@ -1,0 +1,12 @@
+{
+  "id": "typo-tolerant-lookup",
+  "title": "Search that forgives one typo",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Search and text",
+  "order": 602,
+  "tags": ["hash map", "strings", "follow-up"],
+  "buildsOn": ["group-by-letters", "word-ladder-length"],
+  "leadsTo": [],
+  "generator": "near-matches"
+}

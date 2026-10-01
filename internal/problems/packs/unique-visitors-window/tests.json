@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "8\nnew 10\nvisit 1 0\nvisit 2 3\nvisit 1 5\nunique 5\nunique 10\nunique 13\nunique 15",
+      "expected": "null null null null 2 2 1 0",
+      "display": "calls   = VisitorCounter(10), visit(1, 0), visit(2, 3),\n          visit(1, 5), unique(5), unique(10), unique(13),\n          unique(15)\nresults = null, null, null, null, 2, 2, 1, 0\n\nAt 13 the stretch covers times after 3, so only user 1 (who came back at 5) counts. At 15 the visit at 5 is too old as well."
+    },
+    {
+      "label": "Example 2",
+      "input": "7\nnew 5\nvisit 7 1\nvisit 7 2\nvisit 7 3\nunique 3\nunique 7\nunique 8",
+      "expected": "null null null null 1 1 0",
+      "display": "calls   = VisitorCounter(5), visit(7, 1), visit(7, 2),\n          visit(7, 3), unique(3), unique(7), unique(8)\nresults = null, null, null, null, 1, 1, 0\n\nOne user who visits three times is still one visitor."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: no visits", "input": "2\nnew 5\nunique 0", "expected": "null 0" },
+    { "label": "Edge 2: a visit exactly one window ago is out", "input": "4\nnew 4\nvisit 1 2\nunique 5\nunique 6", "expected": "null null 1 0" },
+    { "label": "Edge 3: two visits in the same second", "input": "5\nnew 1\nvisit 3 3\nvisit 3 3\nunique 3\nunique 6", "expected": "null null null 1 0" },
+    { "label": "Edge 4: a returning user stays", "input": "7\nnew 3\nvisit 1 0\nvisit 2 0\nvisit 1 2\nunique 3\nunique 4\nunique 5", "expected": "null null null null 1 1 0" }
+  ]
+}

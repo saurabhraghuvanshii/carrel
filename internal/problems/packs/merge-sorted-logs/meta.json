@@ -1,0 +1,12 @@
+{
+  "id": "merge-sorted-logs",
+  "title": "Merge logs from many servers",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Logs and analytics",
+  "order": 406,
+  "tags": ["heap", "merge", "follow-up"],
+  "buildsOn": ["merge-sorted-streams"],
+  "leadsTo": [],
+  "generator": "merge-logs"
+}

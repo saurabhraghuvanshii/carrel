@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-accent="brick">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carrel, practise data structures and algorithms offline</title>
+<meta name="description" content="Carrel is a local DSA practice tool. One command, then solve problems in your browser with Java or C++. No account, no subscription, works offline.">
+<link rel="canonical" href="{{site_url}}/">
+<meta name="theme-color" content="#A8432B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Carrel, practise data structures and algorithms offline">
+<meta property="og:description" content="Carrel is a local DSA practice tool. One command, then solve problems in your browser with Java or C++. No account, no subscription, works offline.">
+<meta property="og:url" content="{{site_url}}/">
+<meta property="og:image" content="{{site_url}}/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carrel, practise data structures and algorithms offline">
+<meta name="twitter:description" content="Carrel is a local DSA practice tool. One command, then solve problems in your browser with Java or C++. No account, no subscription, works offline.">
+<meta name="twitter:image" content="{{site_url}}/og.png">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="fonts/source-serif-4-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+(function () {
+  var r = document.documentElement, t = null, a = null;
+  r.setAttribute('data-theme-js', '');
+  try { t = localStorage.getItem('carrel-theme'); a = localStorage.getItem('carrel-accent'); } catch (e) {}
+  if (t !== 'paper' && t !== 'ink') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'ink' : 'paper';
+  r.setAttribute('data-theme', t);
+  if (['brick', 'forest', 'amber', 'slate', 'plum'].indexOf(a) >= 0) r.setAttribute('data-accent', a);
+})();
+</script>
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<!-- include: partials/header.html -->
+<main id="top">
+<div id="content" tabindex="-1"></div>
+<!-- include: partials/hero.html -->
+<!-- include: partials/window.html -->
+<!-- include: partials/why.html -->
+<!-- include: partials/problem.html -->
+<!-- include: partials/how.html -->
+<!-- include: partials/submit.html -->
+<!-- include: partials/sheets.html -->
+<!-- include: partials/yours.html -->
+<!-- include: partials/themes.html -->
+<!-- include: partials/faq.html -->
+<!-- include: partials/cta.html -->
+</main>
+<!-- include: partials/footer.html -->
+</body>
+</html>

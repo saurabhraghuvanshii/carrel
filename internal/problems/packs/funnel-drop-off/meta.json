@@ -1,0 +1,12 @@
+{
+  "id": "funnel-drop-off",
+  "title": "Where users drop off",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Logs and analytics",
+  "order": 402,
+  "tags": ["hash map", "follow-up"],
+  "buildsOn": ["pair-with-target-sum"],
+  "leadsTo": [],
+  "generator": "funnel"
+}

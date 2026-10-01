@@ -1,0 +1,12 @@
+{
+  "id": "unique-visitors-window",
+  "title": "Visitors in the last few minutes",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Logs and analytics",
+  "order": 405,
+  "tags": ["hash map", "queue", "sliding window", "design", "follow-up"],
+  "buildsOn": ["longest-unique-stretch"],
+  "leadsTo": [],
+  "generator": "unique-visitors"
+}

@@ -1,0 +1,12 @@
+.cta { text-align: center; }
+.cta-h2 { font-size: 48px; }
+.cta-lead { margin-left: auto; margin-right: auto; }
+.cta-install { justify-content: center; margin-top: 32px; }
+.cta-install .cmdbox { text-align: left; }
+@media (max-width: 800px) {
+  .cta-h2 { font-size: 30px; }
+  .cta-install .btn.primary { align-self: center; }
+}
+
+.nf { min-height: 50vh; }
+.nf-btn { margin: 32px 0 0; }

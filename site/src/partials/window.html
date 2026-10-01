@@ -1,0 +1,106 @@
+<section class="win" aria-label="Product preview">
+  <div class="wrap">
+    <figure class="win-fig" role="img" aria-label="Carrel practice screen. A solution is submitted and all 55 test cases pass." data-loop>
+      <figcaption class="visually-hidden">Carrel practice screen. A solution is submitted and all 55 test cases pass.</figcaption>
+      <div class="card win-card" aria-hidden="true">
+        <div class="win-top">
+          <div class="win-top-l">
+            <span class="mono win-brand">carrel</span>
+            <span class="mono win-crumb hide-m">Patterns / Arrays and hashing</span>
+          </div>
+          <div class="win-top-r">
+            <span>Sheets</span>
+            <span class="win-chip">Java</span>
+            <span>Settings</span>
+          </div>
+        </div>
+
+        <div class="win-grid">
+          <div class="win-side hide-m">
+            <div class="mono win-group">Arrays and hashing</div>
+            <div class="win-item sel">
+              <span>Pair with target sum</span>
+              <span class="win-dots"><span class="dot tried d-tried"></span><span class="dot solved d-solved"></span></span>
+            </div>
+            <div class="win-item"><span>Subarray with a given sum</span><span class="dot none"></span></div>
+            <div class="win-item"><span>Group words by letters</span><span class="dot none"></span></div>
+          </div>
+
+          <div class="win-stmt hide-m">
+            <div class="win-title">
+              <h3 class="serif">Pair with target sum</h3>
+              <span class="tag easy">Easy</span>
+            </div>
+            <p class="serif">Given a list of integers and a target, return the positions of the two numbers that add up to the target. Exactly one pair exists, and one position cannot be used twice.</p>
+            <div class="mono win-ex">nums = [5, 1, 9, 3], target = 8<br>answer = [0, 3]</div>
+          </div>
+
+          <div class="win-editor">
+            <div class="win-tools">
+              <span class="mono win-file">Solution.java, saved</span>
+              <span class="win-btns">
+                <span class="btn small">Run examples</span>
+                <span class="btn small primary press">Submit</span>
+              </span>
+            </div>
+            <div class="win-code">
+              <pre class="mono win-gutter">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre>
+              <pre class="mono win-src"><span class="k">class</span> Solution {
+    <span class="k">int</span>[] pairSum(<span class="k">int</span>[] nums, <span class="k">int</span> target) {
+        Map&lt;Integer, Integer&gt; seen = <span class="k">new</span> HashMap&lt;&gt;();
+        <span class="k">for</span> (<span class="k">int</span> i = <span class="n">0</span>; i &lt; nums.length; i++) {
+            Integer j = seen.get(target - nums[i]);
+            <span class="k">if</span> (j != <span class="k">null</span>) <span class="k">return new int</span>[]{j, i};
+            seen.put(nums[i], i);
+        }
+        <span class="k">return new int</span>[]{};<span class="caret"></span>
+    }
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="win-results">
+          <div class="win-layers">
+            <div class="win-layer l-idle">
+              <span class="mono win-l1">Press Submit.</span>
+              <span class="win-l2">Carrel runs 5 fixed cases and 50 fresh random ones.</span>
+            </div>
+            <div class="win-layer l-run">
+              <span class="mono win-l1 win-run">Running case <span class="count"></span> of 55</span>
+              <span class="win-l2">Compiled once. All cases run in one process.</span>
+            </div>
+            <div class="win-layer l-pass">
+              <span class="mono win-pass">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+                Passed 55 of 55
+              </span>
+              <span class="mono win-seed">5 fixed, 50 random, seed 48213, 41 ms</span>
+            </div>
+          </div>
+          <div class="win-tests">
+            <div class="win-cells"><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i><i class="win-sq"></i></div>
+            <div class="win-fills">
+            <div class="win-fillrow r0"><div class="win-fillinner"><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i></div></div>
+            <div class="win-fillrow r1"><div class="win-fillinner"><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i></div></div>
+            <div class="win-fillrow r2"><div class="win-fillinner"><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i></div></div>
+            <div class="win-fillrow r3"><div class="win-fillinner"><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i></div></div>
+            <div class="win-fillrow r4"><div class="win-fillinner"><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i><i class="win-sq on"></i></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </figure>
+    <p class="mono win-caption">Each square is one test case. A submit runs 5 fixed cases and 50 random ones.</p>
+  </div>
+</section>

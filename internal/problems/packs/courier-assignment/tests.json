@@ -1,0 +1,23 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "2 4\n10 20\n0 12 19 40",
+      "expected": "3",
+      "display": "orders   = [10, 20]\ncouriers = [0, 12, 19, 40]\noutput   = 3\n\nThe courier at 12 takes the order at 10 and the courier at 19 takes the order at 20. The other two stay idle."
+    },
+    {
+      "label": "Example 2",
+      "input": "2 2\n5 7\n6 1",
+      "expected": "5",
+      "display": "orders   = [5, 7]\ncouriers = [6, 1]\noutput   = 5\n\nGiving the order at 5 its nearest courier (at 6) leaves the order at 7 with the courier at 1: 1 + 6 = 7. The other way round costs 4 + 1 = 5."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one order, one courier", "input": "1 1\n3\n8", "expected": "5" },
+    { "label": "Edge 2: couriers already at the orders", "input": "2 3\n4 9\n9 4 6", "expected": "0" },
+    { "label": "Edge 3: a total past 32 bits", "input": "3 3\n0 0 0\n1000000000 1000000000 1000000000", "expected": "3000000000" },
+    { "label": "Edge 4: the nearest courier is a trap", "input": "2 3\n10 12\n11 0 30", "expected": "11" },
+    { "label": "Edge 5: skip a courier in the middle", "input": "2 3\n1 100\n0 50 99", "expected": "2" }
+  ]
+}

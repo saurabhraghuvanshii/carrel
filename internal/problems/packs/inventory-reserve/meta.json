@@ -1,0 +1,12 @@
+{
+  "id": "inventory-reserve",
+  "title": "Hold stock for an order",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Orders and payments",
+  "order": 306,
+  "tags": ["hash map", "design", "follow-up"],
+  "buildsOn": ["minimum-stack", "pair-with-target-sum"],
+  "leadsTo": [],
+  "generator": "inventory-reserve"
+}

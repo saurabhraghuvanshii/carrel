@@ -1,0 +1,12 @@
+{
+  "id": "cart-discount-stack",
+  "title": "Stacked cart discounts",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Orders and payments",
+  "order": 301,
+  "tags": ["stack", "simulation", "follow-up"],
+  "buildsOn": ["balanced-brackets"],
+  "leadsTo": [],
+  "generator": "cart-discounts"
+}

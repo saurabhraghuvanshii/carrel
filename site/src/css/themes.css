@@ -1,0 +1,6 @@
+.themes-grid { gap: 64px; align-items: center; }
+.themes-card { padding: 28px; }
+.themes-group + .themes-group { margin-top: 26px; }
+.themes-label { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+.themes-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.themes-swatches { gap: 14px; padding: 2px 0 2px 4px; }

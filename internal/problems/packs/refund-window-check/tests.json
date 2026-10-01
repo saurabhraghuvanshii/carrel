@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "2 5 7\n101 3\n102 10\n101 10\n101 10\n102 19\n999 5\n102 9",
+      "expected": "[true, false, false, false, false]",
+      "display": "purchases = [[101, 3], [102, 10]]\nrequests  = [[101, 10], [101, 10], [102, 19], [999, 5], [102, 9]]\nwindow    = 7\noutput    = [true, false, false, false, false]\n\nThe second request repeats a refund, the third comes 9 days after the purchase, order 999 does not exist, and the last is dated before the purchase."
+    },
+    {
+      "label": "Example 2",
+      "input": "1 2 0\n5 4\n5 5\n5 4",
+      "expected": "[false, true]",
+      "display": "purchases = [[5, 4]]\nrequests  = [[5, 5], [5, 4]]\nwindow    = 0\noutput    = [false, true]\n\nWith a window of 0 only the purchase day itself works."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the last day of the window", "input": "1 1 30\n1 0\n1 30", "expected": "[true]" },
+    { "label": "Edge 2: one day late", "input": "1 1 30\n1 0\n1 31", "expected": "[false]" },
+    { "label": "Edge 3: a refused request does not block a later one", "input": "1 3 5\n8 10\n8 50\n8 12\n8 12", "expected": "[false, true, false]" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n2 ann@a.io a.lee@b.io\n1 bob@a.io\n2 a.lee@b.io lee@c.io\n1 lee@c.io\n1 bob@a.io",
+      "expected": "[0, 1, 0, 0, 1]",
+      "display": "contacts = [[\"ann@a.io\", \"a.lee@b.io\"],\n            [\"bob@a.io\"],\n            [\"a.lee@b.io\", \"lee@c.io\"],\n            [\"lee@c.io\"],\n            [\"bob@a.io\"]]\noutput   = [0, 1, 0, 0, 1]\n\nContacts 0 and 2 share an address, and 2 and 3 share another, so 0, 2 and 3 are one person. Contacts 1 and 4 are another."
+    },
+    {
+      "label": "Example 2",
+      "input": "2\n1 x@m.co\n1 y@m.co",
+      "expected": "[0, 1]",
+      "display": "contacts = [[\"x@m.co\"],\n            [\"y@m.co\"]]\noutput   = [0, 1]\n\nNothing is shared, so every contact keeps its own number."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one contact", "input": "1\n1 solo@m.co", "expected": "[0]" },
+    { "label": "Edge 2: a later contact joins two people", "input": "3\n1 x@m.co\n1 y@m.co\n2 x@m.co y@m.co", "expected": "[0, 0, 0]" },
+    { "label": "Edge 3: everyone shares one address", "input": "3\n1 a@m.co\n2 a@m.co b@m.co\n1 a@m.co", "expected": "[0, 0, 0]" },
+    { "label": "Edge 4: a long chain, joined from the far end", "input": "4\n1 e1@m.co\n2 e2@m.co e3@m.co\n2 e3@m.co e4@m.co\n2 e4@m.co e1@m.co", "expected": "[0, 0, 0, 0]" }
+  ]
+}

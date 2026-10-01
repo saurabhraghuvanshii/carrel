@@ -1,0 +1,23 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "7 5\n1 2 6 7 7 8 20",
+      "expected": "4",
+      "display": "times  = [1, 2, 6, 7, 7, 8, 20]\nwindow = 5\noutput = 4\n\nThe stretch ending at 8 covers the times after 3: 6, 7, 7 and 8."
+    },
+    {
+      "label": "Example 2",
+      "input": "3 3\n0 3 6",
+      "expected": "1",
+      "display": "times  = [0, 3, 6]\nwindow = 3\noutput = 1\n\nThe stretch ending at 3 starts after 0, so no two errors share a stretch."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one error", "input": "1 10\n42", "expected": "1" },
+    { "label": "Edge 2: all in the same second", "input": "3 1\n4 4 4", "expected": "3" },
+    { "label": "Edge 3: far apart", "input": "3 50\n0 100 200", "expected": "1" },
+    { "label": "Edge 4: the burst is at the start", "input": "5 3\n0 1 2 50 60", "expected": "3" },
+    { "label": "Edge 5: a burst across a round time", "input": "3 3\n4 5 6", "expected": "3" }
+  ]
+}

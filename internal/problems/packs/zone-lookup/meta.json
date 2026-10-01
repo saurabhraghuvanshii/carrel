@@ -1,0 +1,12 @@
+{
+  "id": "zone-lookup",
+  "title": "Which delivery zone?",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Maps and delivery",
+  "order": 704,
+  "tags": ["binary search", "intervals", "sorting", "follow-up"],
+  "buildsOn": ["first-and-last-position", "insert-interval"],
+  "leadsTo": [],
+  "generator": "zone-lookup"
+}

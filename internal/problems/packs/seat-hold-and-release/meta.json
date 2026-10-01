@@ -1,0 +1,12 @@
+{
+  "id": "seat-hold-and-release",
+  "title": "Hold seats while the customer pays",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Scheduling and booking",
+  "order": 506,
+  "tags": ["queue", "hash map", "design", "follow-up"],
+  "buildsOn": ["best-window-sum", "ttl-cache"],
+  "leadsTo": [],
+  "generator": "seat-hold"
+}

@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "7 3\n1 1\n2 1\n1 2\n2 3\n3 2\n1 3\n2 2",
+      "expected": "[2, 2, 1]",
+      "display": "events = [[1, 1], [2, 1], [1, 2], [2, 3], [3, 2], [1, 3], [2, 2]]\nsteps  = 3\noutput = [2, 2, 1]\n\nUser 1 goes 1, 2, 3. User 2 loads step 3 too early, then reaches step 2. User 3 never loads step 1."
+    },
+    {
+      "label": "Example 2",
+      "input": "4 2\n7 1\n7 1\n7 2\n7 2",
+      "expected": "[1, 1]",
+      "display": "events = [[7, 1], [7, 1], [7, 2], [7, 2]]\nsteps  = 2\noutput = [1, 1]\n\nRepeats do not count twice."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: nobody starts", "input": "1 2\n1 2", "expected": "[0, 0]" },
+    { "label": "Edge 2: one event", "input": "1 3\n4 1", "expected": "[1, 0, 0]" },
+    { "label": "Edge 3: the steps in the wrong order", "input": "3 3\n1 3\n1 2\n1 1", "expected": "[1, 0, 0]" },
+    { "label": "Edge 4: a late start still counts", "input": "3 2\n1 2\n1 1\n1 2", "expected": "[1, 1]" }
+  ]
+}

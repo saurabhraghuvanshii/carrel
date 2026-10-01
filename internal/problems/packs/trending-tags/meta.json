@@ -1,0 +1,12 @@
+{
+  "id": "trending-tags",
+  "title": "Trending tags",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Search and text",
+  "order": 603,
+  "tags": ["hash map", "sliding window", "sorting", "follow-up"],
+  "buildsOn": ["most-frequent-items", "best-window-sum"],
+  "leadsTo": [],
+  "generator": "trending-tags"
+}

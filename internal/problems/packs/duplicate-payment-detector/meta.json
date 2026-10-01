@@ -1,0 +1,12 @@
+{
+  "id": "duplicate-payment-detector",
+  "title": "Double charges",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Orders and payments",
+  "order": 304,
+  "tags": ["hash map", "stream", "follow-up"],
+  "buildsOn": ["spot-the-duplicate", "pair-with-target-sum"],
+  "leadsTo": [],
+  "generator": "duplicate-payments"
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="paper" data-accent="brick">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found, Carrel</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="{{site_url}}/favicon.ico" sizes="32x32">
+<link rel="icon" href="{{site_url}}/favicon.svg" type="image/svg+xml">
+<script>
+(function () {
+  var r = document.documentElement, t = null, a = null;
+  r.setAttribute('data-theme-js', '');
+  try { t = localStorage.getItem('carrel-theme'); a = localStorage.getItem('carrel-accent'); } catch (e) {}
+  if (t !== 'paper' && t !== 'ink') t = window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'ink' : 'paper';
+  r.setAttribute('data-theme', t);
+  if (['brick', 'forest', 'amber', 'slate', 'plum'].indexOf(a) >= 0) r.setAttribute('data-accent', a);
+})();
+</script>
+<link rel="stylesheet" href="{{site_url}}/site.css">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<!-- include: partials/header.html -->
+<main id="top">
+  <section class="sec nf" id="content">
+    <div class="wrap">
+      <h1 class="serif hero-h1">This page is not here.</h1>
+      <p class="lead"><a href="{{site_url}}/">Go back to the start.</a></p>
+      <p class="nf-btn"><a class="btn primary" href="{{site_url}}/">Back to Carrel</a></p>
+    </div>
+  </section>
+</main>
+<!-- include: partials/footer.html -->
+</body>
+</html>

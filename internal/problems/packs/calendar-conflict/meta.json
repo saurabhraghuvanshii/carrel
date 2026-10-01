@@ -1,0 +1,12 @@
+{
+  "id": "calendar-conflict",
+  "title": "Clashes with a new meeting",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Scheduling and booking",
+  "order": 501,
+  "tags": ["intervals", "follow-up"],
+  "buildsOn": ["meeting-conflict"],
+  "leadsTo": [],
+  "generator": "calendar-conflict"
+}

@@ -1,0 +1,23 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "9\nnew 6 10\nhold 1 2 0\nhold 2 3 1\nhold 3 2 2\nfreeSeats 2\nbuy 1 5\nfreeSeats 11\nbuy 2 11\nhold 3 2 11",
+      "expected": "null 0 2 -1 1 true 4 false 2",
+      "display": "calls   = SeatHolder(6, 10), hold(1, 2, 0), hold(2, 3, 1),\n          hold(3, 2, 2), freeSeats(2), buy(1, 5),\n          freeSeats(11), buy(2, 11), hold(3, 2, 11)\nresults = null, 0, 2, -1, 1, true, 4, false, 2\n\nUser 3 finds no two free seats side by side at time 2. User 2 does not pay, so at time 11 seats 2 to 4 are free again and the late buy fails."
+    },
+    {
+      "label": "Example 2",
+      "input": "7\nnew 4 100\nhold 1 1 0\nhold 2 1 0\nhold 3 1 0\nrelease 1 1\nhold 4 2 1\nfreeSeats 1",
+      "expected": "null 0 1 2 true -1 2",
+      "display": "calls   = SeatHolder(4, 100), hold(1, 1, 0), hold(2, 1, 0),\n          hold(3, 1, 0), release(1, 1), hold(4, 2, 1),\n          freeSeats(1)\nresults = null, 0, 1, 2, true, -1, 2\n\nAfter the release, seats 0 and 3 are free, but they are not side by side."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: a second hold for the same user", "input": "4\nnew 5 10\nhold 1 1 0\nhold 1 1 0\nfreeSeats 0", "expected": "null 0 -1 4" },
+    { "label": "Edge 2: the last moment of a hold", "input": "8\nnew 2 5\nhold 1 2 0\nbuy 1 4\nhold 2 1 4\nnew 2 5\nhold 1 2 0\nbuy 1 5\nhold 2 1 5", "expected": "null 0 true -1 null 0 false 0" },
+    { "label": "Edge 3: more seats than the row has", "input": "3\nnew 3 1\nhold 1 4 0\nhold 1 3 0", "expected": "null -1 0" },
+    { "label": "Edge 4: sold seats never come back", "input": "5\nnew 2 1\nhold 1 2 0\nbuy 1 0\nfreeSeats 50\nrelease 1 50", "expected": "null 0 true 0 false" },
+    { "label": "Edge 5: a new hold after the old one ran out", "input": "5\nnew 3 2\nhold 1 1 0\nhold 1 1 2\nhold 2 2 3\nfreeSeats 4", "expected": "null 0 0 1 1" }
+  ]
+}

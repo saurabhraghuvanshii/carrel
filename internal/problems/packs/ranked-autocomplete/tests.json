@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "10\nnew\nadd car 5\nadd card 3\nadd care 5\nadd cat 1\nsuggest ca\nadd cat 9\nsuggest ca\nsuggest card\nsuggest d",
+      "expected": "null null null null null [\"car\", \"care\", \"card\"] null [\"cat\", \"car\", \"care\"] [\"card\"] []",
+      "display": "calls   = Autocomplete(), add(car, 5), add(card, 3),\n          add(care, 5), add(cat, 1), suggest(ca), add(cat, 9),\n          suggest(ca), suggest(card), suggest(d)\nresults = null, null, null, null, null,\n          [\"car\", \"care\", \"card\"], null,\n          [\"cat\", \"car\", \"care\"], [\"card\"], []\n\n\"car\" and \"care\" tie on 5, so \"car\" is first. After \"cat\" rises to 10 it takes the lead and \"card\" drops off the list of three."
+    },
+    {
+      "label": "Example 2",
+      "input": "6\nnew\nadd tea 2\nadd team 3\nadd tea 2\nsuggest tea\nsuggest team",
+      "expected": "null null null null [\"tea\", \"team\"] [\"team\"]",
+      "display": "calls   = Autocomplete(), add(tea, 2), add(team, 3),\n          add(tea, 2), suggest(tea), suggest(team)\nresults = null, null, null, null, [\"tea\", \"team\"], [\"team\"]\n\nThe two adds for \"tea\" give it 4, ahead of \"team\" on 3."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: suggest with no words", "input": "2\nnew\nsuggest a", "expected": "null []" },
+    { "label": "Edge 2: fewer than three matches", "input": "5\nnew\nadd ox 1\nadd owl 1\nsuggest o\nsuggest ow", "expected": "null null null [\"owl\", \"ox\"] [\"owl\"]" },
+    { "label": "Edge 3: four words tie", "input": "6\nnew\nadd bd 2\nadd bb 2\nadd bc 2\nadd ba 2\nsuggest b", "expected": "null null null null null [\"ba\", \"bb\", \"bc\"]" },
+    { "label": "Edge 4: a word climbs back onto the list", "input": "8\nnew\nadd ma 5\nadd mb 4\nadd mc 3\nadd md 1\nsuggest m\nadd md 3\nsuggest m", "expected": "null null null null null [\"ma\", \"mb\", \"mc\"] null [\"ma\", \"mb\", \"md\"]" }
+  ]
+}

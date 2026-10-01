@@ -1,0 +1,12 @@
+{
+  "id": "meeting-room-booking",
+  "title": "Book a meeting room",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Scheduling and booking",
+  "order": 502,
+  "tags": ["intervals", "ordered map", "design", "follow-up"],
+  "buildsOn": ["rooms-needed", "insert-interval"],
+  "leadsTo": [],
+  "generator": "room-booking"
+}

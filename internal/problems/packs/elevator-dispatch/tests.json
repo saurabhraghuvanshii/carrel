@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "11\nnew 10\ncall 5\ncall 2\ncall 8\nnext\nnext\ncall 1\nnext\nnext\nnext\ntravelled",
+      "expected": "null null null null 2 5 null 8 1 -1 15",
+      "display": "calls   = Elevator(10), call(5), call(2), call(8), next(),\n          next(), call(1), next(), next(), next(), travelled()\nresults = null, null, null, null, 2, 5, null, 8, 1, -1, 15\n\nGoing up, the lift stops at 2 and 5. Floor 1 is called while it is at 5, but it finishes going up to 8 first, then turns round. It moves 8 floors up and 7 down."
+    },
+    {
+      "label": "Example 2",
+      "input": "8\nnew 10\ncall 4\nnext\ncall 3\ncall 6\nnext\nnext\ntravelled",
+      "expected": "null null 4 null null 6 3 9",
+      "display": "calls   = Elevator(10), call(4), next(), call(3), call(6),\n          next(), next(), travelled()\nresults = null, null, 4, null, null, 6, 3, 9\n\nAt floor 4, floor 3 is nearer than floor 6, but the lift is heading up, so it takes 6 first."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: a call for the current floor", "input": "4\nnew 5\ncall 0\nnext\ntravelled", "expected": "null null -1 0" },
+    { "label": "Edge 2: the same floor called twice", "input": "5\nnew 5\ncall 3\ncall 3\nnext\nnext", "expected": "null null null 3 -1" },
+    { "label": "Edge 3: turning round twice", "input": "8\nnew 6\ncall 5\nnext\ncall 1\nnext\ncall 4\nnext\ntravelled", "expected": "null null 5 null 1 null 4 12" },
+    { "label": "Edge 4: an idle lift keeps its direction", "input": "9\nnew 9\ncall 6\nnext\ncall 2\nnext\nnext\ncall 1\ncall 5\nnext", "expected": "null null 6 null 2 -1 null null 1" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "elevator-dispatch",
+  "title": "Where does the lift stop next?",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Scheduling and booking",
+  "order": 505,
+  "tags": ["ordered set", "simulation", "design", "follow-up"],
+  "buildsOn": ["first-and-last-position"],
+  "leadsTo": [],
+  "generator": "elevator"
+}

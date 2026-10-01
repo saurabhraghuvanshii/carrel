@@ -13,6 +13,7 @@ make build        # builds ./carrel
 make test         # go test ./...
 make vet          # go vet ./...
 make check-packs  # reference solutions in tools/refs must pass every pack
+make site         # builds the website into site/dist (make site-serve to preview)
 ./carrel doctor      # shows which compilers are installed
 ./carrel --no-open --port 7777
 ```
@@ -32,6 +33,9 @@ internal/runner/         compile once, run all cases in one process, time limits
 internal/store/          solutions and progress as plain files
 internal/config/         ~/.carrel/config.json (owner-only; holds the AI key)
 internal/ai/             Anthropic, OpenAI, Ollama; explain-only by default
+site/                    public website source (built with `make site`)
+tools/sitebuild/         Go tool that assembles site/src into site/dist
+scripts/                 install.sh and install.ps1 served by the website
 ```
 
 ## Rules for this codebase

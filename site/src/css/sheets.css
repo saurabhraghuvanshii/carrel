@@ -1,0 +1,41 @@
+.sheets-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 64px; align-items: center; }
+.sheets-strong { color: var(--ink); font-weight: 600; }
+.sheets-lead2 { margin-top: 14px; }
+.sheets-note { margin: 18px 0 0; font-size: 15px; color: var(--muted); }
+.sheets-card { margin: 0; overflow: hidden; }
+.sheets-tabs { position: relative; display: flex; border-bottom: 1px solid var(--line); }
+.sheets-tab { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 44px; color: var(--ink); font-size: 15px; font-weight: 500; }
+.sheets-line { position: absolute; left: 0; bottom: -1px; width: 50%; height: 2px; background: var(--accent); animation: kTab 10s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+.sheets-body { display: grid; padding: 8px 20px 16px; min-height: 280px; align-content: start; }
+.sheets-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--soft); }
+.sheets-text { min-width: 0; }
+.sheets-title { font-size: 16px; color: var(--ink); line-height: 1.45; }
+.sheets-group { font-size: 12px; color: var(--muted); }
+.sheets-meta { display: flex; align-items: center; gap: 12px; flex: none; }
+.panelA { grid-area: 1 / 1; animation: kPanelA 10s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+.panelB { grid-area: 1 / 1; opacity: 0; transform: translateX(24px); animation: kPanelB 10s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+.rowB { opacity: 0; animation: kRowIn 10s cubic-bezier(0.2, 0.7, 0.2, 1) infinite; }
+
+@keyframes kTab {
+  0%, 45% { transform: translateX(0); }
+  50%, 95% { transform: translateX(100%); }
+  100% { transform: translateX(0); }
+}
+@keyframes kPanelA {
+  0%, 44% { opacity: 1; transform: none; }
+  50%, 94% { opacity: 0; transform: translateX(-24px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes kPanelB {
+  0%, 44% { opacity: 0; transform: translateX(24px); }
+  50%, 94% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateX(24px); }
+}
+@keyframes kRowIn {
+  0%, 46% { opacity: 0; transform: translateX(16px); }
+  52%, 94% { opacity: 1; transform: none; }
+  98%, 100% { opacity: 0; transform: translateX(16px); }
+}
+@media (max-width: 800px) {
+  .sheets-body { padding: 8px 16px 12px; }
+}

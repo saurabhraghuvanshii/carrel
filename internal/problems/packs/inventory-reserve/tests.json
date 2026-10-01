@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "11\nnew\nadd 1 10\nreserve 100 1 4\navailable 1\nreserve 101 1 7\ncancel 100\navailable 1\nreserve 101 1 7\nconfirm 101\navailable 1\ncancel 101",
+      "expected": "null null true 6 false true 10 true true 3 false",
+      "display": "calls   = Inventory(), add(1, 10), reserve(100, 1, 4),\n          available(1), reserve(101, 1, 7), cancel(100),\n          available(1), reserve(101, 1, 7), confirm(101),\n          available(1), cancel(101)\nresults = null, null, true, 6, false, true, 10, true, true, 3,\n          false\n\nOrder 101 cannot get 7 units while order 100 holds 4 of the 10. After the confirm, 3 units are left and order 101 has no hold to cancel."
+    },
+    {
+      "label": "Example 2",
+      "input": "7\nnew\nadd 5 3\nreserve 1 5 1\nreserve 1 5 1\nconfirm 1\nreserve 1 5 1\navailable 5",
+      "expected": "null null true false true true 1",
+      "display": "calls   = Inventory(), add(5, 3), reserve(1, 5, 1),\n          reserve(1, 5, 1), confirm(1), reserve(1, 5, 1),\n          available(5)\nresults = null, null, true, false, true, true, 1\n\nAn order can hold only one thing at a time, but may reserve again after it is confirmed."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: an item that was never added", "input": "3\nnew\nreserve 1 9 1\navailable 9", "expected": "null false 0" },
+    { "label": "Edge 2: reserve the last units", "input": "5\nnew\nadd 2 5\nreserve 7 2 5\navailable 2\nreserve 8 2 1", "expected": "null null true 0 false" },
+    { "label": "Edge 3: cancel and confirm with no hold", "input": "3\nnew\ncancel 3\nconfirm 3", "expected": "null false false" },
+    { "label": "Edge 4: a failed reserve leaves no hold", "input": "5\nnew\nadd 1 1\nreserve 4 1 2\ncancel 4\navailable 1", "expected": "null null false false 1" }
+  ]
+}

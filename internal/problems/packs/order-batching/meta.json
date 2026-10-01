@@ -1,0 +1,12 @@
+{
+  "id": "order-batching",
+  "title": "Smallest van for the orders",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Orders and payments",
+  "order": 305,
+  "tags": ["binary search", "greedy", "follow-up"],
+  "buildsOn": ["eating-speed"],
+  "leadsTo": [],
+  "generator": "order-batching"
+}

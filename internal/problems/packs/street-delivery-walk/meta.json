@@ -1,0 +1,12 @@
+{
+  "id": "street-delivery-walk",
+  "title": "Shortest walk along a street",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Maps and delivery",
+  "order": 703,
+  "tags": ["greedy", "math", "follow-up"],
+  "buildsOn": ["pair-gaps"],
+  "leadsTo": [],
+  "generator": "street-walk"
+}

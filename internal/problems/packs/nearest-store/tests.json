@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3 5\n10 2 25\n0 6 12 30 17",
+      "expected": "[2, 4, 2, 5, 7]",
+      "display": "stores    = [10, 2, 25]\ncustomers = [0, 6, 12, 30, 17]\noutput    = [2, 4, 2, 5, 7]\n\nThe customer at 6 is 4 away from both 2 and 10. The customer at 17 is 7 from the store at 10 and 8 from the one at 25."
+    },
+    {
+      "label": "Example 2",
+      "input": "1 3\n5\n5 0 9",
+      "expected": "[0, 5, 4]",
+      "display": "stores    = [5]\ncustomers = [5, 0, 9]\noutput    = [0, 5, 4]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: both ends of the road", "input": "2 3\n0 1000000000\n1000000000 0 500000000", "expected": "[0, 0, 500000000]" },
+    { "label": "Edge 2: stores at the same place", "input": "3 2\n7 7 7\n1 7", "expected": "[6, 0]" },
+    { "label": "Edge 3: every customer left of every store", "input": "2 2\n50 40\n3 39", "expected": "[37, 1]" },
+    { "label": "Edge 4: every customer right of every store", "input": "2 2\n1 2\n2 90", "expected": "[0, 88]" }
+  ]
+}

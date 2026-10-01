@@ -1,0 +1,12 @@
+{
+  "id": "courier-assignment",
+  "title": "Assign couriers to orders",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Maps and delivery",
+  "order": 705,
+  "tags": ["dynamic programming", "sorting", "follow-up"],
+  "buildsOn": ["pair-gaps", "common-subsequence"],
+  "leadsTo": [],
+  "generator": "courier-assignment"
+}

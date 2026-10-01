@@ -1,0 +1,12 @@
+{
+  "id": "job-order-with-deps",
+  "title": "When does the build finish?",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Scheduling and booking",
+  "order": 503,
+  "tags": ["graph", "topological sort", "follow-up"],
+  "buildsOn": ["course-order"],
+  "leadsTo": [],
+  "generator": "job-deps"
+}

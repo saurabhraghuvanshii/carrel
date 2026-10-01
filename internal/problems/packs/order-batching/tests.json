@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 3\n4 8 2 6 5",
+      "expected": "11",
+      "display": "weights = [4, 8, 2, 6, 5]\nk       = 3\noutput  = 11\n\nWith capacity 11 the vans take [4], [8, 2] and [6, 5]. Capacity 10 needs four vans."
+    },
+    {
+      "label": "Example 2",
+      "input": "3 1\n3 3 3",
+      "expected": "9",
+      "display": "weights = [3, 3, 3]\nk       = 1\noutput  = 9\n\nOne van must take everything."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one order", "input": "1 1\n7", "expected": "7" },
+    { "label": "Edge 2: a van for every order", "input": "3 3\n5 9 2", "expected": "9" },
+    { "label": "Edge 3: more vans do not help below the heaviest order", "input": "3 3\n1 10 1", "expected": "10" },
+    { "label": "Edge 4: equal weights", "input": "10 4\n2 2 2 2 2 2 2 2 2 2", "expected": "6" }
+  ]
+}

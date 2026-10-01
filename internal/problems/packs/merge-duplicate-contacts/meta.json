@@ -1,0 +1,12 @@
+{
+  "id": "merge-duplicate-contacts",
+  "title": "Merge duplicate contacts",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Search and text",
+  "order": 605,
+  "tags": ["union-find", "hash map", "graph", "follow-up"],
+  "buildsOn": ["extra-link", "provinces"],
+  "leadsTo": [],
+  "generator": "merge-contacts"
+}

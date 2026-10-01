@@ -1,0 +1,12 @@
+{
+  "id": "session-splitter",
+  "title": "Split events into sessions",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Logs and analytics",
+  "order": 403,
+  "tags": ["hash map", "sorting", "follow-up"],
+  "buildsOn": ["group-by-letters", "merge-intervals"],
+  "leadsTo": [],
+  "generator": "sessions"
+}

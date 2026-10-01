@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "8\nnew 2\nbook 0 10\nbook 5 8\nbook 9 12\nbook 6 9\ncancel 0 0\nbook 6 9\ncancel 1 7",
+      "expected": "null 0 1 1 -1 true 0 false",
+      "display": "calls   = RoomBooker(2), book(0, 10), book(5, 8), book(9, 12),\n          book(6, 9), cancel(0, 0), book(6, 9), cancel(1, 7)\nresults = null, 0, 1, 1, -1, true, 0, false\n\nRoom 1 is free again from 8, so [9, 12) fits there. [6, 9) fits nowhere until the long booking in room 0 is cancelled. Room 1 has no booking that starts at 7."
+    },
+    {
+      "label": "Example 2",
+      "input": "4\nnew 1\nbook 3 5\nbook 5 7\nbook 4 6",
+      "expected": "null 0 0 -1",
+      "display": "calls   = RoomBooker(1), book(3, 5), book(5, 7), book(4, 6)\nresults = null, 0, 0, -1\n\n[5, 7) starts as [3, 5) ends, so they share the room. [4, 6) overlaps both."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: cancel with no bookings", "input": "2\nnew 1\ncancel 0 0", "expected": "null false" },
+    { "label": "Edge 2: booked out of time order", "input": "5\nnew 1\nbook 10 20\nbook 0 5\nbook 5 10\nbook 4 11", "expected": "null 0 0 0 -1" },
+    { "label": "Edge 3: a booking inside another", "input": "4\nnew 2\nbook 0 100\nbook 40 50\nbook 45 46", "expected": "null 0 1 -1" },
+    { "label": "Edge 4: cancel needs the right room", "input": "5\nnew 2\nbook 1 2\ncancel 1 1\ncancel 0 1\ncancel 0 1", "expected": "null 0 false true false" }
+  ]
+}

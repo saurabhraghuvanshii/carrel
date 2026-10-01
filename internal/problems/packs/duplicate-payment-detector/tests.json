@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 10\n0 1 7 500\n4 1 7 500\n12 1 7 500\n13 2 7 500\n30 1 7 500",
+      "expected": "[1, 2]",
+      "display": "payments = [[0, 1, 7, 500], [4, 1, 7, 500], [12, 1, 7, 500], [13, 2, 7, 500], [30, 1, 7, 500]]\nwindow   = 10\noutput   = [1, 2]\n\nPayment 2 is 8 seconds after payment 1, so it is flagged even though payment 0 was 12 seconds before it. Payment 3 is another user. Payment 4 comes 18 seconds after payment 2."
+    },
+    {
+      "label": "Example 2",
+      "input": "3 60\n5 1 1 100\n6 1 2 100\n7 1 1 200",
+      "expected": "[]",
+      "display": "payments = [[5, 1, 1, 100], [6, 1, 2, 100], [7, 1, 1, 200]]\nwindow   = 60\noutput   = []\n\nThe merchant or the amount differs each time."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one payment", "input": "1 5\n0 0 0 1", "expected": "[]" },
+    { "label": "Edge 2: the same second, window 0", "input": "2 0\n3 1 1 50\n3 1 1 50", "expected": "[1]" },
+    { "label": "Edge 3: exactly the window apart", "input": "3 10\n0 1 1 50\n10 1 1 50\n21 1 1 50", "expected": "[1]" },
+    { "label": "Edge 4: another payment in between", "input": "3 5\n0 1 1 50\n1 1 1 60\n2 1 1 50", "expected": "[2]" }
+  ]
+}

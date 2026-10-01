@@ -1,0 +1,12 @@
+{
+  "id": "ranked-autocomplete",
+  "title": "Ranked autocomplete",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Search and text",
+  "order": 604,
+  "tags": ["trie", "design", "sorting", "follow-up"],
+  "buildsOn": ["prefix-tree", "most-frequent-items"],
+  "leadsTo": [],
+  "generator": "autocomplete"
+}

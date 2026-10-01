@@ -25,7 +25,7 @@ func replay(t *testing.T, name string, n int, step func(newArgs []int) func(call
 			seen[r] = true
 		}
 	}
-	if name != "lfu-cache" && name != "ttl-cache" && (!seen["true"] || !seen["false"]) {
+	if seen["true"] != seen["false"] {
 		t.Fatal("both answers must appear")
 	}
 }

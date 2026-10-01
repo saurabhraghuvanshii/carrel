@@ -1,0 +1,12 @@
+{
+  "id": "geofence-check",
+  "title": "Entering the delivery zone",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Maps and delivery",
+  "order": 702,
+  "tags": ["simulation", "geometry", "follow-up"],
+  "buildsOn": ["squash-repeats"],
+  "leadsTo": [],
+  "generator": "geofence"
+}

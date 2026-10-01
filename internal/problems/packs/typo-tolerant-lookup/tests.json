@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 5\ncat cot car dog cart\ncat cut dot cart ca",
+      "expected": "[3, 2, 2, 1, 0]",
+      "display": "words   = [\"cat\", \"cot\", \"car\", \"dog\", \"cart\"]\nqueries = [\"cat\", \"cut\", \"dot\", \"cart\", \"ca\"]\noutput  = [3, 2, 2, 1, 0]\n\n\"cat\" matches cat, cot and car. \"cut\" matches cat and cot. \"dot\" matches cot and dog. \"cart\" matches only itself, because \"car\" has another length."
+    },
+    {
+      "label": "Example 2",
+      "input": "3 2\naa ab ba\naa bb",
+      "expected": "[3, 2]",
+      "display": "words   = [\"aa\", \"ab\", \"ba\"]\nqueries = [\"aa\", \"bb\"]\noutput  = [3, 2]\n\n\"bb\" is one letter away from \"ab\" and from \"ba\", but two away from \"aa\"."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one-letter words", "input": "2 2\na b\nc a", "expected": "[2, 2]" },
+    { "label": "Edge 2: no match", "input": "1 2\ntree\nbush tr", "expected": "[0, 0]" },
+    { "label": "Edge 3: an exact match counts once", "input": "1 2\nlevel\nlevel lever", "expected": "[1, 1]" },
+    { "label": "Edge 4: many near words", "input": "5 2\naaa aab aba baa abb\naaa bbb", "expected": "[4, 1]" }
+  ]
+}

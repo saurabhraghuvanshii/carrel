@@ -16,3 +16,7 @@ tools/vendor/node_modules/
 # Private context files
 START-HERE.md
 CONTEXT-ALL-IN-ONE.md
+
+# Website build output and QA screenshots
+site/dist/
+site/qa/

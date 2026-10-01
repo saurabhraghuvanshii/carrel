@@ -1,0 +1,10 @@
+.why-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 72px; }
+.why-letter { font-size: 20px; line-height: 1.7; color: var(--body); }
+.why-letter p { margin: 0 0 20px; }
+.why-letter p:nth-last-child(2) { margin-bottom: 24px; }
+.why-letter .why-sign { margin: 0; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 17px; color: var(--ink); }
+
+@media (max-width: 800px) {
+  .why-letter p { font-size: 18px; }
+  .why-letter .why-sign { font-size: 17px; }
+}

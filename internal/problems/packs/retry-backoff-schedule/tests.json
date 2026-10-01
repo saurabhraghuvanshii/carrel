@@ -1,0 +1,23 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "2 10 30",
+      "expected": "5",
+      "display": "base     = 2\ncap      = 10\ndeadline = 30\noutput   = 5\n\nWaits 2, 4, 8, 10, 10: attempts start at 0, 2, 6, 14, 24 and 34. Five are in time."
+    },
+    {
+      "label": "Example 2",
+      "input": "5 3 9",
+      "expected": "4",
+      "display": "base     = 5\ncap      = 3\ndeadline = 9\noutput   = 4\n\nThe cap is below the base, so every wait is 3: attempts at 0, 3, 6 and 9."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: deadline 0", "input": "7 9 0", "expected": "1" },
+    { "label": "Edge 2: a very long deadline", "input": "1 1 1000000000000000000", "expected": "1000000000000000001" },
+    { "label": "Edge 3: the largest waits", "input": "1000000000 1000000000 1000000000000000000", "expected": "1000000001" },
+    { "label": "Edge 4: doubling all the way to the cap", "input": "1 1000000000 1000000000000000000", "expected": "1000000029" },
+    { "label": "Edge 5: the next attempt lands exactly on the deadline", "input": "3 100 9", "expected": "3" }
+  ]
+}

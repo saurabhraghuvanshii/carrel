@@ -1,0 +1,17 @@
+.skip { position: absolute; left: 16px; top: -100px; z-index: 20; padding: 10px 16px; background: var(--accent); color: var(--on-accent); border-radius: 6px; text-decoration: none; font-weight: 500; }
+.skip:focus { top: 12px; }
+
+.site-header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--soft); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-word { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-weight: 500; font-size: 16px; color: var(--ink); }
+.site-nav { display: flex; align-items: center; gap: 28px; font-size: 15px; }
+.site-nav a:not(.btn), .site-footer nav a { text-decoration: none; }
+.site-nav a:not(.btn):hover, .site-footer nav a:hover { color: var(--accent); }
+
+.site-footer { border-top: 1px solid var(--soft); padding: 36px 0 48px; }
+.site-footer .wrap { display: flex; align-items: flex-start; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.foot-brand { max-width: 420px; }
+.foot-brand .brand-word { font-size: 15px; }
+.foot-note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+.site-footer nav { display: flex; gap: 28px; font-size: 15px; flex-wrap: wrap; }
