@@ -1,0 +1,12 @@
+{
+  "id": "running-median",
+  "title": "Running median",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 807,
+  "tags": ["heap", "design"],
+  "buildsOn": ["merge-sorted-streams"],
+  "leadsTo": [],
+  "generator": "running-median"
+}

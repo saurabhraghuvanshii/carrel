@@ -1,0 +1,12 @@
+{
+  "id": "smash-the-heaviest",
+  "title": "Smash the heaviest stones",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 802,
+  "tags": ["heap", "simulation"],
+  "buildsOn": ["kth-largest"],
+  "leadsTo": ["rope-joining-cost"],
+  "generator": "smash-stones"
+}

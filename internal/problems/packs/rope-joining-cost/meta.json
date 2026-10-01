@@ -1,0 +1,12 @@
+{
+  "id": "rope-joining-cost",
+  "title": "Cheapest way to join ropes",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 803,
+  "tags": ["heap", "greedy"],
+  "buildsOn": ["smash-the-heaviest"],
+  "leadsTo": ["closest-points"],
+  "generator": "rope-cost"
+}

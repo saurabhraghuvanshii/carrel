@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4\n3 5 9 4",
+      "expected": "3",
+      "display": "stones = [3, 5, 9, 4]\noutput = 3\n\n9 and 5 leave 4. 4 and 4 destroy each other. 3 is left."
+    },
+    {
+      "label": "Example 2",
+      "input": "2\n6 6",
+      "expected": "0",
+      "display": "stones = [6, 6]\noutput = 0"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one stone", "input": "1\n7", "expected": "7" },
+    { "label": "Edge 2: three equal stones", "input": "3\n1 1 1", "expected": "1" },
+    { "label": "Edge 3: a stone smashed twice", "input": "3\n10 4 2", "expected": "4" }
+  ]
+}

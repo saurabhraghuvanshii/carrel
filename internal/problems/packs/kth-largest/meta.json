@@ -1,0 +1,12 @@
+{
+  "id": "kth-largest",
+  "title": "Kth largest value",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 801,
+  "tags": ["heap"],
+  "buildsOn": ["most-frequent-items"],
+  "leadsTo": ["smash-the-heaviest"],
+  "generator": "kth-largest"
+}

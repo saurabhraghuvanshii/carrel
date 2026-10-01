@@ -1,0 +1,12 @@
+{
+  "id": "cooldown-scheduler",
+  "title": "Tasks with a cooldown",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 805,
+  "tags": ["heap", "greedy", "counting"],
+  "buildsOn": ["closest-points"],
+  "leadsTo": ["merge-sorted-streams"],
+  "generator": "cooldown"
+}

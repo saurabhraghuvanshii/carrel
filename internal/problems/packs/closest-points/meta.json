@@ -1,0 +1,12 @@
+{
+  "id": "closest-points",
+  "title": "Closest points to the origin",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 804,
+  "tags": ["heap"],
+  "buildsOn": ["rope-joining-cost"],
+  "leadsTo": ["cooldown-scheduler"],
+  "generator": "closest-points"
+}

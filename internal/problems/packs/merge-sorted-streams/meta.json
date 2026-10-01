@@ -1,0 +1,12 @@
+{
+  "id": "merge-sorted-streams",
+  "title": "Merge k sorted lists",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Heap",
+  "order": 806,
+  "tags": ["heap"],
+  "buildsOn": ["cooldown-scheduler", "merge-two-lists"],
+  "leadsTo": ["running-median"],
+  "generator": "merge-k"
+}

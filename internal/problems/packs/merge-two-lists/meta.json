@@ -7,6 +7,6 @@
   "order": 602,
   "tags": ["linked list"],
   "buildsOn": ["reverse-list", "merge-sorted-lists-in-place"],
-  "leadsTo": ["middle-of-list"],
+  "leadsTo": ["middle-of-list", "merge-sorted-streams"],
   "generator": "merge-lists"
 }

@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\n7 1 9 4 9 2\n2",
+      "expected": "9",
+      "display": "nums   = [7, 1, 9, 4, 9, 2]\nk      = 2\noutput = 9\n\nFrom largest: 9, 9, 7, 4, 2, 1."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n5 3 8\n3",
+      "expected": "3",
+      "display": "nums   = [5, 3, 8]\nk      = 3\noutput = 3"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value", "input": "1\n4\n1", "expected": "4" },
+    { "label": "Edge 2: negative values", "input": "4\n-1 -5 -3 -2\n2", "expected": "-2" },
+    { "label": "Edge 3: all equal", "input": "3\n6 6 6\n2", "expected": "6" }
+  ]
+}

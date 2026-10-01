@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\nnew\nadd 5\nadd 15\nmedian\nadd 1\nmedian",
+      "expected": "null null null 10.0 null 5.0",
+      "display": "calls   = MedianFinder(), add(5), add(15), median(), add(1), median()\nresults = null, null, null, 10.0, null, 5.0"
+    },
+    {
+      "label": "Example 2",
+      "input": "5\nnew\nadd -2\nmedian\nadd -3\nmedian",
+      "expected": "null null -2.0 null -2.5",
+      "display": "calls   = MedianFinder(), add(-2), median(), add(-3), median()\nresults = null, null, -2.0, null, -2.5"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: equal numbers", "input": "4\nnew\nadd 7\nadd 7\nmedian", "expected": "null null null 7.0" },
+    { "label": "Edge 2: one far value", "input": "7\nnew\nadd 1\nadd 2\nadd 3\nadd 4\nadd 100\nmedian", "expected": "null null null null null null 3.0" },
+    { "label": "Edge 3: zero", "input": "3\nnew\nadd 0\nmedian", "expected": "null null 0.0" }
+  ]
+}

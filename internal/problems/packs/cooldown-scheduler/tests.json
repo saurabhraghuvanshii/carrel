@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "AAABC\n2",
+      "expected": "7",
+      "display": "tasks  = \"AAABC\"\nn      = 2\noutput = 7\n\nA B C A idle idle A"
+    },
+    {
+      "label": "Example 2",
+      "input": "ABCD\n3",
+      "expected": "4",
+      "display": "tasks  = \"ABCD\"\nn      = 3\noutput = 4\n\nNo letter repeats, so there is no waiting."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: no cooldown", "input": "AAA\n0", "expected": "3" },
+    { "label": "Edge 2: one letter, long cooldown", "input": "AA\n5", "expected": "7" },
+    { "label": "Edge 3: two letters fill the gaps", "input": "AABB\n1", "expected": "4" }
+  ]
+}
