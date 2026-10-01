@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "13",
+      "expected": "3",
+      "display": "n      = 13\noutput = 3\n\n13 is 1101 in binary."
+    },
+    {
+      "label": "Example 2",
+      "input": "-1",
+      "expected": "32",
+      "display": "n      = -1\noutput = 32\n\nIn two's complement, −1 is 32 ones."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: zero", "input": "0", "expected": "0" },
+    { "label": "Edge 2: the smallest value", "input": "-2147483648", "expected": "1" },
+    { "label": "Edge 3: the largest value", "input": "2147483647", "expected": "31" },
+    { "label": "Edge 4: a small negative", "input": "-8", "expected": "29" }
+  ]
+}

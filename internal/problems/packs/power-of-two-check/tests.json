@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "64",
+      "expected": "true",
+      "display": "n      = 64\noutput = true\n\n64 = 2⁶."
+    },
+    {
+      "label": "Example 2",
+      "input": "12",
+      "expected": "false",
+      "display": "n      = 12\noutput = false\n\n12 is 1100 in binary: two 1 bits."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one is 2⁰", "input": "1", "expected": "true" },
+    { "label": "Edge 2: zero", "input": "0", "expected": "false" },
+    { "label": "Edge 3: the smallest value has one 1 bit", "input": "-2147483648", "expected": "false" },
+    { "label": "Edge 4: the largest power", "input": "1073741824", "expected": "true" }
+  ]
+}

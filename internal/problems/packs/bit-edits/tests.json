@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "10 5\nget 1\nset 0\nclear 3\nupdate 2 1\nget 3",
+      "expected": "[1, 11, 3, 7, 0]",
+      "display": "n      = 10\nops    = get 1\n         set 0\n         clear 3\n         update 2 1\n         get 3\noutput = [1, 11, 3, 7, 0]\n\n10 is 1010. Bit 1 is 1. Setting bit 0 gives 1011 = 11, clearing bit 3 gives 0011 = 3, and setting bit 2 gives 0111 = 7."
+    },
+    {
+      "label": "Example 2",
+      "input": "0 3\nset 30\nget 30\nupdate 30 0",
+      "expected": "[1073741824, 1, 0]",
+      "display": "n      = 0\nops    = set 30\n         get 30\n         update 30 0\noutput = [1073741824, 1, 0]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: clear a bit that is already 0", "input": "5 1\nclear 1", "expected": "[5]" },
+    { "label": "Edge 2: set a bit that is already 1", "input": "5 1\nset 2", "expected": "[5]" },
+    { "label": "Edge 3: update to the same value", "input": "6 2\nupdate 1 1\nupdate 0 0", "expected": "[6, 6]" },
+    { "label": "Edge 4: clear a high bit", "input": "2147483647 2\nclear 30\nclear 0", "expected": "[1073741823, 1073741822]" }
+  ]
+}

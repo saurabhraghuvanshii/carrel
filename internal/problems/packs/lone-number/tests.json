@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n7 3 5 3 7",
+      "expected": "5",
+      "display": "nums   = [7, 3, 5, 3, 7]\noutput = 5"
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n-2 9 -2",
+      "expected": "9",
+      "display": "nums   = [-2, 9, -2]\noutput = 9"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value", "input": "1\n42", "expected": "42" },
+    { "label": "Edge 2: a negative lone value", "input": "3\n6 -1000000000 6", "expected": "-1000000000" },
+    { "label": "Edge 3: twins side by side", "input": "5\n1 1 2 2 3", "expected": "3" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "fast-power",
+  "title": "Fast power",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Bits and math",
+  "order": 1406,
+  "tags": ["bit manipulation", "math"],
+  "buildsOn": ["missing-number"],
+  "leadsTo": [],
+  "generator": "fast-power"
+}

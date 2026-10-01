@@ -1,0 +1,12 @@
+{
+  "id": "lone-number",
+  "title": "The value without a twin",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Bits and math",
+  "order": 1404,
+  "tags": ["bit manipulation", "xor"],
+  "buildsOn": ["bit-edits"],
+  "leadsTo": ["missing-number"],
+  "generator": "lone-number"
+}

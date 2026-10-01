@@ -1,0 +1,12 @@
+{
+  "id": "count-set-bits",
+  "title": "Count the 1 bits",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Bits and math",
+  "order": 1401,
+  "tags": ["bit manipulation"],
+  "buildsOn": [],
+  "leadsTo": ["power-of-two-check"],
+  "generator": "count-set-bits"
+}

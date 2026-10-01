@@ -1,0 +1,12 @@
+{
+  "id": "power-of-two-check",
+  "title": "Power of two?",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Bits and math",
+  "order": 1402,
+  "tags": ["bit manipulation"],
+  "buildsOn": ["count-set-bits"],
+  "leadsTo": ["bit-edits"],
+  "generator": "power-of-two"
+}

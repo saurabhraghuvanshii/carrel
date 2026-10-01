@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3 5",
+      "expected": "243",
+      "display": "a      = 3\ne      = 5\noutput = 243\n\n3⁵ = 243. 5 is 101 in binary, so the answer is 3¹ × 3⁴."
+    },
+    {
+      "label": "Example 2",
+      "input": "2 40",
+      "expected": "511620083",
+      "display": "a      = 2\ne      = 40\noutput = 511620083\n\n2⁴⁰ = 1099511627776, which is 511620083 modulo 10⁹ + 7."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: zero to the power zero", "input": "0 0", "expected": "1" },
+    { "label": "Edge 2: zero base", "input": "0 5", "expected": "0" },
+    { "label": "Edge 3: the largest inputs", "input": "1000000000 1000000000000000000", "expected": "259616729" },
+    { "label": "Edge 4: power zero", "input": "7 0", "expected": "1" }
+  ]
+}

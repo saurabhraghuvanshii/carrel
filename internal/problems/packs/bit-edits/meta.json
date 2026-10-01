@@ -1,0 +1,12 @@
+{
+  "id": "bit-edits",
+  "title": "Read and change bits",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Bits and math",
+  "order": 1403,
+  "tags": ["bit manipulation", "design"],
+  "buildsOn": ["power-of-two-check"],
+  "leadsTo": ["lone-number"],
+  "generator": "bit-edits"
+}

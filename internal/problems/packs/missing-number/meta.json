@@ -1,0 +1,12 @@
+{
+  "id": "missing-number",
+  "title": "The missing number",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Bits and math",
+  "order": 1405,
+  "tags": ["bit manipulation", "math"],
+  "buildsOn": ["lone-number"],
+  "leadsTo": ["fast-power"],
+  "generator": "missing-number"
+}
