@@ -1,0 +1,12 @@
+{
+  "id": "shortest-unique-prefix",
+  "title": "Shortest unique beginnings",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Tries",
+  "order": 1602,
+  "tags": ["trie", "strings"],
+  "buildsOn": ["prefix-tree"],
+  "leadsTo": ["longest-buildable-word"],
+  "generator": "unique-prefix"
+}

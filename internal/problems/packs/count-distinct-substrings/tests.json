@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "abab",
+      "expected": "7",
+      "display": "word   = \"abab\"\noutput = 7\n\na, b, ab, ba, aba, bab and abab."
+    },
+    {
+      "label": "Example 2",
+      "input": "aaa",
+      "expected": "3",
+      "display": "word   = \"aaa\"\noutput = 3\n\na, aa and aaa."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "z", "expected": "1" },
+    { "label": "Edge 2: every letter different", "input": "abc", "expected": "6" },
+    { "label": "Edge 3: the longest word", "input": "abababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababababab", "expected": "999" }
+  ]
+}

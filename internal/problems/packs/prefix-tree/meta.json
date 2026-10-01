@@ -1,0 +1,12 @@
+{
+  "id": "prefix-tree",
+  "title": "Build a prefix tree",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Tries",
+  "order": 1601,
+  "tags": ["trie", "design"],
+  "buildsOn": [],
+  "leadsTo": ["shortest-unique-prefix"],
+  "generator": "prefix-tree"
+}

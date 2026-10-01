@@ -1,0 +1,12 @@
+{
+  "id": "longest-buildable-word",
+  "title": "Longest word built letter by letter",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Tries",
+  "order": 1603,
+  "tags": ["trie", "depth-first search"],
+  "buildsOn": ["shortest-unique-prefix"],
+  "leadsTo": ["count-distinct-substrings"],
+  "generator": "buildable-word"
+}

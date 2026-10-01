@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "7\ninsert card\ninsert care\nsearch car\nprefix car\ninsert car\nsearch car\nsearch cards",
+      "expected": "[false, true, true, false]",
+      "display": "ops    = insert card\n         insert care\n         search car\n         prefix car\n         insert car\n         search car\n         search cards\noutput = [false, true, true, false]\n\n\"car\" is only a beginning until it is inserted itself."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\nprefix a\ninsert a\nsearch a",
+      "expected": "[false, true]",
+      "display": "ops    = prefix a\n         insert a\n         search a\noutput = [false, true]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: nothing inserted", "input": "1\nsearch x", "expected": "[false]" },
+    { "label": "Edge 2: a word is its own beginning", "input": "2\ninsert tree\nprefix tree", "expected": "[true]" },
+    { "label": "Edge 3: a beginning is not a word", "input": "2\ninsert ab\nsearch a", "expected": "[false]" },
+    { "label": "Edge 4: the same word twice", "input": "4\ninsert go\ninsert go\nsearch go\nprefix gone", "expected": "[true, false]" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4\nsand robin river rock",
+      "expected": "[\"s\", \"rob\", \"ri\", \"roc\"]",
+      "display": "words  = [\"sand\", \"robin\", \"river\", \"rock\"]\noutput = [\"s\", \"rob\", \"ri\", \"roc\"]\n\n\"ro\" is shared by robin and rock, so they need three letters."
+    },
+    {
+      "label": "Example 2",
+      "input": "1\none",
+      "expected": "[\"o\"]",
+      "display": "words  = [\"one\"]\noutput = [\"o\"]\n\nWith one word, its first letter is enough."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: words that differ at the end", "input": "2\nab ac", "expected": "[\"ab\", \"ac\"]" },
+    { "label": "Edge 2: the whole word is needed", "input": "2\nabcde abcdf", "expected": "[\"abcde\", \"abcdf\"]" },
+    { "label": "Edge 3: one letter each", "input": "2\nx yz", "expected": "[\"x\", \"y\"]" },
+    { "label": "Edge 4: a word alone", "input": "1\nrobe", "expected": "[\"r\"]" }
+  ]
+}

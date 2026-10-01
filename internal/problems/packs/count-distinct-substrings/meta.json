@@ -1,0 +1,12 @@
+{
+  "id": "count-distinct-substrings",
+  "title": "Count different stretches",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Tries",
+  "order": 1604,
+  "tags": ["trie", "strings"],
+  "buildsOn": ["longest-buildable-word"],
+  "leadsTo": [],
+  "generator": "distinct-substrings"
+}

@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "8\nt to top tops ta tap tape ok",
+      "expected": "\"tape\"",
+      "display": "words  = [\"t\", \"to\", \"top\", \"tops\", \"ta\", \"tap\", \"tape\", \"ok\"]\noutput = \"tape\"\n\n\"tops\" is as long, but \"tape\" comes first. \"ok\" cannot be built: \"o\" is missing."
+    },
+    {
+      "label": "Example 2",
+      "input": "2\ncat dog",
+      "expected": "\"\"",
+      "display": "words  = [\"cat\", \"dog\"]\noutput = \"\"\n\nNeither \"c\" nor \"d\" is in the list."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "1\na", "expected": "\"a\"" },
+    { "label": "Edge 2: a tie of one letter", "input": "2\nb a", "expected": "\"a\"" },
+    { "label": "Edge 3: the order of the list does not matter", "input": "3\nab abc a", "expected": "\"abc\"" },
+    { "label": "Edge 4: a gap at the start", "input": "2\nxyz xy", "expected": "\"\"" }
+  ]
+}
