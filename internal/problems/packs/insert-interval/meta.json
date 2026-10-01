@@ -1,0 +1,12 @@
+{
+  "id": "insert-interval",
+  "title": "Insert an interval",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 903,
+  "tags": ["intervals"],
+  "buildsOn": ["merge-intervals"],
+  "leadsTo": ["rooms-needed"],
+  "generator": "insert-interval"
+}

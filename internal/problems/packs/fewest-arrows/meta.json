@@ -1,0 +1,12 @@
+{
+  "id": "fewest-arrows",
+  "title": "Fewest arrows to burst balloons",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 906,
+  "tags": ["intervals", "greedy"],
+  "buildsOn": ["remove-overlaps"],
+  "leadsTo": ["common-free-time"],
+  "generator": "arrows"
+}

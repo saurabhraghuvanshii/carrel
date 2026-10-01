@@ -1,0 +1,12 @@
+{
+  "id": "remove-overlaps",
+  "title": "Fewest intervals to remove",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 905,
+  "tags": ["intervals", "greedy"],
+  "buildsOn": ["rooms-needed"],
+  "leadsTo": ["fewest-arrows"],
+  "generator": "remove-overlaps"
+}

@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4\n1 5\n2 3\n3 4\n4 8",
+      "expected": "1",
+      "display": "intervals = [[1, 5], [2, 3], [3, 4], [4, 8]]\noutput    = 1\n\nRemove [1, 5]; the other three only touch."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n1 3\n1 3\n1 3",
+      "expected": "2",
+      "display": "intervals = [[1, 3], [1, 3], [1, 3]]\noutput    = 2"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: nothing overlaps", "input": "2\n1 2\n2 3", "expected": "0" },
+    { "label": "Edge 2: one interval", "input": "1\n0 1", "expected": "0" },
+    { "label": "Edge 3: one long interval", "input": "3\n1 10\n2 3\n4 5", "expected": "1" }
+  ]
+}

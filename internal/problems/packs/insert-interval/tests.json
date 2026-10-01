@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3\n1 2\n4 6\n9 10\n5 9",
+      "expected": "[[1, 2], [4, 10]]",
+      "display": "intervals = [[1, 2], [4, 6], [9, 10]]\nadd       = [5, 9]\noutput    = [[1, 2], [4, 10]]\n\n[5, 9] overlaps [4, 6] and touches [9, 10]."
+    },
+    {
+      "label": "Example 2",
+      "input": "1\n2 3\n7 8",
+      "expected": "[[2, 3], [7, 8]]",
+      "display": "intervals = [[2, 3]]\nadd       = [7, 8]\noutput    = [[2, 3], [7, 8]]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: an empty list", "input": "0\n4 5", "expected": "[[4, 5]]" },
+    { "label": "Edge 2: covers everything", "input": "2\n2 3\n5 6\n1 9", "expected": "[[1, 9]]" },
+    { "label": "Edge 3: goes first", "input": "1\n5 6\n1 2", "expected": "[[1, 2], [5, 6]]" }
+  ]
+}

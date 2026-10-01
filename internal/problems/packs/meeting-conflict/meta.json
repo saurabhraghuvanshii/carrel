@@ -1,0 +1,12 @@
+{
+  "id": "meeting-conflict",
+  "title": "Can you attend every meeting?",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 901,
+  "tags": ["intervals", "sorting"],
+  "buildsOn": [],
+  "leadsTo": ["merge-intervals"],
+  "generator": "meeting-conflict"
+}

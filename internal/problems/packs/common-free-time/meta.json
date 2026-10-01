@@ -1,0 +1,12 @@
+{
+  "id": "common-free-time",
+  "title": "Free time for everyone",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 907,
+  "tags": ["intervals", "heap"],
+  "buildsOn": ["fewest-arrows", "merge-sorted-streams"],
+  "leadsTo": [],
+  "generator": "free-time"
+}

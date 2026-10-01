@@ -7,6 +7,6 @@
   "order": 801,
   "tags": ["heap"],
   "buildsOn": ["most-frequent-items"],
-  "leadsTo": ["smash-the-heaviest"],
+  "leadsTo": ["smash-the-heaviest", "rooms-needed"],
   "generator": "kth-largest"
 }

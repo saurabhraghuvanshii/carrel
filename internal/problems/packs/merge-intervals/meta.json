@@ -1,0 +1,12 @@
+{
+  "id": "merge-intervals",
+  "title": "Merge overlapping intervals",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 902,
+  "tags": ["intervals", "sorting"],
+  "buildsOn": ["meeting-conflict"],
+  "leadsTo": ["insert-interval"],
+  "generator": "merge-intervals"
+}

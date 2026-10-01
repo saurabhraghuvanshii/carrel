@@ -1,0 +1,12 @@
+{
+  "id": "rooms-needed",
+  "title": "Rooms needed",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Intervals",
+  "order": 904,
+  "tags": ["intervals", "heap", "sweep"],
+  "buildsOn": ["insert-interval", "kth-largest"],
+  "leadsTo": ["remove-overlaps"],
+  "generator": "rooms"
+}

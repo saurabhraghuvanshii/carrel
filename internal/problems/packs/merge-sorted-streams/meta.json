@@ -7,6 +7,6 @@
   "order": 806,
   "tags": ["heap"],
   "buildsOn": ["cooldown-scheduler", "merge-two-lists"],
-  "leadsTo": ["running-median"],
+  "leadsTo": ["running-median", "common-free-time"],
   "generator": "merge-k"
 }
