@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "stone\nnotes",
+      "expected": "true",
+      "display": "first  = \"stone\"\nsecond = \"notes\"\noutput = true"
+    },
+    {
+      "label": "Example 2",
+      "input": "brick\ntrick",
+      "expected": "false",
+      "display": "first  = \"brick\"\nsecond = \"trick\"\noutput = false"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter each", "input": "a\na", "expected": "true" },
+    { "label": "Edge 2: different lengths", "input": "aab\nab", "expected": "false" },
+    { "label": "Edge 3: same letters, different counts", "input": "aabb\nabbb", "expected": "false" },
+    { "label": "Edge 4: repeated letters", "input": "zzzy\nyzzz", "expected": "true" }
+  ]
+}

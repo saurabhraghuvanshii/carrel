@@ -1,0 +1,12 @@
+{
+  "id": "palindrome-check",
+  "title": "Same both ways",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 202,
+  "tags": ["two pointers", "strings"],
+  "buildsOn": ["sorted-pair-sum"],
+  "leadsTo": ["remove-repeats-sorted"],
+  "generator": "palindrome"
+}

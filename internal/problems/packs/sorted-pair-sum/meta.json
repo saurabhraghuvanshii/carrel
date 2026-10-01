@@ -1,0 +1,12 @@
+{
+  "id": "sorted-pair-sum",
+  "title": "Pair in a sorted list",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 201,
+  "tags": ["two pointers"],
+  "buildsOn": ["pair-with-target-sum"],
+  "leadsTo": ["palindrome-check", "triple-sum"],
+  "generator": "sorted-pair"
+}

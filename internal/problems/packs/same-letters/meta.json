@@ -1,0 +1,12 @@
+{
+  "id": "same-letters",
+  "title": "Same letters",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 103,
+  "tags": ["counting", "strings"],
+  "buildsOn": ["spot-the-duplicate"],
+  "leadsTo": ["group-by-letters"],
+  "generator": "same-letters"
+}

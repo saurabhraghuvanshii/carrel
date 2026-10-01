@@ -1,0 +1,12 @@
+{
+  "id": "group-by-letters",
+  "title": "Group by letters",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 104,
+  "tags": ["hash map", "strings", "sorting"],
+  "buildsOn": ["same-letters"],
+  "leadsTo": ["most-frequent-items"],
+  "generator": "group-letters"
+}

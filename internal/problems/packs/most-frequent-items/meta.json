@@ -1,0 +1,12 @@
+{
+  "id": "most-frequent-items",
+  "title": "Most frequent items",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 105,
+  "tags": ["hash map", "counting", "heap"],
+  "buildsOn": ["group-by-letters"],
+  "leadsTo": ["product-of-others"],
+  "generator": "most-frequent"
+}

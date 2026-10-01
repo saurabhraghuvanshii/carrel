@@ -1,0 +1,12 @@
+{
+  "id": "triple-sum",
+  "title": "Triples with a target sum",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 206,
+  "tags": ["two pointers", "sorting"],
+  "buildsOn": ["three-way-sort", "sorted-pair-sum"],
+  "leadsTo": ["container-fill"],
+  "generator": "triple-sum"
+}

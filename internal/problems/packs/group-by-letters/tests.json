@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\narc car elbow below cat",
+      "expected": "[[arc, car], [below, elbow], [cat]]",
+      "display": "words  = [\"arc\", \"car\", \"elbow\", \"below\", \"cat\"]\noutput = [[\"arc\", \"car\"], [\"below\", \"elbow\"], [\"cat\"]]"
+    },
+    {
+      "label": "Example 2",
+      "input": "6\ndusty study night thing inch chin",
+      "expected": "[[chin, inch], [dusty, study], [night, thing]]",
+      "display": "words  = [\"dusty\", \"study\", \"night\", \"thing\", \"inch\", \"chin\"]\noutput = [[\"chin\", \"inch\"], [\"dusty\", \"study\"], [\"night\", \"thing\"]]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: single letters", "input": "3\na b a", "expected": "[[a, a], [b]]" },
+    { "label": "Edge 2: the same word twice", "input": "2\nloop loop", "expected": "[[loop, loop]]" },
+    { "label": "Edge 3: nothing to group", "input": "3\nab cd ef", "expected": "[[ab], [cd], [ef]]" },
+    { "label": "Edge 4: same letters, different counts", "input": "3\naab aba abb", "expected": "[[aab, aba], [abb]]" }
+  ]
+}

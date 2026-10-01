@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n3 0 2 0 4",
+      "expected": "7",
+      "display": "heights = [3, 0, 2, 0, 4]\noutput  = 7\n\nWater stands 3 high between the first and last columns: 3 + 1 + 3."
+    },
+    {
+      "label": "Example 2",
+      "input": "7\n1 4 2 1 3 0 2",
+      "expected": "5",
+      "display": "heights = [1, 4, 2, 1, 3, 0, 2]\noutput  = 5"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one column", "input": "1\n5", "expected": "0" },
+    { "label": "Edge 2: always rising", "input": "4\n1 2 3 4", "expected": "0" },
+    { "label": "Edge 3: a deep well", "input": "3\n9 0 9", "expected": "9" },
+    { "label": "Edge 4: the lower side sets the level", "input": "5\n5 1 1 1 2", "expected": "3" }
+  ]
+}

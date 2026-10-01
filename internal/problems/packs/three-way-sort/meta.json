@@ -1,0 +1,12 @@
+{
+  "id": "three-way-sort",
+  "title": "Sort zeros, ones and twos",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 205,
+  "tags": ["two pointers", "partitioning"],
+  "buildsOn": ["merge-sorted-lists-in-place"],
+  "leadsTo": ["triple-sum"],
+  "generator": "three-way"
+}

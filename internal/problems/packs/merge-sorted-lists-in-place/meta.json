@@ -1,0 +1,12 @@
+{
+  "id": "merge-sorted-lists-in-place",
+  "title": "Merge two sorted lists in place",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 204,
+  "tags": ["two pointers", "in-place"],
+  "buildsOn": ["remove-repeats-sorted"],
+  "leadsTo": ["three-way-sort"],
+  "generator": "merge-sorted"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "smallest-missing-positive",
+  "title": "Smallest missing positive",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 110,
+  "tags": ["in-place", "index marking"],
+  "buildsOn": ["rotate-grid-in-place"],
+  "leadsTo": [],
+  "generator": "missing-positive"
+}

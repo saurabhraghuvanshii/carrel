@@ -7,6 +7,6 @@
   "order": 101,
   "tags": ["hash map"],
   "buildsOn": [],
-  "leadsTo": ["lru-cache"],
+  "leadsTo": ["lru-cache", "spot-the-duplicate", "sorted-pair-sum"],
   "generator": "pair-sum"
 }

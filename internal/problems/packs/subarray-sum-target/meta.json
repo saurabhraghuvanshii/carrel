@@ -1,0 +1,12 @@
+{
+  "id": "subarray-sum-target",
+  "title": "Stretches that sum to a target",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 108,
+  "tags": ["prefix sums", "hash map"],
+  "buildsOn": ["longest-consecutive-run"],
+  "leadsTo": ["rotate-grid-in-place"],
+  "generator": "subarray-sum"
+}

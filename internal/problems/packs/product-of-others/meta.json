@@ -1,0 +1,12 @@
+{
+  "id": "product-of-others",
+  "title": "Product of the others",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 106,
+  "tags": ["prefix products"],
+  "buildsOn": ["most-frequent-items"],
+  "leadsTo": ["longest-consecutive-run", "rain-trap"],
+  "generator": "product-others"
+}

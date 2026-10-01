@@ -1,0 +1,12 @@
+{
+  "id": "spot-the-duplicate",
+  "title": "Spot the duplicate",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 102,
+  "tags": ["hash set"],
+  "buildsOn": ["pair-with-target-sum"],
+  "leadsTo": ["same-letters"],
+  "generator": "spot-duplicate"
+}

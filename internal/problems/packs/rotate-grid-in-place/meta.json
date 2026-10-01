@@ -1,0 +1,12 @@
+{
+  "id": "rotate-grid-in-place",
+  "title": "Rotate a grid in place",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 109,
+  "tags": ["matrix", "in-place"],
+  "buildsOn": ["subarray-sum-target"],
+  "leadsTo": ["smallest-missing-positive"],
+  "generator": "rotate-grid"
+}

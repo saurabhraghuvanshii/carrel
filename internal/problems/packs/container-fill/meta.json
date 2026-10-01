@@ -1,0 +1,12 @@
+{
+  "id": "container-fill",
+  "title": "Most water between two walls",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 207,
+  "tags": ["two pointers", "greedy"],
+  "buildsOn": ["triple-sum"],
+  "leadsTo": ["rain-trap"],
+  "generator": "container"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "remove-repeats-sorted",
+  "title": "Remove repeats from a sorted list",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 203,
+  "tags": ["two pointers", "in-place"],
+  "buildsOn": ["palindrome-check"],
+  "leadsTo": ["merge-sorted-lists-in-place"],
+  "generator": "remove-repeats"
+}

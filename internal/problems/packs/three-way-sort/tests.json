@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n2 0 1 2 0",
+      "expected": "[0, 0, 1, 2, 2]",
+      "display": "nums   = [2, 0, 1, 2, 0]\noutput = [0, 0, 1, 2, 2]"
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n1 2 1",
+      "expected": "[1, 1, 2]",
+      "display": "nums   = [1, 2, 1]\noutput = [1, 1, 2]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value", "input": "1\n2", "expected": "[2]" },
+    { "label": "Edge 2: all the same", "input": "3\n0 0 0", "expected": "[0, 0, 0]" },
+    { "label": "Edge 3: largest first", "input": "4\n2 2 1 0", "expected": "[0, 1, 2, 2]" }
+  ]
+}

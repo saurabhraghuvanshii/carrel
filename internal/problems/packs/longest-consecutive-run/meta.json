@@ -1,0 +1,12 @@
+{
+  "id": "longest-consecutive-run",
+  "title": "Longest consecutive run",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 107,
+  "tags": ["hash set"],
+  "buildsOn": ["product-of-others"],
+  "leadsTo": ["subarray-sum-target"],
+  "generator": "longest-run"
+}

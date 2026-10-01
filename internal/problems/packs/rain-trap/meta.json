@@ -1,0 +1,12 @@
+{
+  "id": "rain-trap",
+  "title": "Rainwater between columns",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Two pointers",
+  "order": 208,
+  "tags": ["two pointers", "prefix maximums"],
+  "buildsOn": ["container-fill", "product-of-others"],
+  "leadsTo": [],
+  "generator": "rain-trap"
+}

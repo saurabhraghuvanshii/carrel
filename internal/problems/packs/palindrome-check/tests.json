@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "Top spot!",
+      "expected": "true",
+      "display": "text   = \"Top spot!\"\noutput = true\n\nLetters only: \"topspot\", the same both ways."
+    },
+    {
+      "label": "Example 2",
+      "input": "Race, or care?",
+      "expected": "false",
+      "display": "text   = \"Race, or care?\"\noutput = false"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: no letters or digits", "input": "?!.", "expected": "true" },
+    { "label": "Edge 2: one letter", "input": "Z", "expected": "true" },
+    { "label": "Edge 3: first and last differ", "input": "abca", "expected": "false" },
+    { "label": "Edge 4: digits and mixed case", "input": "Kayak 9 kayak", "expected": "true" }
+  ]
+}
