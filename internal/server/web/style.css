@@ -234,7 +234,7 @@ input[type="text"], input[type="password"], select.field {
 .page { padding: 28px 48px; max-width: 1000px; width: 100%; margin: 0 auto; overflow-y: auto; }
 .sheet-tabs { display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid var(--line); }
 .sheet-tabs .tabset { display: flex; gap: 28px; }
-.sheet-tabs button {
+.sheet-tabs .tabset button {
   font-family: var(--serif);
   font-size: 22px;
   color: var(--muted);
@@ -245,7 +245,7 @@ input[type="text"], input[type="password"], select.field {
   padding: 0 0 10px;
   cursor: pointer;
 }
-.sheet-tabs button.on { color: var(--ink); font-weight: 600; border-bottom-color: var(--accent); }
+.sheet-tabs .tabset button.on { color: var(--ink); font-weight: 600; border-bottom-color: var(--accent); }
 .chips { display: flex; gap: 8px; padding-top: 16px; }
 .chip { font: inherit; font-size: 13px; background: none; border: 1px solid; border-radius: 4px; padding: 5px 14px; min-height: 32px; cursor: pointer; }
 .chip.all { color: var(--ink); border-color: var(--line); }
@@ -295,6 +295,13 @@ input[type="text"], input[type="password"], select.field {
   .sheets { flex-direction: column; padding: 24px; gap: 32px; }
   .aside { width: auto; }
 }
+
+.archive { display: flex; gap: 10px; align-items: center; }
+.sheet-tabs .archive { padding-bottom: 10px; }
+a.btn { display: inline-flex; align-items: center; color: var(--ink); }
+a.btn.primary { color: var(--on-accent); }
+.import-box { border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 14px 16px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+.import-box ul { margin: 0; padding-left: 18px; color: var(--body); font-family: var(--mono); font-size: 12px; }
 
 /* ---- settings ---- */
 .sec { display: flex; flex-direction: column; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--line); }

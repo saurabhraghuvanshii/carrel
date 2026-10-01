@@ -12,18 +12,33 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"time"
 
 	"dsa/internal/config"
 	"dsa/internal/problems"
 	"dsa/internal/runner"
 	"dsa/internal/server"
+	"dsa/internal/store"
 )
 
 func main() {
-	if len(os.Args) > 1 && os.Args[1] == "doctor" {
-		runDoctor()
-		return
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "doctor":
+			runDoctor()
+			return
+		case "export":
+			if err := runExport(os.Args[2:]); err != nil {
+				log.Fatal(err)
+			}
+			return
+		case "import":
+			if err := runImport(os.Args[2:]); err != nil {
+				log.Fatal(err)
+			}
+			return
+		}
 	}
 
 	port := flag.Int("port", 7777, "preferred port (a free one is used if it is taken)")
@@ -98,4 +113,90 @@ func runDoctor() {
 			fmt.Printf("  missing  %-6s install it and make sure it is on your PATH\n", t.Name)
 		}
 	}
+}
+
+// runExport writes all solutions and progress to a zip: dsa export [file.zip].
+func runExport(args []string) error {
+	if len(args) > 1 {
+		return errors.New("usage: dsa export [file.zip]")
+	}
+	name := "dsa-solutions-" + time.Now().Format("2006-01-02") + ".zip"
+	if len(args) == 1 {
+		name = args[0]
+	}
+	st, err := openStore()
+	if err != nil {
+		return err
+	}
+	f, err := os.OpenFile(name, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
+	if err != nil {
+		return fmt.Errorf("cannot create %s: %w", name, err)
+	}
+	if err := st.ExportZip(f); err != nil {
+		f.Close()
+		os.Remove(name)
+		return err
+	}
+	if err := f.Close(); err != nil {
+		return err
+	}
+	fmt.Printf("saved your solutions and progress to %s\n", name)
+	return nil
+}
+
+// runImport reads a zip made by export: dsa import <file.zip> [--overwrite].
+func runImport(args []string) error {
+	overwrite, name := false, ""
+	for _, a := range args {
+		switch {
+		case a == "--overwrite" || a == "-overwrite":
+			overwrite = true
+		case name == "" && !strings.HasPrefix(a, "-"):
+			name = a
+		default:
+			return errors.New("usage: dsa import <file.zip> [--overwrite]")
+		}
+	}
+	if name == "" {
+		return errors.New("usage: dsa import <file.zip> [--overwrite]")
+	}
+	st, err := openStore()
+	if err != nil {
+		return err
+	}
+	f, err := os.Open(name)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	info, err := f.Stat()
+	if err != nil {
+		return err
+	}
+	rep, err := st.ImportZip(f, info.Size(), overwrite)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("imported %d, skipped %d, rejected %d\n", len(rep.Imported), len(rep.Skipped), len(rep.Rejected))
+	for _, n := range rep.Imported {
+		fmt.Println("  imported  ", n)
+	}
+	for _, n := range rep.Skipped {
+		fmt.Println("  skipped   ", n, "(already there; use --overwrite to replace)")
+	}
+	for _, r := range rep.Rejected {
+		fmt.Printf("  rejected   %s (%s)\n", r.Name, r.Reason)
+	}
+	if rep.ProgressMerged > 0 {
+		fmt.Printf("  progress   %d entries added or updated\n", rep.ProgressMerged)
+	}
+	return nil
+}
+
+func openStore() (*store.Store, error) {
+	home, err := config.Home()
+	if err != nil {
+		return nil, fmt.Errorf("cannot find your home folder: %w", err)
+	}
+	return store.New(home)
 }

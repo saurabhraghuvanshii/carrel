@@ -5,6 +5,7 @@ Practice data structures and algorithms in your browser. One small Go program, n
 ```
 dsa            # starts a local server and opens your browser
 dsa doctor     # checks that Java and C++ compilers are installed
+dsa export     # saves all your solutions and progress to a zip
 ```
 
 ## Run it
@@ -28,6 +29,15 @@ Your data lives in `~/.dsa` (or `$DSA_HOME`):
 ~/.dsa/config.json                theme, accent colour, AI settings (owner-only permissions)
 ~/.dsa/packs/                     optional extra problem packs, same layout as below
 ```
+
+## Moving your solutions
+
+```
+dsa export [file.zip]              # all solutions and progress in one zip
+dsa import <file.zip> [--overwrite]
+```
+
+The same two actions are the Export all and Import solutions buttons on the Sheets screen and in Settings. Import only accepts `solutions/<problem>.java`, `solutions/<problem>.cpp` and `progress.json`; anything else in the zip is listed as rejected and never written. Solutions you already have are skipped unless you choose to replace them. Progress is merged: a solved problem stays solved. Limits: 20 MB, 2000 files, 1 MB per solution.
 
 ## How it fits together
 
@@ -136,5 +146,4 @@ Your own code is not sandboxed beyond a time limit, the same as running it yours
 - Memory limit for the code you run (a time limit exists)
 - Function-style wrappers for more languages (Python, JavaScript, Go)
 - `dsa pull` to download extra problem packs
-- Export and import of all solutions as one zip
 - More problems: the aim is about 100 patterns problems and a real-interview sheet

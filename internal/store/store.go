@@ -96,23 +96,29 @@ func (s *Store) Progress() map[string]Entry {
 // readProgress also reads the first format, {id: "tried"}, and dates those
 // entries with the file's modification time. Mark writes the new format.
 func (s *Store) readProgress() map[string]Entry {
-	m := map[string]Entry{}
 	b, err := os.ReadFile(s.progressPath())
 	if err != nil {
-		return m
-	}
-	var raw map[string]json.RawMessage
-	if json.Unmarshal(b, &raw) != nil {
-		return m
+		return map[string]Entry{}
 	}
 	var fileTime time.Time
 	if info, err := os.Stat(s.progressPath()); err == nil {
 		fileTime = info.ModTime().UTC().Truncate(time.Second)
 	}
+	m, _ := parseProgress(b, fileTime)
+	return m
+}
+
+// parseProgress reads either format. Entries in the old format get oldTime.
+func parseProgress(b []byte, oldTime time.Time) (map[string]Entry, error) {
+	m := map[string]Entry{}
+	var raw map[string]json.RawMessage
+	if err := json.Unmarshal(b, &raw); err != nil {
+		return m, err
+	}
 	for id, v := range raw {
 		var old string
 		if json.Unmarshal(v, &old) == nil {
-			m[id] = Entry{Status: old, UpdatedAt: fileTime}
+			m[id] = Entry{Status: old, UpdatedAt: oldTime}
 			continue
 		}
 		var e Entry
@@ -120,7 +126,20 @@ func (s *Store) readProgress() map[string]Entry {
 			m[id] = e
 		}
 	}
-	return m
+	return m, nil
+}
+
+// writeProgress replaces progress.json. The caller holds s.mu.
+func (s *Store) writeProgress(m map[string]Entry) error {
+	b, err := json.MarshalIndent(m, "", "  ")
+	if err != nil {
+		return err
+	}
+	tmp := s.progressPath() + ".tmp"
+	if err := os.WriteFile(tmp, b, 0o600); err != nil {
+		return err
+	}
+	return os.Rename(tmp, s.progressPath())
 }
 
 // Mark records progress. A solved problem is never downgraded to tried, but
@@ -150,15 +169,7 @@ func (s *Store) Mark(id, status string) error {
 	}
 	e.UpdatedAt = now
 	m[id] = e
-	b, err := json.MarshalIndent(m, "", "  ")
-	if err != nil {
-		return err
-	}
-	tmp := s.progressPath() + ".tmp"
-	if err := os.WriteFile(tmp, b, 0o600); err != nil {
-		return err
-	}
-	return os.Rename(tmp, s.progressPath())
+	return s.writeProgress(m)
 }
 
 func after(now time.Time, step int) *time.Time {

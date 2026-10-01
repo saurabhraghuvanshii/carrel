@@ -155,7 +155,8 @@
 
     const tabs = el('div', { class: 'sheet-tabs' },
       el('div', { class: 'tabset' }, sheets.map(([id, name]) =>
-        el('button', { class: id === ui.sheet ? 'on' : '', text: name, onclick: () => { ui.sheet = id; renderSheets(); } }))));
+        el('button', { class: id === ui.sheet ? 'on' : '', text: name, onclick: () => { ui.sheet = id; renderSheets(); } }))),
+      archiveButtons());
 
     const chips = el('div', { class: 'chips' }, ['all', 'easy', 'medium', 'hard'].map((f) =>
       el('button', { class: `chip ${f}${ui.filter === f ? ' on' : ''}`, text: cap(f), onclick: () => { ui.filter = f; renderSheets(); } })));
@@ -204,7 +205,69 @@
         byDifficulty ? el('div', { class: 'hint', text: byDifficulty }) : null),
       el('p', { class: 'aside-note ruled', text: 'Problems are in learning order. Each one uses an idea from the one before it.' }));
 
-    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, tabs, chips, list), aside));
+    view.replaceChildren(el('div', { class: 'sheets' }, el('div', { class: 'sheets-main' }, importBox(), tabs, chips, list), aside));
+  }
+
+  // ---- export and import ----
+
+  let importNotice = null; // { file, report, error }, shown until closed
+  const count = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+
+  function archiveButtons() {
+    const picker = el('input', { type: 'file', accept: '.zip,application/zip', class: 'visually-hidden', tabindex: '-1', 'aria-hidden': 'true',
+      onchange: () => { if (picker.files[0]) importFile(picker.files[0], false); } });
+    return el('div', { class: 'archive' },
+      picker,
+      el('button', { class: 'btn', text: 'Import solutions', onclick: () => picker.click() }),
+      el('a', { class: 'btn', href: '/api/export', download: '', text: 'Export all' }));
+  }
+
+  async function importFile(file, overwrite) {
+    await flushSave();
+    try {
+      const res = await fetch('/api/import' + (overwrite ? '?overwrite=true' : ''), {
+        method: 'POST', headers: { 'Content-Type': 'application/zip', 'X-DSA': '1' }, body: file,
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || res.statusText);
+      importNotice = { file, report: data };
+    } catch (e) {
+      importNotice = { file, error: e.message };
+    }
+    route();
+  }
+
+  function importBox() {
+    if (!importNotice) return null;
+    const { file, report, error } = importNotice;
+    const close = () => { importNotice = null; route(); };
+    if (error) {
+      const box = el('div', { class: 'import-box', role: 'status' },
+        el('div', { class: 'summary fail', text: 'Import failed: ' + error }),
+        el('div', { class: 'archive' }, el('button', { class: 'btn', text: 'Close', onclick: close })));
+      requestAnimationFrame(() => box.scrollIntoView({ block: 'nearest' }));
+      return box;
+    }
+    const names = (list) => el('ul', {}, list.slice(0, 10).map((x) => el('li', { text: x })),
+      list.length > 10 ? el('li', { text: `and ${list.length - 10} more` }) : null);
+    const lines = [el('div', { class: report.imported.length ? 'summary pass' : 'summary', text: `Imported ${count(report.imported.length, 'solution', 'solutions')}.` })];
+    if (report.progressMerged) lines.push(el('div', { text: `Progress: ${count(report.progressMerged, 'problem', 'problems')} added or updated.` }));
+    if (report.rejected.length) {
+      lines.push(el('div', { text: `${count(report.rejected.length, 'file was', 'files were')} left out:` }),
+        names(report.rejected.map((r) => `${r.name}: ${r.reason}`)));
+    }
+    let actions = el('div', { class: 'archive' }, el('button', { class: 'btn', text: 'Close', onclick: close }));
+    if (report.skipped.length) {
+      lines.push(el('div', { text: `${count(report.skipped.length, 'solution already exists', 'solutions already exist')} on this computer:` }),
+        names(report.skipped),
+        el('div', { text: 'Replace them with the ones from the zip?' }));
+      actions = el('div', { class: 'archive' },
+        el('button', { class: 'btn primary', text: 'Replace them', onclick: () => importFile(file, true) }),
+        el('button', { class: 'btn', text: 'Keep mine', onclick: close }));
+    }
+    const box = el('div', { class: 'import-box', role: 'status' }, lines, actions);
+    requestAnimationFrame(() => box.scrollIntoView({ block: 'nearest' }));
+    return box;
   }
 
   // ---- practice ----
@@ -453,7 +516,9 @@
     const files = el('section', { class: 'sec' },
       el('h2', { text: 'Your solutions' }),
       el('div', {}, el('div', { class: 'field-label', text: 'Saved in' }), el('div', { class: 'mono', text: doctor.solutionsDir }),
-        el('div', { class: 'note', text: 'Plain files. Open them in any editor, or put the folder in git.' })));
+        el('div', { class: 'note', text: 'Plain files. Open them in any editor, or put the folder in git.' })),
+      importBox(),
+      archiveButtons());
 
     view.replaceChildren(el('div', { class: 'page' }, appearance, practice, ai, langs, files));
   }

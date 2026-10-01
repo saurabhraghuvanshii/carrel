@@ -2,9 +2,11 @@
 package server
 
 import (
+	"bytes"
 	"context"
 	"embed"
 	"encoding/json"
+	"io"
 	"io/fs"
 	"net"
 	"net/http"
@@ -24,7 +26,10 @@ import (
 //go:embed web
 var webFS embed.FS
 
-const randomCases = 50
+const (
+	randomCases   = 50
+	maxImportBody = 20 << 20
+)
 
 type Server struct {
 	home  string
@@ -73,6 +78,8 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /api/config", s.getConfig)
 	mux.HandleFunc("PUT /api/config", s.putConfig)
 	mux.HandleFunc("POST /api/ai", s.askAI)
+	mux.HandleFunc("GET /api/export", s.export)
+	mux.HandleFunc("POST /api/import", s.importZip)
 
 	sub, err := fs.Sub(webFS, "web")
 	if err != nil {
@@ -381,6 +388,38 @@ func (s *Server) run(w http.ResponseWriter, r *http.Request) {
 		runner.Report
 		Seed int64 `json:"seed,omitempty"`
 	}{rep, seed})
+}
+
+func (s *Server) export(w http.ResponseWriter, _ *http.Request) {
+	var buf bytes.Buffer
+	if err := s.store.ExportZip(&buf); err != nil {
+		writeErr(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	name := "dsa-solutions-" + s.now().Format("2006-01-02") + ".zip"
+	w.Header().Set("Content-Type", "application/zip")
+	w.Header().Set("Content-Disposition", `attachment; filename="`+name+`"`)
+	_, _ = w.Write(buf.Bytes())
+}
+
+// importZip takes the raw zip as the body, so it has its own size limit
+// instead of the 1 MB JSON one.
+func (s *Server) importZip(w http.ResponseWriter, r *http.Request) {
+	if ct, _, _ := strings.Cut(r.Header.Get("Content-Type"), ";"); strings.TrimSpace(ct) != "application/zip" {
+		writeErr(w, http.StatusUnsupportedMediaType, "send the zip file with Content-Type: application/zip")
+		return
+	}
+	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, maxImportBody))
+	if err != nil {
+		writeErr(w, http.StatusRequestEntityTooLarge, "the zip is larger than 20 MB")
+		return
+	}
+	rep, err := s.store.ImportZip(bytes.NewReader(body), int64(len(body)), r.URL.Query().Get("overwrite") == "true")
+	if err != nil {
+		writeErr(w, http.StatusBadRequest, err.Error())
+		return
+	}
+	writeJSON(w, http.StatusOK, rep)
 }
 
 func (s *Server) doctor(w http.ResponseWriter, _ *http.Request) {
