@@ -289,13 +289,20 @@
       ? [label + ' ', ...ids.flatMap((x, i) => [i ? ', ' : '', el('a', { href: '#/p/' + encodeURIComponent(x), text: titleOf(x) })]), '. ']
       : [];
 
+    // Examples go right after the description; Constraints and anything after it follow them.
+    const lines = p.statement.replace(/\r/g, '').split('\n');
+    const cut = lines.indexOf('## Constraints');
+    const intro = cut < 0 ? p.statement : lines.slice(0, cut).join('\n');
+    const rest = cut < 0 ? '' : lines.slice(cut).join('\n');
+
     const statement = el('div', { class: 'statement' },
       el('div', { class: 'meta-row' }, el('span', { class: 'tag ' + p.difficulty, text: cap(p.difficulty) }), el('span', { text: (p.tags || []).map(cap).join(', ') })),
       el('h1', { text: p.title }),
-      renderMarkdown(p.statement),
+      renderMarkdown(intro),
       (p.examples || []).map((ex) => el('div', { class: 'example' },
         el('div', { class: 'label', text: ex.label }),
         el('pre', { text: ex.display || ex.input }))),
+      renderMarkdown(rest),
       el('div', { class: 'links' }, linkList('Builds on:', p.buildsOn), linkList('Leads to:', p.leadsTo)));
 
     const fileName = p.lang === 'java' ? 'Solution.java' : 'solution.cpp';
