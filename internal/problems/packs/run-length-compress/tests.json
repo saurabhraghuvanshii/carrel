@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "aaabccddd",
+      "expected": "\"a3bc2d3\"",
+      "display": "word   = \"aaabccddd\"\noutput = \"a3bc2d3\""
+    },
+    {
+      "label": "Example 2",
+      "input": "abc",
+      "expected": "\"abc\"",
+      "display": "word   = \"abc\"\noutput = \"abc\"\n\nNo run is longer than 1, so nothing changes."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "a", "expected": "\"a\"" },
+    { "label": "Edge 2: a run of two digits", "input": "zzzzzzzzzzzz", "expected": "\"z12\"" },
+    { "label": "Edge 3: one letter in two runs", "input": "aabaa", "expected": "\"a2ba2\"" }
+  ]
+}

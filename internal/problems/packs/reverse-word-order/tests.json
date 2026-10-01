@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "\"  rain  after comes sun \"",
+      "expected": "\"sun comes after rain\"",
+      "display": "text   = \"  rain  after comes sun \"\noutput = \"sun comes after rain\"\n\nThe extra spaces go away."
+    },
+    {
+      "label": "Example 2",
+      "input": "\"one\"",
+      "expected": "\"one\"",
+      "display": "text   = \"one\"\noutput = \"one\""
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: two words", "input": "\"a b\"", "expected": "\"b a\"" },
+    { "label": "Edge 2: lots of space", "input": "\"   lots   of    space   \"", "expected": "\"space of lots\"" },
+    { "label": "Edge 3: digits in words", "input": "\"x1 y22 z333\"", "expected": "\"z333 y22 x1\"" }
+  ]
+}

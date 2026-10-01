@@ -1,0 +1,12 @@
+{
+  "id": "walk-distance",
+  "title": "How far did the walk go?",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1503,
+  "tags": ["strings", "simulation"],
+  "buildsOn": ["run-length-compress"],
+  "leadsTo": ["common-start"],
+  "generator": "walk-distance"
+}

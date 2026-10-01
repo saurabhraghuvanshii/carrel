@@ -1,0 +1,12 @@
+{
+  "id": "reverse-word-order",
+  "title": "Words in reverse order",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1505,
+  "tags": ["strings", "two pointers"],
+  "buildsOn": ["common-start"],
+  "leadsTo": ["first-unique-in-stream"],
+  "generator": "reverse-words"
+}

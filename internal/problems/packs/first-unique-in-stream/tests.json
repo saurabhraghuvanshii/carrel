@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "aabcbc",
+      "expected": "\"a#bbc#\"",
+      "display": "word   = \"aabcbc\"\noutput = \"a#bbc#\"\n\nAfter \"aa\" no letter is unique; after \"aab\" it is b, until the second b arrives."
+    },
+    {
+      "label": "Example 2",
+      "input": "xyz",
+      "expected": "\"xxx\"",
+      "display": "word   = \"xyz\"\noutput = \"xxx\"\n\nx stays unique the whole time."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "a", "expected": "\"a\"" },
+    { "label": "Edge 2: one letter repeated", "input": "aaaa", "expected": "\"a###\"" },
+    { "label": "Edge 3: unique letters run out", "input": "abba", "expected": "\"aaa#\"" }
+  ]
+}

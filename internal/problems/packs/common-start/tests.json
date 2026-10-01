@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3\ninterview internal interval",
+      "expected": "\"inter\"",
+      "display": "words  = [\"interview\", \"internal\", \"interval\"]\noutput = \"inter\""
+    },
+    {
+      "label": "Example 2",
+      "input": "2\ndog cat",
+      "expected": "\"\"",
+      "display": "words  = [\"dog\", \"cat\"]\noutput = \"\"\n\nNothing is shared, so the answer is empty."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one word", "input": "1\nsolo", "expected": "\"solo\"" },
+    { "label": "Edge 2: a word that is the shared part", "input": "3\nab abc a", "expected": "\"a\"" },
+    { "label": "Edge 3: the same word twice", "input": "2\nsame same", "expected": "\"same\"" }
+  ]
+}

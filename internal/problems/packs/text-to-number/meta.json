@@ -1,0 +1,12 @@
+{
+  "id": "text-to-number",
+  "title": "Read a number from text",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1508,
+  "tags": ["strings", "parsing"],
+  "buildsOn": ["longest-mirror-stretch"],
+  "leadsTo": [],
+  "generator": "text-to-number"
+}

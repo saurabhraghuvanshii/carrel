@@ -1,0 +1,25 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "\"   -0042abc\"",
+      "expected": "-42",
+      "display": "text   = \"   -0042abc\"\noutput = -42\n\nSkip the spaces, read the sign and 0042, stop at a."
+    },
+    {
+      "label": "Example 2",
+      "input": "\"words 99\"",
+      "expected": "0",
+      "display": "text   = \"words 99\"\noutput = 0\n\nThe text starts with a letter, so no digits are read."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: a plus sign", "input": "\"+7\"", "expected": "7" },
+    { "label": "Edge 2: too large", "input": "\"99999999999\"", "expected": "2147483647" },
+    { "label": "Edge 3: just below the range", "input": "\"-2147483649\"", "expected": "-2147483648" },
+    { "label": "Edge 4: a sign alone", "input": "\"-\"", "expected": "0" },
+    { "label": "Edge 5: two signs", "input": "\" +-5\"", "expected": "0" },
+    { "label": "Edge 6: a decimal point", "input": "\"3.9\"", "expected": "3" },
+    { "label": "Edge 7: empty text", "input": "\"\"", "expected": "0" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "first-unique-in-stream",
+  "title": "First unique letter so far",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1506,
+  "tags": ["strings", "queue", "counting"],
+  "buildsOn": ["reverse-word-order"],
+  "leadsTo": ["longest-mirror-stretch"],
+  "generator": "first-unique"
+}

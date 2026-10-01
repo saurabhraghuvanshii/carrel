@@ -1,0 +1,12 @@
+{
+  "id": "common-start",
+  "title": "Shared beginning",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1504,
+  "tags": ["strings"],
+  "buildsOn": ["walk-distance"],
+  "leadsTo": ["reverse-word-order"],
+  "generator": "common-start"
+}

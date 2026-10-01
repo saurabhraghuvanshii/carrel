@@ -1,0 +1,12 @@
+{
+  "id": "longest-mirror-stretch",
+  "title": "Longest mirror stretch",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1507,
+  "tags": ["strings", "two pointers"],
+  "buildsOn": ["first-unique-in-stream"],
+  "leadsTo": ["text-to-number"],
+  "generator": "mirror-stretch"
+}

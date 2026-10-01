@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "abaxyzzyxf",
+      "expected": "\"xyzzyx\"",
+      "display": "word   = \"abaxyzzyxf\"\noutput = \"xyzzyx\"\n\n\"aba\" is a mirror stretch too, but \"xyzzyx\" is longer."
+    },
+    {
+      "label": "Example 2",
+      "input": "abcd",
+      "expected": "\"a\"",
+      "display": "word   = \"abcd\"\noutput = \"a\"\n\nEvery single letter is a mirror stretch; \"a\" starts first."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "q", "expected": "\"q\"" },
+    { "label": "Edge 2: an even mirror", "input": "aa", "expected": "\"aa\"" },
+    { "label": "Edge 3: two of the same length", "input": "abacdc", "expected": "\"aba\"" }
+  ]
+}

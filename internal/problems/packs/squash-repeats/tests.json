@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "bookkeeper",
+      "expected": "\"bokeper\"",
+      "display": "word   = \"bookkeeper\"\noutput = \"bokeper\"\n\n\"oo\", \"kk\" and \"ee\" each become one letter."
+    },
+    {
+      "label": "Example 2",
+      "input": "zzzz",
+      "expected": "\"z\"",
+      "display": "word   = \"zzzz\"\noutput = \"z\""
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "a", "expected": "\"a\"" },
+    { "label": "Edge 2: nothing to squash", "input": "abab", "expected": "\"abab\"" },
+    { "label": "Edge 3: the same letter in two runs", "input": "aabbaa", "expected": "\"aba\"" }
+  ]
+}

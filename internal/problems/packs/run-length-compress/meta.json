@@ -1,0 +1,12 @@
+{
+  "id": "run-length-compress",
+  "title": "Run-length code",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1502,
+  "tags": ["strings"],
+  "buildsOn": ["squash-repeats"],
+  "leadsTo": ["walk-distance"],
+  "generator": "run-length"
+}

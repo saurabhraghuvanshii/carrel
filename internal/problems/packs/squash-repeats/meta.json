@@ -1,0 +1,12 @@
+{
+  "id": "squash-repeats",
+  "title": "Squash repeated letters",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Strings",
+  "order": 1501,
+  "tags": ["strings"],
+  "buildsOn": [],
+  "leadsTo": ["run-length-compress"],
+  "generator": "squash-repeats"
+}
