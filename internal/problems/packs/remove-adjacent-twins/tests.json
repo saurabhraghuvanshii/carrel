@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "deeds",
+      "expected": "\"s\"",
+      "display": "text   = \"deeds\"\noutput = \"s\"\n\nRemove \"ee\" to get \"dds\", then \"dd\" to get \"s\"."
+    },
+    {
+      "label": "Example 2",
+      "input": "abccba",
+      "expected": "\"\"",
+      "display": "text   = \"abccba\"\noutput = \"\""
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "a", "expected": "\"a\"" },
+    { "label": "Edge 2: one pair", "input": "aa", "expected": "\"\"" },
+    { "label": "Edge 3: three equal letters", "input": "aaa", "expected": "\"a\"" },
+    { "label": "Edge 4: nothing to remove", "input": "abab", "expected": "\"abab\"" }
+  ]
+}

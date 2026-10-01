@@ -1,0 +1,12 @@
+{
+  "id": "evaluate-postfix",
+  "title": "Evaluate postfix",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 404,
+  "tags": ["stack"],
+  "buildsOn": ["minimum-stack"],
+  "leadsTo": ["duplicate-brackets"],
+  "generator": "postfix"
+}

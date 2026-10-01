@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n3 1 3 2 2",
+      "expected": "6",
+      "display": "heights = [3, 1, 3, 2, 2]\noutput  = 6\n\nHeight 2 across the last three bars."
+    },
+    {
+      "label": "Example 2",
+      "input": "4\n4 4 4 1",
+      "expected": "12",
+      "display": "heights = [4, 4, 4, 1]\noutput  = 12"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one bar", "input": "1\n7", "expected": "7" },
+    { "label": "Edge 2: no height", "input": "3\n0 0 0", "expected": "0" },
+    { "label": "Edge 3: two equal bars", "input": "2\n1 1", "expected": "2" },
+    { "label": "Edge 4: a low bar in the middle", "input": "3\n5 1 5", "expected": "5" }
+  ]
+}

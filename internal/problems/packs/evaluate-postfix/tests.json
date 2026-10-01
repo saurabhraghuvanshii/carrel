@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n6 2 / 5 *",
+      "expected": "15",
+      "display": "tokens = [\"6\", \"2\", \"/\", \"5\", \"*\"]\noutput = 15\n\n(6 / 2) × 5"
+    },
+    {
+      "label": "Example 2",
+      "input": "5\n4 10 3 - *",
+      "expected": "28",
+      "display": "tokens = [\"4\", \"10\", \"3\", \"-\", \"*\"]\noutput = 28\n\n4 × (10 − 3)"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one number", "input": "1\n42", "expected": "42" },
+    { "label": "Edge 2: negative result", "input": "3\n3 5 -", "expected": "-2" },
+    { "label": "Edge 3: division rounds toward zero", "input": "3\n7 -2 /", "expected": "-3" },
+    { "label": "Edge 4: a negative number token", "input": "3\n-8 3 /", "expected": "-2" }
+  ]
+}

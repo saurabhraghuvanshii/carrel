@@ -1,0 +1,12 @@
+{
+  "id": "duplicate-brackets",
+  "title": "Pointless brackets",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 405,
+  "tags": ["stack"],
+  "buildsOn": ["evaluate-postfix"],
+  "leadsTo": ["next-warmer-day"],
+  "generator": "redundant-brackets"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "minimum-stack",
+  "title": "Stack with a minimum",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 403,
+  "tags": ["stack", "design"],
+  "buildsOn": ["remove-adjacent-twins"],
+  "leadsTo": ["evaluate-postfix"],
+  "generator": "min-stack"
+}

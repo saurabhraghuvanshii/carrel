@@ -1,0 +1,12 @@
+{
+  "id": "remove-adjacent-twins",
+  "title": "Remove neighbouring twins",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 402,
+  "tags": ["stack", "strings"],
+  "buildsOn": ["balanced-brackets"],
+  "leadsTo": ["minimum-stack"],
+  "generator": "adjacent-twins"
+}

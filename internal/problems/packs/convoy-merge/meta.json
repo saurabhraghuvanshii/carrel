@@ -1,0 +1,12 @@
+{
+  "id": "convoy-merge",
+  "title": "Robots on a rail",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 409,
+  "tags": ["stack", "simulation"],
+  "buildsOn": ["decode-nested-text"],
+  "leadsTo": ["largest-rectangle"],
+  "generator": "robot-rail"
+}

@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n20 18 22 21 23",
+      "expected": "[2, 1, 2, 1, 0]",
+      "display": "temps  = [20, 18, 22, 21, 23]\noutput = [2, 1, 2, 1, 0]\n\nThe first day waits two days for 22."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n30 30 30",
+      "expected": "[0, 0, 0]",
+      "display": "temps  = [30, 30, 30]\noutput = [0, 0, 0]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one day", "input": "1\n15", "expected": "[0]" },
+    { "label": "Edge 2: always colder", "input": "3\n9 5 1", "expected": "[0, 0, 0]" },
+    { "label": "Edge 3: always warmer", "input": "3\n-5 0 5", "expected": "[1, 1, 0]" }
+  ]
+}

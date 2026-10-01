@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "(x*((y-z)))",
+      "expected": "true",
+      "display": "expr   = \"(x*((y-z)))\"\noutput = true\n\nThe pair around (y-z) holds nothing else."
+    },
+    {
+      "label": "Example 2",
+      "input": "((a+b)*c)",
+      "expected": "false",
+      "display": "expr   = \"((a+b)*c)\"\noutput = false\n\nThe outer pair also holds *c."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: no brackets", "input": "a", "expected": "false" },
+    { "label": "Edge 2: one letter in brackets", "input": "(a)", "expected": "false" },
+    { "label": "Edge 3: a letter in two pairs", "input": "((a))", "expected": "true" },
+    { "label": "Edge 4: brackets inside a sum", "input": "(a+(b))", "expected": "false" }
+  ]
+}

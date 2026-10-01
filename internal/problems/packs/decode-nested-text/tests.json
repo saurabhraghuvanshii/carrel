@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "2[x3[y]]z",
+      "expected": "xyyyxyyyz",
+      "display": "text   = \"2[x3[y]]z\"\noutput = \"xyyyxyyyz\"\n\n3[y] is \"yyy\", so 2[xyyy] is \"xyyyxyyy\"."
+    },
+    {
+      "label": "Example 2",
+      "input": "ab4[c]",
+      "expected": "abcccc",
+      "display": "text   = \"ab4[c]\"\noutput = \"abcccc\""
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: nothing encoded", "input": "hello", "expected": "hello" },
+    { "label": "Edge 2: repeated once", "input": "1[q]", "expected": "q" },
+    { "label": "Edge 3: three levels", "input": "2[2[2[k]]]", "expected": "kkkkkkkk" },
+    { "label": "Edge 4: a two-digit number", "input": "12[a]", "expected": "aaaaaaaaaaaa" }
+  ]
+}

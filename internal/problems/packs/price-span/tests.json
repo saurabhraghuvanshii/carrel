@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\n31 27 29 33 29 30",
+      "expected": "[1, 1, 2, 4, 1, 2]",
+      "display": "prices = [31, 27, 29, 33, 29, 30]\noutput = [1, 1, 2, 4, 1, 2]\n\nOn day 4 the price 33 is at least every earlier price."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n5 5 5",
+      "expected": "[1, 2, 3]",
+      "display": "prices = [5, 5, 5]\noutput = [1, 2, 3]\n\nEqual prices count."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one day", "input": "1\n7", "expected": "[1]" },
+    { "label": "Edge 2: always falling", "input": "3\n9 8 7", "expected": "[1, 1, 1]" },
+    { "label": "Edge 3: equal then lower", "input": "4\n2 3 3 1", "expected": "[1, 2, 3, 1]" }
+  ]
+}

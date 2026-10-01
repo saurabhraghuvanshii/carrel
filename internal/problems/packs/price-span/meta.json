@@ -1,0 +1,12 @@
+{
+  "id": "price-span",
+  "title": "Price span",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 407,
+  "tags": ["monotonic stack"],
+  "buildsOn": ["next-warmer-day"],
+  "leadsTo": ["decode-nested-text"],
+  "generator": "price-span"
+}

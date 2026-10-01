@@ -1,0 +1,12 @@
+{
+  "id": "largest-rectangle",
+  "title": "Largest rectangle in a bar chart",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 410,
+  "tags": ["monotonic stack"],
+  "buildsOn": ["convoy-merge", "rain-trap"],
+  "leadsTo": [],
+  "generator": "histogram"
+}

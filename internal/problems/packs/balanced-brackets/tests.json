@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "{[()()]}",
+      "expected": "true",
+      "display": "text   = \"{[()()]}\"\noutput = true"
+    },
+    {
+      "label": "Example 2",
+      "input": "[(])",
+      "expected": "false",
+      "display": "text   = \"[(])\"\noutput = false\n\nThe ( is still open when ] arrives."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: only an opener", "input": "(", "expected": "false" },
+    { "label": "Edge 2: closer before opener", "input": ")(", "expected": "false" },
+    { "label": "Edge 3: deep nesting", "input": "((()))[]", "expected": "true" },
+    { "label": "Edge 4: only a closer", "input": "}", "expected": "false" }
+  ]
+}

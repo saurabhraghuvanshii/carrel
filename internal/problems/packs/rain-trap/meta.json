@@ -7,6 +7,6 @@
   "order": 208,
   "tags": ["two pointers", "prefix maximums"],
   "buildsOn": ["container-fill", "product-of-others"],
-  "leadsTo": [],
+  "leadsTo": ["largest-rectangle"],
   "generator": "rain-trap"
 }

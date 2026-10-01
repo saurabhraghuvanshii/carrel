@@ -1,0 +1,12 @@
+{
+  "id": "balanced-brackets",
+  "title": "Balanced brackets",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Stack",
+  "order": 401,
+  "tags": ["stack"],
+  "buildsOn": [],
+  "leadsTo": ["remove-adjacent-twins"],
+  "generator": "brackets"
+}

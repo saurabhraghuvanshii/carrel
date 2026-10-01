@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "10\nnew\npush 5\npush 2\nmin\npush 7\ntop\npop\nmin\npop\nmin",
+      "expected": "null null null 2 null 7 null 2 null 5",
+      "display": "calls   = MinStack(), push(5), push(2), minimum(), push(7),\n          top(), pop(), minimum(), pop(), minimum()\nresults = null, null, null, 2, null, 7, null, 2, null, 5\n\nAfter 2 is popped, the minimum goes back to 5."
+    },
+    {
+      "label": "Example 2",
+      "input": "6\nnew\npush -1\npush -1\npop\nmin\ntop",
+      "expected": "null null null null -1 -1",
+      "display": "calls   = MinStack(), push(-1), push(-1), pop(), minimum(), top()\nresults = null, null, null, null, -1, -1"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value", "input": "3\nnew\npush 9\nmin", "expected": "null null 9" },
+    { "label": "Edge 2: the minimum is pushed twice", "input": "7\nnew\npush 3\npush 1\npush 1\npop\nmin\ntop", "expected": "null null null null null 1 1" },
+    { "label": "Edge 3: values only rise", "input": "6\nnew\npush 1\npush 2\npush 3\nmin\ntop", "expected": "null null null null 1 3" }
+  ]
+}
