@@ -74,6 +74,7 @@ body {
   color: var(--ink);
   font-family: var(--sans);
   font-size: 14px;
+  font-variant-ligatures: no-contextual; /* JetBrains Mono would draw != as one symbol */
   display: flex;
   flex-direction: column;
 }
