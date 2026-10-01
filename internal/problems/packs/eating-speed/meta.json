@@ -1,0 +1,12 @@
+{
+  "id": "eating-speed",
+  "title": "Slowest speed that finishes",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 507,
+  "tags": ["binary search on the answer"],
+  "buildsOn": ["peak-finder"],
+  "leadsTo": ["median-of-two-sorted"],
+  "generator": "eating-speed"
+}

@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n2 4 7 10 15\n10",
+      "expected": "3",
+      "display": "nums   = [2, 4, 7, 10, 15]\ntarget = 10\noutput = 3"
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n1 3 5\n4",
+      "expected": "-1",
+      "display": "nums   = [1, 3, 5]\ntarget = 4\noutput = -1"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one value, found", "input": "1\n6\n6", "expected": "0" },
+    { "label": "Edge 2: one value, missing", "input": "1\n6\n5", "expected": "-1" },
+    { "label": "Edge 3: the last value", "input": "4\n-9 -3 0 8\n8", "expected": "3" },
+    { "label": "Edge 4: smaller than everything", "input": "3\n10 20 30\n-1000000000", "expected": "-1" }
+  ]
+}

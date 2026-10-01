@@ -1,0 +1,12 @@
+{
+  "id": "integer-square-root",
+  "title": "Whole square root",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 502,
+  "tags": ["binary search", "math"],
+  "buildsOn": ["find-in-sorted"],
+  "leadsTo": ["first-and-last-position"],
+  "generator": "int-sqrt"
+}

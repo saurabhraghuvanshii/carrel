@@ -1,0 +1,12 @@
+{
+  "id": "first-and-last-position",
+  "title": "First and last position",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 503,
+  "tags": ["binary search"],
+  "buildsOn": ["integer-square-root"],
+  "leadsTo": ["minimum-in-rotated"],
+  "generator": "first-last"
+}

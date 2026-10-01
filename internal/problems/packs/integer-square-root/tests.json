@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "35",
+      "expected": "5",
+      "display": "x      = 35\noutput = 5\n\n5 × 5 = 25 ≤ 35 but 6 × 6 = 36 > 35."
+    },
+    {
+      "label": "Example 2",
+      "input": "81",
+      "expected": "9",
+      "display": "x      = 81\noutput = 9"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: zero", "input": "0", "expected": "0" },
+    { "label": "Edge 2: one", "input": "1", "expected": "1" },
+    { "label": "Edge 3: the largest 32-bit value", "input": "2147483647", "expected": "46340" },
+    { "label": "Edge 4: just below a square", "input": "99", "expected": "9" }
+  ]
+}

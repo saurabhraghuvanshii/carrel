@@ -1,0 +1,12 @@
+{
+  "id": "minimum-in-rotated",
+  "title": "Smallest in a turned list",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 504,
+  "tags": ["binary search"],
+  "buildsOn": ["first-and-last-position"],
+  "leadsTo": ["search-rotated"],
+  "generator": "min-rotated"
+}

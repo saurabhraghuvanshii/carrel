@@ -1,0 +1,12 @@
+{
+  "id": "peak-finder",
+  "title": "Top of the mountain",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 506,
+  "tags": ["binary search"],
+  "buildsOn": ["search-rotated"],
+  "leadsTo": ["eating-speed"],
+  "generator": "mountain-top"
+}

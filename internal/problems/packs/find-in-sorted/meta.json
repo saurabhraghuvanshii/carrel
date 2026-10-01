@@ -1,0 +1,12 @@
+{
+  "id": "find-in-sorted",
+  "title": "Find in a sorted list",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 501,
+  "tags": ["binary search"],
+  "buildsOn": [],
+  "leadsTo": ["integer-square-root"],
+  "generator": "find-sorted"
+}

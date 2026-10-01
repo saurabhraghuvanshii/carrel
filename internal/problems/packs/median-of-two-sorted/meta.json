@@ -1,0 +1,12 @@
+{
+  "id": "median-of-two-sorted",
+  "title": "Median of two sorted lists",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 508,
+  "tags": ["binary search"],
+  "buildsOn": ["eating-speed", "merge-sorted-lists-in-place"],
+  "leadsTo": [],
+  "generator": "median-two"
+}

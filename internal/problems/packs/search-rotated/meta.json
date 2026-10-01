@@ -1,0 +1,12 @@
+{
+  "id": "search-rotated",
+  "title": "Search a turned list",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Binary search",
+  "order": 505,
+  "tags": ["binary search"],
+  "buildsOn": ["minimum-in-rotated"],
+  "leadsTo": ["peak-finder"],
+  "generator": "search-rotated"
+}
