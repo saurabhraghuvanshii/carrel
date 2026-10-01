@@ -1,0 +1,18 @@
+dsa
+dist/
+*.exe
+.DS_Store
+
+# Private planning and design notes. Never push these.
+.plan/
+
+# Personal Claude Code files
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Node tools used only to build the editor bundle (task 01)
+tools/vendor/node_modules/
+
+# Private context files
+START-HERE.md
+CONTEXT-ALL-IN-ONE.md

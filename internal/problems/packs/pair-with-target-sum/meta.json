@@ -1,0 +1,12 @@
+{
+  "id": "pair-with-target-sum",
+  "title": "Pair with target sum",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Arrays and hashing",
+  "order": 1,
+  "tags": ["hash map"],
+  "buildsOn": [],
+  "leadsTo": [],
+  "generator": "pair-sum"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "dsa-vendor",
+  "private": true,
+  "description": "Builds the offline editor bundle and copies the fonts into internal/server/web. Dev-time only.",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild entry.js --bundle --format=iife --minify --legal-comments=none --outfile=../../internal/server/web/vendor/editor.js && node copy-fonts.js"
+  },
+  "devDependencies": {
+    "@codemirror/commands": "6.11.1",
+    "@codemirror/lang-cpp": "6.0.3",
+    "@codemirror/lang-java": "6.0.2",
+    "@codemirror/language": "6.12.4",
+    "@codemirror/state": "6.7.6",
+    "@codemirror/view": "6.43.13",
+    "@fontsource/ibm-plex-sans": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@fontsource/source-serif-4": "5.3.0",
+    "@lezer/highlight": "1.2.5",
+    "esbuild": "0.28.2"
+  }
+}

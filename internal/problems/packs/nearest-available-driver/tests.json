@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3\n1 2 3 1\n2 5 1 0\n3 1 1 1\n2 2",
+      "expected": "1",
+      "display": "drivers = {1, 2, 3, free}\n          {2, 5, 1, busy}\n          {3, 1, 1, free}\nrider   = (2, 2)\noutput  = 1"
+    },
+    {
+      "label": "Example 2",
+      "input": "1\n1 0 0 0\n4 4",
+      "expected": "-1",
+      "display": "drivers = {1, 0, 0, busy}\nrider   = (4, 4)\noutput  = -1"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: tie goes to the lower id", "input": "2\n5 1 1 1\n2 3 3 1\n2 2", "expected": "2" },
+    { "label": "Edge 2: one far driver", "input": "1\n9 100 100 1\n0 0", "expected": "9" },
+    { "label": "Edge 3: busy driver is closer", "input": "2\n1 0 0 0\n2 9 9 1\n0 0", "expected": "2" }
+  ]
+}

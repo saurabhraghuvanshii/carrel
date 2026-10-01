@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go build:*)",
+      "Bash(go test:*)",
+      "Bash(go vet:*)",
+      "Bash(gofmt:*)",
+      "Bash(make build)",
+      "Bash(make test)",
+      "Bash(make vet)",
+      "Bash(./dsa doctor)"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "nearest-available-driver",
+  "title": "Nearest available driver",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Ride dispatch",
+  "order": 1,
+  "tags": ["grid", "ordering", "follow-up"],
+  "buildsOn": [],
+  "leadsTo": [],
+  "generator": "nearest-driver"
+}
