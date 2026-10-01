@@ -17,7 +17,7 @@ const goodTests = `{
   "edge": [
     {"label": "Edge 1", "input": "1\n0", "expected": "0"},
     {"label": "Edge 2", "input": "1\n1", "expected": "1"},
-    {"label": "Edge 3", "input": "1\n\n7", "expected": "7"}
+    {"label": "Edge 3", "input": "0\n", "expected": "[]"}
   ]
 }`
 
@@ -120,7 +120,7 @@ func TestValidateRejectsBadStatementAndTests(t *testing.T) {
 	wantError(t, err, "at least 2 examples")
 	wantError(t, err, "at least 3 edge cases")
 
-	for _, in := range []string{`1 \n5`, `1\n5\n`, `\n1\n5`} {
+	for _, in := range []string{`1 \n5`, `1\n5\n\n`, `\n1\n5`} {
 		fsys = fstest.MapFS{}
 		pack(fsys, "a", nil)
 		bad := strings.Replace(goodTests, `"input": "1\n5"`, `"input": "`+in+`"`, 1)

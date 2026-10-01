@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "7\nnew 2\nput 1 10\nput 2 20\nget 1\nput 3 30\nget 2\nget 3",
+      "expected": "null null null 10 null -1 30",
+      "display": "calls   = LRUCache(2), put(1, 10), put(2, 20), get(1),\n          put(3, 30), get(2), get(3)\nresults = null, null, null, 10, null, -1, 30\n\nget(1) makes key 1 the most recent, so put(3, 30)\nremoves key 2."
+    },
+    {
+      "label": "Example 2",
+      "input": "6\nnew 1\nput 5 50\nput 5 55\nget 5\nput 6 60\nget 5",
+      "expected": "null null null 55 null -1",
+      "display": "calls   = LRUCache(1), put(5, 50), put(5, 55), get(5),\n          put(6, 60), get(5)\nresults = null, null, null, 55, null, -1"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: get on an empty cache", "input": "3\nnew 3\nget 7\nget 0", "expected": "null -1 -1" },
+    { "label": "Edge 2: get refreshes a key", "input": "8\nnew 2\nput 4 40\nput 8 80\nget 4\nput 9 90\nget 8\nget 4\nget 9", "expected": "null null null 40 null -1 40 90" },
+    { "label": "Edge 3: put on an existing key refreshes it", "input": "7\nnew 2\nput 1 5\nput 2 6\nput 1 7\nput 3 8\nget 2\nget 1", "expected": "null null null null null -1 7" },
+    { "label": "Edge 4: key and value zero", "input": "3\nnew 1\nput 0 0\nget 0", "expected": "null null 0" }
+  ]
+}

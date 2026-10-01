@@ -67,6 +67,38 @@ One folder per problem, in `internal/problems/packs/<id>/`:
 
 The driver protocol is the same for every problem: stdin is `T` followed by `T` cases, stdout is exactly one line per case, and a case that throws prints `ERROR ...`. Anything the learner prints goes to stderr so it cannot break the results.
 
+### Input and output formats
+
+Every case's input uses one of these shapes, the same in every problem:
+
+| Shape | Input |
+| --- | --- |
+| Array | `n`, then one line with the n values. An empty array is `0` and an empty line. |
+| Linked list | Same as an array; the driver builds the nodes. Cycle problems add a line with the index the tail points to, or `-1`. |
+| Binary tree | One line in level order, `null` for a missing child, trailing `null`s dropped, for example `5 3 8 null 4`. An empty tree is `null`. |
+| Graph | `n m`, then m lines `u v` or `u v w`. |
+| Grid | `rows cols`, then the rows as space-separated values. |
+| Call sequence | `k`, then k lines `name arg ...`. The first call builds the object, for example `new 2`. |
+
+Output is exactly one line per case and never an empty line. A list or array prints as `[a, b, c]`, an empty one as `[]`. A call sequence prints one result per call joined by spaces, with `null` for the constructor and for calls that return nothing. For a cache with room for 2 entries:
+
+```
+7
+new 2
+put 1 10
+put 2 20
+get 1
+put 3 30
+get 2
+get 3
+```
+
+Expected line: `null null null 10 null -1 30`.
+
+Copy-paste readers for each shape, in Java and C++, are in `internal/problems/drivers/README.md`.
+
+`order` in `meta.json` is the group number times 100 plus the position in the group (`601` is the first linked-list problem), so a problem can be added without renumbering the others.
+
 Random cases come from a Go generator registered in `internal/testgen`. A generator plants a known answer, or computes one with a reference solution, and returns the input and the expected line. Same seed, same cases.
 
 To add a problem: copy a pack folder, change the files, write a generator, add reference solutions in `tools/refs/<id>/` (see `tools/refs/README.md`), then run `make test` and `make check-packs`.

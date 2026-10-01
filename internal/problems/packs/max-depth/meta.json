@@ -1,0 +1,12 @@
+{
+  "id": "max-depth",
+  "title": "Depth of a binary tree",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 701,
+  "tags": ["tree", "recursion"],
+  "buildsOn": [],
+  "leadsTo": [],
+  "generator": "max-depth"
+}

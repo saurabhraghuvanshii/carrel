@@ -69,15 +69,15 @@ func Validate(lib *Library) error {
 	return errors.Join(errs...)
 }
 
-// inputProblem rejects trailing spaces and leading or trailing blank lines.
-// Blank lines inside an input are allowed, because an empty array is "0"
-// followed by an empty line.
+// inputProblem rejects trailing spaces, a leading blank line and more than one
+// trailing empty line. One is allowed because an empty array is "0" followed
+// by an empty line, which is written as "0\n".
 func inputProblem(in string) string {
 	if strings.TrimSpace(in) == "" {
 		return "is empty"
 	}
-	if strings.HasPrefix(in, "\n") || strings.HasSuffix(in, "\n") {
-		return "starts or ends with a blank line"
+	if strings.HasPrefix(in, "\n") || strings.HasSuffix(in, "\n\n") {
+		return "starts with a blank line or ends with more than one"
 	}
 	for _, line := range strings.Split(in, "\n") {
 		if strings.TrimRight(line, " \t\r") != line {

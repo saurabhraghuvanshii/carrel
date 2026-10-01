@@ -1,0 +1,12 @@
+{
+  "id": "lru-cache",
+  "title": "Recently used cache",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Caches and rate limits",
+  "order": 201,
+  "tags": ["hash map", "linked list", "design", "follow-up"],
+  "buildsOn": ["pair-with-target-sum", "reverse-list"],
+  "leadsTo": [],
+  "generator": "lru-cache"
+}

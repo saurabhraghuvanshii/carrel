@@ -1,0 +1,12 @@
+{
+  "id": "reverse-list",
+  "title": "Reverse a linked list",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 601,
+  "tags": ["linked list", "pointers"],
+  "buildsOn": [],
+  "leadsTo": [],
+  "generator": "reverse-list"
+}

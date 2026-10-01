@@ -4,7 +4,7 @@
   "difficulty": "easy",
   "sheet": "patterns",
   "group": "Arrays and hashing",
-  "order": 1,
+  "order": 101,
   "tags": ["hash map"],
   "buildsOn": [],
   "leadsTo": [],
