@@ -1,0 +1,25 @@
+{
+    "version": "{{version}}",
+    "description": "Practise data structures and algorithms locally in Java or C++",
+    "homepage": "https://github.com/saurabhraghuvanshii/carrel",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/saurabhraghuvanshii/carrel/releases/download/v{{version}}/carrel_windows_amd64.zip",
+            "hash": "{{sha_windows_amd64}}"
+        }
+    },
+    "bin": "carrel.exe",
+    "notes": "Run 'carrel doctor' to see whether Java and g++ are installed.",
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/saurabhraghuvanshii/carrel/releases/download/v$version/carrel_windows_amd64.zip"
+            }
+        },
+        "hash": {
+            "url": "$baseurl/checksums.txt"
+        }
+    }
+}

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"carrel/internal/problems"
+	"github.com/saurabhraghuvanshii/carrel/internal/problems"
 )
 
 func builtinServer(t *testing.T) *Server {

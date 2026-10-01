@@ -7,7 +7,7 @@ import (
 	"testing/fstest"
 	"time"
 
-	"carrel/internal/problems"
+	"github.com/saurabhraghuvanshii/carrel/internal/problems"
 )
 
 // pathLib: patterns a -> c, b on its own; real r1 builds on c.

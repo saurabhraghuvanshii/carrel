@@ -2,35 +2,79 @@
 
 # Carrel
 
-Practice data structures and algorithms in your browser. One small Go program, no account, nothing uploaded. Your solutions are plain files on your own computer.
+Practise data structures and algorithms in your browser, on your own computer. One small program, no account, nothing uploaded. It runs your Java or C++ with the compilers you already have, and keeps your solutions as plain files.
+
+| Paper | Ink |
+| --- | --- |
+| ![The practice screen in the Paper theme](docs/paper.png) | ![The practice screen in the Ink theme](docs/ink.png) |
 
 ```
 carrel           # starts a local server and opens your browser
 carrel doctor    # checks that Java and C++ compilers are installed
 carrel export    # saves all your solutions and progress to a zip
+carrel version   # prints the version
 ```
 
-## Run it
+It comes with 183 problems in two sheets: a patterns sheet that builds one idea on the next, and a sheet of problems in the style commonly seen in online assessments. Every Submit runs your code against the examples, fixed edge cases and 50 fresh random cases.
 
-You need Go 1.22 or newer, plus the compilers for the languages you want to practise in (`javac` and `java` for Java, `g++` for C++).
+## Install
+
+**Linux and macOS**, into `~/.local/bin` (no sudo, the download is checked against the release checksums):
 
 ```
-make build     # makes ./carrel
-./carrel
-make test      # unit tests
-make check-packs   # runs reference solutions against every problem pack
-make dist      # one binary per platform in dist/
+curl -fsSL https://saurabhraghuvanshii.github.io/carrel/install.sh | sh
 ```
 
-Your data lives in `~/.carrel` (or `$CARREL_HOME`):
+**Windows**, in PowerShell:
+
+```
+irm https://saurabhraghuvanshii.github.io/carrel/install.ps1 | iex
+```
+
+**By hand:** download the archive for your system from the [releases page](https://github.com/saurabhraghuvanshii/carrel/releases), unpack it, and put `carrel` (or `carrel.exe`) somewhere on your `PATH`. Each archive holds the binary, this README and the licence. `checksums.txt` lists the SHA-256 of every archive.
+
+| System | File |
+| --- | --- |
+| Linux, Intel or AMD | `carrel_linux_amd64.tar.gz` |
+| Linux, ARM | `carrel_linux_arm64.tar.gz` |
+| macOS, Apple silicon | `carrel_darwin_arm64.tar.gz` |
+| macOS, Intel | `carrel_darwin_amd64.tar.gz` |
+| Windows | `carrel_windows_amd64.zip` |
+
+The binaries are not signed yet. On macOS, if you downloaded by hand, run `xattr -d com.apple.quarantine carrel` once; Windows SmartScreen may ask you to confirm the first start.
+
+**With Go** 1.22 or newer:
+
+```
+go install github.com/saurabhraghuvanshii/carrel@latest
+```
+
+## What is `carrel doctor`
+
+Carrel does not ship a compiler. It uses the ones on your computer: `javac` and `java` (JDK 17 or newer) for Java, `g++` for C++. `carrel doctor` shows which ones it found and their versions:
+
+```
+carrel doctor: checking the tools needed to run your code (carrel v0.1.0)
+  ok       javac  javac 21.0.4  (/usr/bin/javac)
+  ok       java   openjdk version "21.0.4"  (/usr/bin/java)
+  missing  g++    install it and make sure it is on your PATH
+```
+
+You only need one language. On macOS, `xcode-select --install` gives you a C++ compiler; on Windows, MinGW-w64 or MSYS2 does.
+
+## Where your files live
+
+Everything is in `~/.carrel` (set `CARREL_HOME` to use another folder):
 
 ```
 ~/.carrel/solutions/<problem>.java   your code, as plain files
 ~/.carrel/solutions/<problem>.cpp
 ~/.carrel/progress.json              tried / solved
 ~/.carrel/config.json                theme, accent colour, AI settings (owner-only permissions)
-~/.carrel/packs/                     optional extra problem packs, same layout as below
+~/.carrel/packs/                     optional extra problem packs
 ```
+
+Your solutions are ordinary files: open them in any editor, keep them in git, back them up however you like.
 
 ## Moving your solutions
 
@@ -41,95 +85,17 @@ carrel import <file.zip> [--overwrite]
 
 The same two actions are the Export all and Import solutions buttons on the Sheets screen and in Settings. Import only accepts `solutions/<problem>.java`, `solutions/<problem>.cpp` and `progress.json`; anything else in the zip is listed as rejected and never written. Solutions you already have are skipped unless you choose to replace them. Progress is merged: a solved problem stays solved. Limits: 20 MB, 2000 files, 1 MB per solution.
 
-## How it fits together
+## Adding an AI key
 
-```
-main.go                       start, bind 127.0.0.1 only, open the browser
-cmd/packcheck/                checks every pack with the reference solutions
-tools/refs/                   reference solutions (not shipped in the binary)
-internal/server/              HTTP API and the embedded web UI (web/)
-tools/vendor/                 builds the editor bundle and copies the fonts (Node, dev only)
-internal/problems/            loads problem packs (embedded, plus ~/.carrel/packs)
-internal/testgen/             seeded random test generators
-internal/runner/              compile and run Java or C++ with time and memory limits
-internal/store/               solutions and progress as plain files
-internal/config/              settings file, API key included
-internal/ai/                  Anthropic, OpenAI or Ollama, explain-only by default
-```
+AI help is optional and off until you set it up. Open Settings, choose Anthropic, OpenAI or Ollama (a local model, no key needed), and paste your key. The key is stored in `~/.carrel/config.json`, readable only by you, and is never sent back to the browser. Your code and question go straight from your computer to the provider you picked.
 
-Pressing Run or Submit:
-
-1. The browser sends your code to the Go server.
-2. The code is saved to `~/.carrel/solutions`.
-3. The runner writes your code and the problem's driver to a temp folder, compiles once, and runs every case in one process.
-4. Submit uses the examples, the fixed edge cases, and 50 fresh random cases from a new seed each time.
-5. The results come back with the seed, so a failure can be reproduced.
+By default the AI explains and gives hints but does not write the full solution. You can turn "Explain only" off in Settings.
 
 ## Problem packs
 
-One folder per problem, in `internal/problems/packs/<id>/`:
+Each problem is a folder with a statement, tests, starter code and a small driver for each language. The built-in packs are inside the binary. To add your own, put pack folders in `~/.carrel/packs/<id>/`; they appear next to the built-in ones on the next start. The pack format is described in [CONTRIBUTING.md](CONTRIBUTING.md#problem-packs).
 
-| File | What it is |
-| --- | --- |
-| `meta.json` | title, difficulty (`easy`, `medium`, `hard`), sheet (`patterns` or `real`), group, order, tags, `buildsOn`, `leadsTo`, generator name |
-| `statement.md` | the statement, in your own words |
-| `tests.json` | visible `examples` and fixed `edge` cases |
-| `starter.java`, `starter.cpp` | what the learner starts with |
-| `driver.java`, `driver.cpp` | reads the test cases, calls the learner's code, prints one line per case |
-
-The driver protocol is the same for every problem: stdin is `T` followed by `T` cases, stdout is exactly one line per case, and a case that throws prints `ERROR ...`. Anything the learner prints goes to stderr so it cannot break the results.
-
-### Input and output formats
-
-Every case's input uses one of these shapes, the same in every problem:
-
-| Shape | Input |
-| --- | --- |
-| Array | `n`, then one line with the n values. An empty array is `0` and an empty line. |
-| Linked list | Same as an array; the driver builds the nodes. Cycle problems add a line with the index the tail points to, or `-1`. |
-| Binary tree | One line in level order, `null` for a missing child, trailing `null`s dropped, for example `5 3 8 null 4`. An empty tree is `null`. |
-| Graph | `n m`, then m lines `u v` or `u v w`. |
-| Grid | `rows cols`, then the rows as space-separated values. |
-| Call sequence | `k`, then k lines `name arg ...`. The first call builds the object, for example `new 2`. |
-
-Output is exactly one line per case and never an empty line. A list or array prints as `[a, b, c]`, an empty one as `[]`. A call sequence prints one result per call joined by spaces, with `null` for the constructor and for calls that return nothing. For a cache with room for 2 entries:
-
-```
-7
-new 2
-put 1 10
-put 2 20
-get 1
-put 3 30
-get 2
-get 3
-```
-
-Expected line: `null null null 10 null -1 30`.
-
-Copy-paste readers for each shape, in Java and C++, are in `internal/problems/drivers/README.md`.
-
-`order` in `meta.json` is the group number times 100 plus the position in the group (`601` is the first linked-list problem), so a problem can be added without renumbering the others.
-
-Random cases come from a Go generator registered in `internal/testgen`. A generator plants a known answer, or computes one with a reference solution, and returns the input and the expected line. Same seed, same cases.
-
-To add a problem: copy a pack folder, change the files, write a generator, add reference solutions in `tools/refs/<id>/` (see `tools/refs/README.md`), then run `make test` and `make check-packs`.
-
-`make test` checks the structure of every pack: all files present, a registered generator, a `## Constraints` heading, at least 2 examples and 3 edge cases, no trailing spaces in inputs, every `buildsOn` and `leadsTo` id exists, `leadsTo` matches `buildsOn`, and no cycles.
-
-`make check-packs` runs the Java and C++ reference solutions through the real runner on the examples, the edge cases and 200 random cases from a fixed seed. Every case must pass in both languages, so a wrong expected value or a broken driver is caught before it ships. It needs `javac`, `java` and `g++`.
-
-## Rebuilding the editor bundle
-
-The editor (CodeMirror 6 with Java and C++) and the three fonts are committed under `internal/server/web/vendor/` and `internal/server/web/fonts/`, so the app works offline and Go never needs Node. To rebuild them you need Node:
-
-```
-cd tools/vendor
-npm ci
-npm run build
-```
-
-See `tools/vendor/README.md` for what the bundle exposes. The font licences are in `internal/server/web/fonts/LICENSES.md`.
+All statements are written for Carrel. None are copied from other sites.
 
 ## Safety
 
@@ -151,9 +117,10 @@ If a solution crashes, the case it was on is marked as crashed and the rest run 
 
 **Windows:** there is no memory limit for C++ yet (it needs a job object); only the time limit applies. Java keeps its heap limit. This path has not been tested.
 
-## Not done yet
+## Contributing
 
-- A memory limit for C++ on Windows
-- Function-style wrappers for more languages (Python, JavaScript, Go)
-- `carrel pull` to download extra problem packs
-- More problems: the aim is about 100 patterns problems and a real-interview sheet
+Bug reports, problem packs and fixes are welcome. [CONTRIBUTING.md](CONTRIBUTING.md) explains how to build Carrel, how it fits together, the pack format and the checks every change must pass.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).

@@ -15,12 +15,12 @@ import (
 	"sync"
 	"time"
 
-	"carrel/internal/ai"
-	"carrel/internal/config"
-	"carrel/internal/problems"
-	"carrel/internal/runner"
-	"carrel/internal/store"
-	"carrel/internal/testgen"
+	"github.com/saurabhraghuvanshii/carrel/internal/ai"
+	"github.com/saurabhraghuvanshii/carrel/internal/config"
+	"github.com/saurabhraghuvanshii/carrel/internal/problems"
+	"github.com/saurabhraghuvanshii/carrel/internal/runner"
+	"github.com/saurabhraghuvanshii/carrel/internal/store"
+	"github.com/saurabhraghuvanshii/carrel/internal/testgen"
 )
 
 //go:embed web

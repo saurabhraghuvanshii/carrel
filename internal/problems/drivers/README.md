@@ -1,6 +1,6 @@
 # Driver snippets
 
-Copy these into a pack's `driver.java` or `driver.cpp`. They are not included automatically. The formats are described in the top-level `README.md`.
+Copy these into a pack's `driver.java` or `driver.cpp`. They are not included automatically. The formats are described in the top-level `CONTRIBUTING.md`.
 
 Every driver:
 

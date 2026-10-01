@@ -20,9 +20,9 @@ import (
 	"sync"
 	"time"
 
-	"carrel/internal/problems"
-	"carrel/internal/runner"
-	"carrel/internal/testgen"
+	"github.com/saurabhraghuvanshii/carrel/internal/problems"
+	"github.com/saurabhraghuvanshii/carrel/internal/runner"
+	"github.com/saurabhraghuvanshii/carrel/internal/testgen"
 )
 
 var refFiles = []struct{ lang, file string }{

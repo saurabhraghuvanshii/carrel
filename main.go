@@ -15,16 +15,22 @@ import (
 	"strings"
 	"time"
 
-	"carrel/internal/config"
-	"carrel/internal/problems"
-	"carrel/internal/runner"
-	"carrel/internal/server"
-	"carrel/internal/store"
+	"github.com/saurabhraghuvanshii/carrel/internal/config"
+	"github.com/saurabhraghuvanshii/carrel/internal/problems"
+	"github.com/saurabhraghuvanshii/carrel/internal/runner"
+	"github.com/saurabhraghuvanshii/carrel/internal/server"
+	"github.com/saurabhraghuvanshii/carrel/internal/store"
 )
+
+// version is set at release time with -ldflags "-X main.version=v0.1.0".
+var version = "dev"
 
 func main() {
 	if len(os.Args) > 1 {
 		switch os.Args[1] {
+		case "version", "--version":
+			fmt.Println("carrel", version)
+			return
 		case "doctor":
 			runDoctor()
 			return
@@ -105,7 +111,7 @@ func openBrowser(url string) {
 }
 
 func runDoctor() {
-	fmt.Println("carrel doctor: checking the tools needed to run your code")
+	fmt.Printf("carrel doctor: checking the tools needed to run your code (carrel %s)\n", version)
 	for _, t := range runner.Doctor() {
 		if t.Found {
 			fmt.Printf("  ok       %-6s %s  (%s)\n", t.Name, t.Version, t.Path)

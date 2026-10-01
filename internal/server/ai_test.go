@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"carrel/internal/ai"
+	"github.com/saurabhraghuvanshii/carrel/internal/ai"
 )
 
 const secretKey = "sk-very-secret-0123456789"

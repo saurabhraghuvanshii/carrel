@@ -51,7 +51,7 @@ scripts/                 install.sh and install.ps1 served by the website
 
 - Statements are always written from scratch. Never copy text, examples or test data from LeetCode, GeeksforGeeks or any other site. Patterns and algorithms are free to use; wording is not.
 - Do not claim a problem was asked by a named company. Say "pattern commonly seen in online assessments".
-- Pack layout and driver protocol are in `README.md`. A pack must have both languages, a generator name that exists in `internal/testgen`, a `## Constraints` heading, at least 2 examples and at least 3 edge cases.
+- Pack layout and driver protocol are in `CONTRIBUTING.md`. A pack must have both languages, a generator name that exists in `internal/testgen`, a `## Constraints` heading, at least 2 examples and at least 3 edge cases.
 - `go test ./internal/problems` fails on an incomplete pack, and `make check-packs` fails when a reference solution does not pass every case. Keep both passing.
 
 ## Design rules

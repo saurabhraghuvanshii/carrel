@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"carrel/internal/testgen"
+	"github.com/saurabhraghuvanshii/carrel/internal/testgen"
 )
 
 // Validate checks the structure of every pack and the links between them.

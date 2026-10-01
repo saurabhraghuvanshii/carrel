@@ -67,7 +67,8 @@
 [data-theme="ink"][data-accent="slate"] { --accent: #8FA3B8; }
 [data-theme="ink"][data-accent="plum"] { --accent: #B58AAE; }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; }
 html, body { height: 100%; }
 body {
   margin: 0;

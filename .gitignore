@@ -1,4 +1,5 @@
 /carrel
+/dsa
 dist/
 *.exe
 .DS_Store
