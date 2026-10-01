@@ -1,0 +1,12 @@
+{
+  "id": "fuel-circuit",
+  "title": "Drive round the circuit",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1306,
+  "tags": ["greedy", "arrays"],
+  "buildsOn": ["can-reach-end"],
+  "leadsTo": ["label-partitions"],
+  "generator": "fuel-circuit"
+}

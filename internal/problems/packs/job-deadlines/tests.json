@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4\n2 50\n1 20\n3 15\n1 40",
+      "expected": "105",
+      "display": "jobs   = [[2, 50], [1, 20], [3, 15], [1, 40]]\noutput = 105\n\nEach job is [deadline, profit]. Slot 1: 40, slot 2: 50, slot 3: 15."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n1 5\n1 7\n1 6",
+      "expected": "7",
+      "display": "jobs   = [[1, 5], [1, 7], [1, 6]]\noutput = 7\n\nOnly one slot is open before deadline 1."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one job", "input": "1\n1 9", "expected": "9" },
+    { "label": "Edge 2: room for every job", "input": "3\n3 1\n3 2\n3 3", "expected": "6" },
+    { "label": "Edge 3: the rich job can wait", "input": "2\n2 100\n1 50", "expected": "150" }
+  ]
+}

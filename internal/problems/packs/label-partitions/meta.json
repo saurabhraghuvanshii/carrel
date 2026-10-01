@@ -1,0 +1,12 @@
+{
+  "id": "label-partitions",
+  "title": "Letters in one piece",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1307,
+  "tags": ["greedy", "strings", "hash map"],
+  "buildsOn": ["fuel-circuit"],
+  "leadsTo": ["chocolate-cuts"],
+  "generator": "label-partitions"
+}

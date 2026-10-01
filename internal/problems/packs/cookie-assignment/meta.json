@@ -1,0 +1,12 @@
+{
+  "id": "cookie-assignment",
+  "title": "Cookies for children",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1301,
+  "tags": ["greedy", "sorting"],
+  "buildsOn": [],
+  "leadsTo": ["pair-gaps"],
+  "generator": "cookie-assignment"
+}

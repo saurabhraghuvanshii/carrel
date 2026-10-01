@@ -1,0 +1,12 @@
+{
+  "id": "job-deadlines",
+  "title": "Jobs before their deadlines",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1304,
+  "tags": ["greedy", "sorting"],
+  "buildsOn": ["pair-chain"],
+  "leadsTo": ["can-reach-end"],
+  "generator": "job-deadlines"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "can-reach-end",
+  "title": "Reach the last square",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1305,
+  "tags": ["greedy", "arrays"],
+  "buildsOn": ["job-deadlines"],
+  "leadsTo": ["fuel-circuit"],
+  "generator": "can-reach-end"
+}

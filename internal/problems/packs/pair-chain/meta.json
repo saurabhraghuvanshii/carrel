@@ -1,0 +1,12 @@
+{
+  "id": "pair-chain",
+  "title": "Longest chain of pairs",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1303,
+  "tags": ["greedy", "sorting", "intervals"],
+  "buildsOn": ["pair-gaps"],
+  "leadsTo": ["job-deadlines"],
+  "generator": "pair-chain"
+}

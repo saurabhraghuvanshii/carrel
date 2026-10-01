@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "abcadbefe",
+      "expected": "[6, 3]",
+      "display": "word   = \"abcadbefe\"\noutput = [6, 3]\n\nPieces \"abcadb\" and \"efe\". The last b pulls the first piece past the last a."
+    },
+    {
+      "label": "Example 2",
+      "input": "xyzx",
+      "expected": "[4]",
+      "display": "word   = \"xyzx\"\noutput = [4]\n\nThe two x letters force one piece."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one letter", "input": "a", "expected": "[1]" },
+    { "label": "Edge 2: every letter different", "input": "abc", "expected": "[1, 1, 1]" },
+    { "label": "Edge 3: a long first piece", "input": "aabbaacc", "expected": "[6, 2]" },
+    { "label": "Edge 4: small pieces", "input": "abacdcef", "expected": "[3, 3, 1, 1]" }
+  ]
+}

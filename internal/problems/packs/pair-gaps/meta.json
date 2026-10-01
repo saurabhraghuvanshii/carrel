@@ -1,0 +1,12 @@
+{
+  "id": "pair-gaps",
+  "title": "Pair with the smallest gaps",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1302,
+  "tags": ["greedy", "sorting"],
+  "buildsOn": ["cookie-assignment"],
+  "leadsTo": ["pair-chain"],
+  "generator": "pair-gaps"
+}

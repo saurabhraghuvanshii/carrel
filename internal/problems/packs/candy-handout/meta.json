@@ -1,0 +1,12 @@
+{
+  "id": "candy-handout",
+  "title": "Sweets by rating",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1309,
+  "tags": ["greedy", "arrays"],
+  "buildsOn": ["chocolate-cuts"],
+  "leadsTo": [],
+  "generator": "candy-handout"
+}

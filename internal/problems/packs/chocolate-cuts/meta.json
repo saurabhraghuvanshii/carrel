@@ -1,0 +1,12 @@
+{
+  "id": "chocolate-cuts",
+  "title": "Break the chocolate bar",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Greedy",
+  "order": 1308,
+  "tags": ["greedy", "sorting"],
+  "buildsOn": ["label-partitions"],
+  "leadsTo": ["candy-handout"],
+  "generator": "chocolate-cuts"
+}
