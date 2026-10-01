@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\nnew 2 10\nallow 1 0\nallow 1 3\nallow 1 9\nallow 2 9\nallow 1 10",
+      "expected": "null true true false true true",
+      "display": "calls   = RateLimiter(2, 10), allow(1, 0), allow(1, 3),\n          allow(1, 9), allow(2, 9), allow(1, 10)\nresults = null, true, true, false, true, true\n\nUser 1 uses both requests of the window [0, 10). Time 10 starts a new window."
+    },
+    {
+      "label": "Example 2",
+      "input": "4\nnew 1 5\nallow 7 4\nallow 7 5\nallow 7 5",
+      "expected": "null true true false",
+      "display": "calls   = RateLimiter(1, 5), allow(7, 4), allow(7, 5),\n          allow(7, 5)\nresults = null, true, true, false\n\nTimes 4 and 5 are in different windows, even though they are one apart."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: refused until the window ends", "input": "5\nnew 1 10\nallow 0 0\nallow 0 1\nallow 0 9\nallow 0 10", "expected": "null true false false true" },
+    { "label": "Edge 2: users are separate", "input": "4\nnew 1 100\nallow 1 5\nallow 2 5\nallow 1 6", "expected": "null true true false" },
+    { "label": "Edge 3: a window of 1", "input": "4\nnew 1 1\nallow 3 0\nallow 3 1\nallow 3 1", "expected": "null true true false" }
+  ]
+}

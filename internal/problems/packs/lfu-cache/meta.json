@@ -1,0 +1,12 @@
+{
+  "id": "lfu-cache",
+  "title": "Least frequently used cache",
+  "difficulty": "hard",
+  "sheet": "real",
+  "group": "Caches and rate limits",
+  "order": 206,
+  "tags": ["hash map", "linked list", "design", "follow-up"],
+  "buildsOn": ["most-frequent-items", "reverse-list"],
+  "leadsTo": [],
+  "generator": "lfu-cache"
+}

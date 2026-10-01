@@ -1,0 +1,12 @@
+{
+  "id": "sliding-window-limiter",
+  "title": "Requests in the last few seconds",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Caches and rate limits",
+  "order": 203,
+  "tags": ["queue", "sliding window", "design", "follow-up"],
+  "buildsOn": ["best-window-sum", "fixed-window-limiter"],
+  "leadsTo": [],
+  "generator": "sliding-limiter"
+}

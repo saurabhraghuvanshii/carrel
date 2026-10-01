@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "7\nnew 2 10\nallow 1 0\nallow 1 5\nallow 1 9\nallow 1 10\nallow 1 14\nallow 1 15",
+      "expected": "null true true false true false true",
+      "display": "calls   = SlidingLimiter(2, 10), allow(1, 0), allow(1, 5),\n          allow(1, 9), allow(1, 10), allow(1, 14),\n          allow(1, 15)\nresults = null, true, true, false, true, false, true\n\nAt 10 the request from time 0 has left the window (10 − 10 = 0 is not inside). At 14 the window still holds 5 and 10; at 15 only 10 is left."
+    },
+    {
+      "label": "Example 2",
+      "input": "5\nnew 1 3\nallow 0 0\nallow 1 0\nallow 0 2\nallow 0 3",
+      "expected": "null true true false true",
+      "display": "calls   = SlidingLimiter(1, 3), allow(0, 0), allow(1, 0),\n          allow(0, 2), allow(0, 3)\nresults = null, true, true, false, true\n\nUser 0 waits until time 3 for the request at 0 to leave the window."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: refused requests do not count", "input": "4\nnew 1 5\nallow 0 0\nallow 0 4\nallow 0 5", "expected": "null true false true" },
+    { "label": "Edge 2: many at the same time", "input": "5\nnew 2 1\nallow 4 7\nallow 4 7\nallow 4 7\nallow 4 8", "expected": "null true true false true" },
+    { "label": "Edge 3: users are separate", "input": "4\nnew 1 100\nallow 1 5\nallow 2 5\nallow 1 6", "expected": "null true true false" }
+  ]
+}

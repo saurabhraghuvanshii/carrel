@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "11\nnew 2\nput 1 10\nput 2 20\nget 1\nput 3 30\nget 2\nget 3\nput 4 40\nget 1\nget 3\nget 4",
+      "expected": "null null null 10 null -1 30 null -1 30 40",
+      "display": "calls   = LFUCache(2), put(1, 10), put(2, 20), get(1),\n          put(3, 30), get(2), get(3), put(4, 40), get(1),\n          get(3), get(4)\nresults = null, null, null, 10, null, -1, 30, null, -1, 30, 40\n\nput(3, 30) removes key 2, used once. When put(4, 40) comes, keys 1 and 3 both have two uses; key 1 was used longest ago, so it goes."
+    },
+    {
+      "label": "Example 2",
+      "input": "9\nnew 2\nput 1 1\nget 1\nget 1\nput 2 2\nput 3 3\nget 1\nget 2\nget 3",
+      "expected": "null null 1 1 null null 1 -1 3",
+      "display": "calls   = LFUCache(2), put(1, 1), get(1), get(1), put(2, 2),\n          put(3, 3), get(1), get(2), get(3)\nresults = null, null, 1, 1, null, null, 1, -1, 3\n\nKey 1 has three uses and stays, though key 2 was used more recently. A recently-used cache would have removed key 1."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: capacity 1", "input": "6\nnew 1\nput 1 1\nget 1\nput 2 2\nget 1\nget 2", "expected": "null null 1 null -1 2" },
+    { "label": "Edge 2: put on a stored key is a use", "input": "7\nnew 2\nput 1 1\nput 2 2\nput 1 5\nput 3 3\nget 1\nget 2", "expected": "null null null null null 5 -1" },
+    { "label": "Edge 3: a miss is not a use", "input": "8\nnew 2\nget 3\nget 3\nput 3 3\nput 1 1\nput 4 4\nget 3\nget 1", "expected": "null -1 -1 null null null -1 1" }
+  ]
+}

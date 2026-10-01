@@ -1,0 +1,12 @@
+{
+  "id": "fixed-window-limiter",
+  "title": "Requests per time window",
+  "difficulty": "easy",
+  "sheet": "real",
+  "group": "Caches and rate limits",
+  "order": 202,
+  "tags": ["hash map", "design", "follow-up"],
+  "buildsOn": ["spot-the-duplicate"],
+  "leadsTo": [],
+  "generator": "fixed-window"
+}

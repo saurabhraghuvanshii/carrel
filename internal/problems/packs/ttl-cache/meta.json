@@ -1,0 +1,12 @@
+{
+  "id": "ttl-cache",
+  "title": "Cache with expiry times",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Caches and rate limits",
+  "order": 205,
+  "tags": ["hash map", "heap", "design", "follow-up"],
+  "buildsOn": ["kth-largest"],
+  "leadsTo": [],
+  "generator": "ttl-cache"
+}

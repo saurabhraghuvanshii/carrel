@@ -1,0 +1,12 @@
+{
+  "id": "token-bucket",
+  "title": "Token bucket",
+  "difficulty": "medium",
+  "sheet": "real",
+  "group": "Caches and rate limits",
+  "order": 204,
+  "tags": ["design", "math", "follow-up"],
+  "buildsOn": ["minimum-stack"],
+  "leadsTo": [],
+  "generator": "token-bucket"
+}

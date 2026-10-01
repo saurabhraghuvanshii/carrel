@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "8\nnew\nput 1 100 5 0\nget 1 4\nget 1 5\nput 2 200 10 3\nput 2 250 2 4\ncount 5\ncount 6",
+      "expected": "null null 100 -1 null null 1 0",
+      "display": "calls   = TTLCache(), put(1, 100, 5, 0), get(1, 4), get(1, 5),\n          put(2, 200, 10, 3), put(2, 250, 2, 4), count(5),\n          count(6)\nresults = null, null, 100, -1, null, null, 1, 0\n\nKey 1 expires at 0 + 5 = 5. Key 2 is stored again at 4 with ttl 2, so it now expires at 6, earlier than before."
+    },
+    {
+      "label": "Example 2",
+      "input": "5\nnew\ncount 0\nput 7 1 1 0\ncount 0\nget 7 1",
+      "expected": "null 0 null 1 -1",
+      "display": "calls   = TTLCache(), count(0), put(7, 1, 1, 0), count(0),\n          get(7, 1)\nresults = null, 0, null, 1, -1"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: storing again extends the life", "input": "5\nnew\nput 3 9 2 0\nput 3 9 5 1\nget 3 4\ncount 5", "expected": "null null null 9 1" },
+    { "label": "Edge 2: get on a missing key", "input": "2\nnew\nget 0 0", "expected": "null -1" },
+    { "label": "Edge 3: keys that expire together", "input": "5\nnew\nput 1 1 3 0\nput 2 2 2 1\ncount 2\ncount 3", "expected": "null null null 2 0" }
+  ]
+}

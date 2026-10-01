@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\nnew 3 4\ntake 0 2\ntake 1 2\ntake 4 2\ntake 11 3\ntake 12 2",
+      "expected": "null true false true false true",
+      "display": "calls   = TokenBucket(3, 4), take(0, 2), take(1, 2),\n          take(4, 2), take(11, 3), take(12, 2)\nresults = null, true, false, true, false, true\n\nAfter taking 2 at time 0 one token is left. A token arrives at 4 and another at 8, so at 11 there are only 2, and at 12 a third arrives."
+    },
+    {
+      "label": "Example 2",
+      "input": "3\nnew 2 5\ntake 100 2\ntake 100 1",
+      "expected": "null true false",
+      "display": "calls   = TokenBucket(2, 5), take(100, 2), take(100, 1)\nresults = null, true, false\n\nA long wait cannot fill the bucket past its capacity."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: more than the bucket holds", "input": "2\nnew 3 1\ntake 0 4", "expected": "null false" },
+    { "label": "Edge 2: a token at exactly the multiple", "input": "4\nnew 1 10\ntake 0 1\ntake 9 1\ntake 10 1", "expected": "null true false true" },
+    { "label": "Edge 3: refused takes remove nothing", "input": "4\nnew 2 100\ntake 0 1\ntake 0 2\ntake 0 1", "expected": "null true false true" }
+  ]
+}
