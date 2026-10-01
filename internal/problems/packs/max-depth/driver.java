@@ -7,6 +7,7 @@ class TreeNode {
     TreeNode(int val) { this.val = val; }
 }
 
+// Flushes after every case so a crash cannot hide finished results.
 // Reads T cases from stdin, each one tree in level order on one line with
 // "null" for a missing child. Prints one line per case.
 // Anything the learner prints goes to stderr so it cannot break the results.
@@ -49,8 +50,9 @@ public class Main {
             } catch (Throwable e) {
                 out.append("ERROR ").append(e).append('\n');
             }
+            real.print(out);
+            real.flush();
+            out.setLength(0);
         }
-        real.print(out);
-        real.flush();
     }
 }

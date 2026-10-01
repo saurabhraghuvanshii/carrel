@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+// Flushes after every case so a crash cannot hide finished results.
 // Reads T cases from stdin. Each case is k calls, "new c", "get k" or "put k v".
 // Prints one line per case with one result per call. Anything the learner
 // prints goes to stderr so it cannot break the results.
@@ -56,8 +57,9 @@ public class Main {
                 line = new StringBuilder("ERROR ").append(e);
             }
             out.append(line).append('\n');
+            real.print(out);
+            real.flush();
+            out.setLength(0);
         }
-        real.print(out);
-        real.flush();
     }
 }

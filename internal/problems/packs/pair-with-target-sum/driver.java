@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+// Flushes after every case so a crash cannot hide finished results.
 // Reads T cases from stdin, calls the learner's code, prints one line per case.
 // Anything the learner prints goes to stderr so it cannot break the results.
 public class Main {
@@ -37,8 +38,9 @@ public class Main {
             } catch (Throwable e) {
                 out.append("ERROR ").append(e).append('\n');
             }
+            real.print(out);
+            real.flush();
+            out.setLength(0);
         }
-        real.print(out);
-        real.flush();
     }
 }

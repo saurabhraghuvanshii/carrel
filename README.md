@@ -49,7 +49,7 @@ internal/server/              HTTP API and the embedded web UI (web/)
 tools/vendor/                 builds the editor bundle and copies the fonts (Node, dev only)
 internal/problems/            loads problem packs (embedded, plus ~/.dsa/packs)
 internal/testgen/             seeded random test generators
-internal/runner/              compile and run Java or C++ with a time limit
+internal/runner/              compile and run Java or C++ with time and memory limits
 internal/store/               solutions and progress as plain files
 internal/config/              settings file, API key included
 internal/ai/                  Anthropic, OpenAI or Ollama, explain-only by default
@@ -139,11 +139,19 @@ This program runs code on your computer, so the server is locked down:
 - problem ids and languages are validated before they touch a file path
 - the API key is never sent back to the browser
 
-Your own code is not sandboxed beyond a time limit, the same as running it yourself.
+Your own code is not sandboxed beyond these limits, the same as running it yourself:
+
+- 10 seconds for all cases together (30 seconds to compile)
+- memory: 256 MB of heap for Java (`-Xmx256m`); 1 GB of address space for C++ on Linux and macOS (`ulimit -v`)
+- output: a program that prints more than 16 MB is stopped
+
+If a solution crashes, the case it was on is marked as crashed and the rest run in a new process, up to 5 times.
+
+**Windows:** there is no memory limit for C++ yet (it needs a job object); only the time limit applies. Java keeps its heap limit. This path has not been tested.
 
 ## Not done yet
 
-- Memory limit for the code you run (a time limit exists)
+- A memory limit for C++ on Windows
 - Function-style wrappers for more languages (Python, JavaScript, Go)
 - `dsa pull` to download extra problem packs
 - More problems: the aim is about 100 patterns problems and a real-interview sheet

@@ -57,7 +57,7 @@ int main() {
         } catch (const exception& e) {
             out << "ERROR " << e.what() << '\n';
         }
+        out.flush();
     }
-    out.flush();
     return 0;
 }

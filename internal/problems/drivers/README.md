@@ -5,6 +5,7 @@ Copy these into a pack's `driver.java` or `driver.cpp`. They are not included au
 Every driver:
 
 - reads `T`, then `T` cases, and prints exactly one line per case,
+- flushes stdout after every case (Java: `real.print(out); real.flush(); out.setLength(0);` at the end of the loop body; C++: `out.flush();`), so when a solution crashes the runner knows exactly which case it was on and can run the rest in a new process,
 - reads all of a case's input before calling the learner's code, so an exception cannot leave the input half read,
 - prints `ERROR <message>` for a case that throws,
 - never prints an empty line (the runner treats missing lines at the end as a crash). Lists and arrays print as `[a, b, c]`, empty as `[]`,

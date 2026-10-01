@@ -415,7 +415,8 @@
       return out.replaceChildren(...kids);
     }
     const allPassed = rep.status === 'ok' && rep.passed === rep.total;
-    let headline = `Passed ${rep.passed} of ${rep.total}`;
+    const lead = { memory_limit: 'Memory limit reached. ', timeout: 'Time limit reached. ', runtime_error: 'Your program crashed. ' }[rep.status] || '';
+    let headline = `${lead}Passed ${rep.passed} of ${rep.total}`;
     if (allPassed && mode === 'submit') headline = `All ${rep.total} tests passed. Marked solved.`;
     else if (allPassed) headline = `Examples ${rep.passed} of ${rep.total} passed`;
     kids.push(el('div', { class: 'summary ' + (allPassed ? 'pass' : 'fail'), text: headline }));
@@ -424,13 +425,15 @@
     const randomPassed = rep.results.filter((r) => r.kind === 'random' && r.passed).length;
     for (const r of rep.results) {
       if (r.kind === 'random' && r.passed) continue;
-      const detail = r.passed
+      let detail = r.passed
         ? (r.got ? `got ${r.got}` : '')
         : `input\n${r.input}\nexpected ${r.expected}\ngot      ${r.got || '(nothing)'}`;
+      if (r.note) detail += `\nwhy      ${r.note}`;
+      const verdict = r.passed ? 'Passed' : r.got === '(crashed)' ? 'Crashed' : r.got === '(not run)' ? 'Not run' : 'Failed';
       kids.push(el('div', { class: 'row' },
         el('span', { class: 'hint', text: r.label }),
         el('span', { class: 'detail', text: detail }),
-        el('span', { class: r.passed ? 'ok' : 'bad', text: r.passed ? 'Passed' : 'Failed' })));
+        el('span', { class: r.passed ? 'ok' : 'bad', text: verdict })));
     }
     if (randomPassed) kids.push(el('div', { class: 'hint', text: `${randomPassed} random cases passed.${rep.seed ? ' Seed ' + rep.seed + '.' : ''}` }));
     kids.push(el('div', { class: 'hint', text: `Took ${rep.durationMs} ms` }));

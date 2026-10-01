@@ -7,6 +7,7 @@ class ListNode {
     ListNode(int val) { this.val = val; }
 }
 
+// Flushes after every case so a crash cannot hide finished results.
 // Reads T cases from stdin, each "n" then n values. Prints the returned list
 // as [a, b, c] on one line. Anything the learner prints goes to stderr.
 public class Main {
@@ -51,8 +52,9 @@ public class Main {
             } catch (Throwable e) {
                 out.append("ERROR ").append(e).append('\n');
             }
+            real.print(out);
+            real.flush();
+            out.setLength(0);
         }
-        real.print(out);
-        real.flush();
     }
 }

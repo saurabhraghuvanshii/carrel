@@ -27,8 +27,10 @@ import (
 var webFS embed.FS
 
 const (
-	randomCases   = 50
-	maxImportBody = 20 << 20
+	randomCases    = 50
+	maxImportBody  = 20 << 20
+	compileTimeout = 30 * time.Second
+	runTimeout     = 10 * time.Second // all cases together, including restarts after a crash
 )
 
 type Server struct {
@@ -374,10 +376,10 @@ func (s *Server) run(w http.ResponseWriter, r *http.Request) {
 
 	rep := runner.Run(r.Context(), runner.Request{
 		Lang: req.Lang, Code: req.Code, Driver: driver, Cases: cases,
-		CompileTimeout: 30 * time.Second, RunTimeout: 10 * time.Second,
+		CompileTimeout: compileTimeout, RunTimeout: runTimeout,
 	})
 
-	if rep.Status == "ok" || rep.Status == "runtime_error" || rep.Status == "timeout" {
+	if rep.Status == "ok" || rep.Status == "runtime_error" || rep.Status == "timeout" || rep.Status == "memory_limit" {
 		if req.Mode == "submit" && rep.Status == "ok" && rep.Passed == rep.Total {
 			_ = s.store.Mark(p.ID, "solved")
 		} else {
