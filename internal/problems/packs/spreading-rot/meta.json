@@ -1,0 +1,12 @@
+{
+  "id": "spreading-rot",
+  "title": "Spreading infection",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1104,
+  "tags": ["graph", "breadth-first search", "grid"],
+  "buildsOn": ["count-islands"],
+  "leadsTo": ["shortest-path-in-grid"],
+  "generator": "spreading"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "count-islands",
+  "title": "Count the islands",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1103,
+  "tags": ["graph", "grid", "flood fill"],
+  "buildsOn": ["provinces"],
+  "leadsTo": ["spreading-rot"],
+  "generator": "islands"
+}

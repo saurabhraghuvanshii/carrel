@@ -1,0 +1,12 @@
+{
+  "id": "extra-link",
+  "title": "The extra link",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1108,
+  "tags": ["graph", "union-find"],
+  "buildsOn": ["course-order"],
+  "leadsTo": ["clone-graph"],
+  "generator": "extra-link"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "two-colour",
+  "title": "Two colours are enough?",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1106,
+  "tags": ["graph", "breadth-first search"],
+  "buildsOn": ["shortest-path-in-grid"],
+  "leadsTo": ["course-order"],
+  "generator": "two-colour"
+}

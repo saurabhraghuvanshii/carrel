@@ -1,0 +1,12 @@
+{
+  "id": "network-delay",
+  "title": "How long until everyone hears",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1111,
+  "tags": ["graph", "shortest path", "heap"],
+  "buildsOn": ["min-cost-connect"],
+  "leadsTo": ["cheapest-with-stops"],
+  "generator": "network-delay"
+}

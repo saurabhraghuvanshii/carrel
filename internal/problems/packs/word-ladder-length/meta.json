@@ -1,0 +1,12 @@
+{
+  "id": "word-ladder-length",
+  "title": "Word ladder",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1113,
+  "tags": ["graph", "breadth-first search", "strings"],
+  "buildsOn": ["cheapest-with-stops"],
+  "leadsTo": [],
+  "generator": "word-ladder"
+}

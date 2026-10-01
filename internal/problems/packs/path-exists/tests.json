@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 3\n0 1\n1 2\n3 4\n0 2",
+      "expected": "true",
+      "display": "n      = 5\nedges  = [(0, 1), (1, 2), (3, 4)]\nsource = 0, target = 2\noutput = true\n\n0 -> 1 -> 2"
+    },
+    {
+      "label": "Example 2",
+      "input": "5 3\n0 1\n1 2\n3 4\n0 4",
+      "expected": "false",
+      "display": "n      = 5\nedges  = [(0, 1), (1, 2), (3, 4)]\nsource = 0, target = 4\noutput = false"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: source is the target", "input": "1 0\n0 0", "expected": "true" },
+    { "label": "Edge 2: no edges", "input": "2 0\n0 1", "expected": "false" },
+    { "label": "Edge 3: around a loop", "input": "3 3\n0 1\n1 2\n2 0\n1 0", "expected": "true" }
+  ]
+}

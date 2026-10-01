@@ -1,0 +1,12 @@
+{
+  "id": "path-exists",
+  "title": "Is there a path?",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1101,
+  "tags": ["graph", "depth-first search"],
+  "buildsOn": [],
+  "leadsTo": ["provinces"],
+  "generator": "path-exists"
+}

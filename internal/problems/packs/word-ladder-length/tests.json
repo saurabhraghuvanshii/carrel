@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "pine rope\n5\npipe ripe rope pole pope",
+      "expected": "4",
+      "display": "start  = \"pine\"\nend    = \"rope\"\nwords  = [\"pipe\", \"ripe\", \"rope\", \"pole\", \"pope\"]\noutput = 4\n\npine -> pipe -> ripe -> rope"
+    },
+    {
+      "label": "Example 2",
+      "input": "bat dog\n3\nbag dag dot",
+      "expected": "0",
+      "display": "start  = \"bat\"\nend    = \"dog\"\nwords  = [\"bag\", \"dag\", \"dot\"]\noutput = 0\n\n\"dog\" is not in the list."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one step", "input": "ab ac\n1\nac", "expected": "2" },
+    { "label": "Edge 2: the end word is missing", "input": "abc xyz\n1\nabc", "expected": "0" },
+    { "label": "Edge 3: a longer ladder", "input": "lead gold\n4\nload goad gold lead", "expected": "4" }
+  ]
+}

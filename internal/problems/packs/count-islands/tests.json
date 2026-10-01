@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4 5\n11000\n11011\n00010\n10000",
+      "expected": "3",
+      "display": "grid   = 1 1 0 0 0\n         1 1 0 1 1\n         0 0 0 1 0\n         1 0 0 0 0\noutput = 3"
+    },
+    {
+      "label": "Example 2",
+      "input": "3 3\n101\n010\n101",
+      "expected": "5",
+      "display": "grid   = 1 0 1\n         0 1 0\n         1 0 1\noutput = 5\n\nDiagonal neighbours do not join."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: all water", "input": "2 2\n00\n00", "expected": "0" },
+    { "label": "Edge 2: one cell of land", "input": "1 1\n1", "expected": "1" },
+    { "label": "Edge 3: one winding island", "input": "3 3\n111\n001\n111", "expected": "1" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "provinces",
+  "title": "Count connected groups",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1102,
+  "tags": ["graph", "depth-first search", "union-find"],
+  "buildsOn": ["path-exists"],
+  "leadsTo": ["count-islands"],
+  "generator": "provinces"
+}

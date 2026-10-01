@@ -1,0 +1,12 @@
+{
+  "id": "min-cost-connect",
+  "title": "Cheapest way to connect everything",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1110,
+  "tags": ["graph", "minimum spanning tree", "heap"],
+  "buildsOn": ["clone-graph"],
+  "leadsTo": ["network-delay"],
+  "generator": "min-connect"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "clone-graph",
+  "title": "Copy a graph",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1109,
+  "tags": ["graph", "hash map", "breadth-first search"],
+  "buildsOn": ["extra-link"],
+  "leadsTo": ["min-cost-connect"],
+  "generator": "clone-graph"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "shortest-path-in-grid",
+  "title": "Shortest path through a grid",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1105,
+  "tags": ["graph", "breadth-first search", "grid"],
+  "buildsOn": ["spreading-rot"],
+  "leadsTo": ["two-colour"],
+  "generator": "grid-path"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "course-order",
+  "title": "Order the courses",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1107,
+  "tags": ["graph", "topological sort"],
+  "buildsOn": ["two-colour"],
+  "leadsTo": ["extra-link"],
+  "generator": "course-order"
+}

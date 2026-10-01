@@ -1,0 +1,12 @@
+{
+  "id": "cheapest-with-stops",
+  "title": "Cheapest trip with few stops",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Graphs",
+  "order": 1112,
+  "tags": ["graph", "shortest path"],
+  "buildsOn": ["network-delay"],
+  "leadsTo": ["word-ladder-length"],
+  "generator": "cheapest-stops"
+}
