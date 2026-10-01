@@ -1,0 +1,12 @@
+{
+  "id": "merge-two-lists",
+  "title": "Merge two sorted linked lists",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 602,
+  "tags": ["linked list"],
+  "buildsOn": ["reverse-list", "merge-sorted-lists-in-place"],
+  "leadsTo": ["middle-of-list"],
+  "generator": "merge-lists"
+}

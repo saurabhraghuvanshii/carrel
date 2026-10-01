@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "6\n10 20 30 40 50 60",
+      "expected": "[10, 60, 20, 50, 30, 40]",
+      "display": "list   = 10 -> 20 -> 30 -> 40 -> 50 -> 60\noutput = 10 -> 60 -> 20 -> 50 -> 30 -> 40"
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n7 8 9",
+      "expected": "[7, 9, 8]",
+      "display": "list   = 7 -> 8 -> 9\noutput = 7 -> 9 -> 8"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one node", "input": "1\n5", "expected": "[5]" },
+    { "label": "Edge 2: two nodes", "input": "2\n1 2", "expected": "[1, 2]" },
+    { "label": "Edge 3: repeated values", "input": "4\n3 3 3 1", "expected": "[3, 1, 3, 3]" }
+  ]
+}

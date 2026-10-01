@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4\n3 5 7 9\n1",
+      "expected": "1",
+      "display": "list   = 3 -> 5 -> 7 -> 9 -> back to 5\noutput = the node 5, at position 1"
+    },
+    {
+      "label": "Example 2",
+      "input": "3\n6 2 8\n-1",
+      "expected": "-1",
+      "display": "list   = 6 -> 2 -> 8\noutput = no loop (-1)"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one node pointing to itself", "input": "1\n4\n0", "expected": "0" },
+    { "label": "Edge 2: loop back to the first node", "input": "3\n1 2 3\n0", "expected": "0" },
+    { "label": "Edge 3: the last node points to itself", "input": "4\n1 2 3 4\n3", "expected": "3" }
+  ]
+}

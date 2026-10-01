@@ -1,0 +1,12 @@
+{
+  "id": "remove-nth-from-end",
+  "title": "Remove the nth node from the end",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 607,
+  "tags": ["linked list", "two pointers"],
+  "buildsOn": ["cycle-start"],
+  "leadsTo": ["reorder-list"],
+  "generator": "remove-nth"
+}

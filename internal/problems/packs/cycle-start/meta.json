@@ -1,0 +1,12 @@
+{
+  "id": "cycle-start",
+  "title": "Where the loop begins",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 606,
+  "tags": ["linked list", "fast and slow pointers"],
+  "buildsOn": ["detect-cycle"],
+  "leadsTo": ["remove-nth-from-end"],
+  "generator": "cycle-start"
+}

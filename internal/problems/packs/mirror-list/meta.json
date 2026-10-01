@@ -1,0 +1,12 @@
+{
+  "id": "mirror-list",
+  "title": "Linked list that reads the same both ways",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 604,
+  "tags": ["linked list", "fast and slow pointers"],
+  "buildsOn": ["middle-of-list", "reverse-list"],
+  "leadsTo": ["detect-cycle"],
+  "generator": "mirror-list"
+}

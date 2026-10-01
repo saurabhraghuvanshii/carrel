@@ -1,0 +1,12 @@
+{
+  "id": "middle-of-list",
+  "title": "Middle of a linked list",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 603,
+  "tags": ["linked list", "fast and slow pointers"],
+  "buildsOn": ["merge-two-lists"],
+  "leadsTo": ["mirror-list", "reorder-list"],
+  "generator": "list-middle"
+}

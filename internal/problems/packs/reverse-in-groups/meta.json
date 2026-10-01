@@ -1,0 +1,12 @@
+{
+  "id": "reverse-in-groups",
+  "title": "Reverse in groups of k",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 610,
+  "tags": ["linked list"],
+  "buildsOn": ["add-digit-lists", "reverse-list"],
+  "leadsTo": [],
+  "generator": "reverse-groups"
+}

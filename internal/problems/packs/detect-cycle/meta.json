@@ -1,0 +1,12 @@
+{
+  "id": "detect-cycle",
+  "title": "Does the list loop?",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 605,
+  "tags": ["linked list", "fast and slow pointers"],
+  "buildsOn": ["mirror-list"],
+  "leadsTo": ["cycle-start"],
+  "generator": "list-cycle"
+}

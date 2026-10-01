@@ -1,0 +1,12 @@
+{
+  "id": "reorder-list",
+  "title": "Fold a linked list",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 608,
+  "tags": ["linked list"],
+  "buildsOn": ["remove-nth-from-end", "middle-of-list", "reverse-list"],
+  "leadsTo": ["add-digit-lists"],
+  "generator": "reorder-list"
+}

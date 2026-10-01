@@ -1,0 +1,12 @@
+{
+  "id": "add-digit-lists",
+  "title": "Add two numbers stored as lists",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Linked list",
+  "order": 609,
+  "tags": ["linked list", "math"],
+  "buildsOn": ["reorder-list"],
+  "leadsTo": ["reverse-in-groups"],
+  "generator": "add-digits"
+}

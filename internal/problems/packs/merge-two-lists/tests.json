@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "3\n2 6 7\n3\n1 6 9",
+      "expected": "[1, 2, 6, 6, 7, 9]",
+      "display": "first  = 2 -> 6 -> 7\nsecond = 1 -> 6 -> 9\noutput = 1 -> 2 -> 6 -> 6 -> 7 -> 9"
+    },
+    {
+      "label": "Example 2",
+      "input": "1\n5\n3\n1 2 3",
+      "expected": "[1, 2, 3, 5]",
+      "display": "first  = 5\nsecond = 1 -> 2 -> 3\noutput = 1 -> 2 -> 3 -> 5"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: both empty", "input": "0\n\n0\n", "expected": "[]" },
+    { "label": "Edge 2: second empty", "input": "2\n1 4\n0\n", "expected": "[1, 4]" },
+    { "label": "Edge 3: negative values", "input": "2\n-3 -1\n2\n-2 0", "expected": "[-3, -2, -1, 0]" }
+  ]
+}

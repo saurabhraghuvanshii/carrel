@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5\n3 8 1 6 2",
+      "expected": "[1, 6, 2]",
+      "display": "list   = 3 -> 8 -> 1 -> 6 -> 2\noutput = the node 1 (1 -> 6 -> 2)"
+    },
+    {
+      "label": "Example 2",
+      "input": "4\n4 9 5 7",
+      "expected": "[5, 7]",
+      "display": "list   = 4 -> 9 -> 5 -> 7\noutput = the node 5 (5 -> 7)\n\nTwo middle nodes, 9 and 5: return the second."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one node", "input": "1\n8", "expected": "[8]" },
+    { "label": "Edge 2: two nodes", "input": "2\n1 2", "expected": "[2]" },
+    { "label": "Edge 3: equal values", "input": "3\n6 6 6", "expected": "[6, 6]" }
+  ]
+}

@@ -7,6 +7,6 @@
   "order": 204,
   "tags": ["two pointers", "in-place"],
   "buildsOn": ["remove-repeats-sorted"],
-  "leadsTo": ["three-way-sort", "median-of-two-sorted"],
+  "leadsTo": ["three-way-sort", "median-of-two-sorted", "merge-two-lists"],
   "generator": "merge-sorted"
 }
