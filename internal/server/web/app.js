@@ -79,28 +79,50 @@
     return cfg;
   }
 
-  // ---- markdown (just paragraphs, lists, headings and `code`) ----
+  // ---- markdown: headings, lists, fenced code, `code` and **bold**, built with textContent only ----
 
   function inline(text) {
     return text
-      .split(/(`[^`]+`)/g)
+      .split(/(`[^`]+`|\*\*[^*]+\*\*)/g)
       .filter(Boolean)
-      .map((s) => (s.length > 1 && s.startsWith('`') && s.endsWith('`') ? el('code', { text: s.slice(1, -1) }) : document.createTextNode(s)));
+      .map((s) => {
+        if (s.length > 1 && s.startsWith('`') && s.endsWith('`')) return el('code', { text: s.slice(1, -1) });
+        if (s.length > 4 && s.startsWith('**') && s.endsWith('**')) return el('strong', { text: s.slice(2, -2) });
+        return document.createTextNode(s);
+      });
   }
 
   function renderMarkdown(src) {
     const nodes = [];
     const lines = src.replace(/\r/g, '').split('\n');
+    const fence = (l) => /^\s*(```|~~~)/.test(l);
+    const heading = (l) => /^#{1,3} /.test(l);
+    const bullet = (l) => /^\s*[-*] /.test(l);
+    const numbered = (l) => /^\s*\d+[.)] /.test(l);
+    const special = (l) => heading(l) || bullet(l) || numbered(l) || fence(l);
     let i = 0;
-    const special = (l) => l.startsWith('## ') || l.startsWith('- ');
     while (i < lines.length) {
       const line = lines[i];
       if (!line.trim()) { i++; continue; }
-      if (line.startsWith('## ')) { nodes.push(el('h2', {}, ...inline(line.slice(3)))); i++; continue; }
-      if (line.startsWith('- ')) {
+      if (fence(line)) {
+        const mark = line.trim().slice(0, 3);
+        const code = [];
+        i++;
+        while (i < lines.length && !lines[i].trim().startsWith(mark)) { code.push(lines[i]); i++; }
+        i++;
+        nodes.push(el('pre', { class: 'code-block' }, el('code', { text: code.join('\n') })));
+        continue;
+      }
+      if (heading(line)) { nodes.push(el('h2', {}, ...inline(line.replace(/^#+ /, '')))); i++; continue; }
+      if (bullet(line) || numbered(line)) {
+        const isNumbered = numbered(line);
+        const test = isNumbered ? numbered : bullet;
         const items = [];
-        while (i < lines.length && lines[i].startsWith('- ')) { items.push(el('li', {}, ...inline(lines[i].slice(2)))); i++; }
-        nodes.push(el('ul', {}, ...items));
+        while (i < lines.length && test(lines[i])) {
+          items.push(el('li', {}, ...inline(lines[i].replace(/^\s*([-*]|\d+[.)]) /, ''))));
+          i++;
+        }
+        nodes.push(el(isNumbered ? 'ol' : 'ul', {}, ...items));
         continue;
       }
       const para = [];
@@ -358,12 +380,12 @@
     const answer = el('div', { class: 'answer' });
     const askBtn = el('button', { class: 'btn', text: 'Ask AI', onclick: async () => {
       askBtn.disabled = true;
-      answer.textContent = 'Thinking...';
+      answer.replaceChildren(el('div', { class: 'hint', text: 'Thinking...' }));
       try {
         const r = await api('POST', '/ai', { problem: p.id, lang: p.lang, code: editor.getValue(), question: question.value, lastReport });
-        answer.textContent = r.answer;
+        answer.replaceChildren(...renderMarkdown(r.answer));
       } catch (e) {
-        answer.textContent = e.message;
+        answer.replaceChildren(el('div', { class: 'message', text: 'AI help failed: ' + e.message }));
       } finally {
         askBtn.disabled = false;
       }
@@ -378,7 +400,10 @@
           el('span', { class: 'hint', text: 'Ctrl + Enter runs · Ctrl + Shift + Enter submits' })),
         out,
         el('div', { class: 'ai' },
-          el('div', { class: 'hint', text: 'Ask AI explains and gives hints. Set it up in Settings.' }),
+          el('div', { class: 'hint' }, 'Ask AI explains and gives hints. ',
+            cfg.ai.hasKey || cfg.ai.provider === 'ollama'
+              ? (cfg.ai.explainOnly ? 'It will not write the full solution.' : 'Explain only is off.')
+              : el('a', { href: '#/settings', text: 'Add your key in Settings.' })),
           el('div', { class: 'ai-row' }, question, askBtn),
           answer)));
 
@@ -494,6 +519,21 @@
       el('div', { class: 'actions' },
         el('div', { class: 'group' },
           el('button', { class: 'btn primary', text: 'Save AI settings', onclick: () => saveAI() }),
+          el('button', { class: 'btn', text: 'Test connection', onclick: async (e) => {
+            const btn = e.currentTarget;
+            btn.disabled = true;
+            note.textContent = 'Saving and testing...';
+            try {
+              await saveConfig({}, { provider: provider.value, model: model.value, explainOnly, apiKey: key.value });
+              key.value = '';
+              await api('POST', '/ai/test', {});
+              note.textContent = 'Connected. The provider answered.';
+            } catch (err) {
+              note.textContent = 'Could not connect: ' + err.message;
+            } finally {
+              btn.disabled = false;
+            }
+          } }),
           cfg.ai.hasKey ? el('button', { class: 'btn', text: 'Remove saved key', onclick: () => saveAI({ clearKey: true, apiKey: '' }) }) : null)),
       note);
 

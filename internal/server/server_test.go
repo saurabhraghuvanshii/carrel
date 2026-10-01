@@ -9,7 +9,7 @@ import (
 	"dsa/internal/problems"
 )
 
-func newTestServer(t *testing.T) http.Handler {
+func builtinServer(t *testing.T) *Server {
 	t.Helper()
 	lib, err := problems.Load(problems.Builtin())
 	if err != nil {
@@ -20,8 +20,10 @@ func newTestServer(t *testing.T) http.Handler {
 		t.Fatal(err)
 	}
 	s.SetAddr("127.0.0.1:7777")
-	return s.Handler()
+	return s
 }
+
+func newTestServer(t *testing.T) http.Handler { return builtinServer(t).Handler() }
 
 func do(h http.Handler, method, url, body string, header map[string]string) *httptest.ResponseRecorder {
 	req := httptest.NewRequest(method, url, strings.NewReader(body))

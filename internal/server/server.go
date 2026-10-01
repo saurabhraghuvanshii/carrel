@@ -30,7 +30,8 @@ const (
 	randomCases    = 50
 	maxImportBody  = 20 << 20
 	compileTimeout = 30 * time.Second
-	runTimeout     = 10 * time.Second // all cases together, including restarts after a crash
+	runTimeout     = 10 * time.Second  // all cases together, including restarts after a crash
+	aiTimeout      = 120 * time.Second // an Explain-only retry makes two calls
 )
 
 type Server struct {
@@ -42,6 +43,7 @@ type Server struct {
 	cfg   config.Config
 	hosts map[string]bool
 	now   func() time.Time
+	ask   func(context.Context, ai.Request) (string, error) // ai.Ask; tests swap it
 }
 
 func New(home string, lib *problems.Library) (*Server, error) {
@@ -53,7 +55,7 @@ func New(home string, lib *problems.Library) (*Server, error) {
 	if err != nil {
 		cfg = config.Default() // a damaged config file should not stop practice
 	}
-	return &Server{home: home, lib: lib, store: st, cfg: cfg, hosts: map[string]bool{}, now: time.Now}, nil
+	return &Server{home: home, lib: lib, store: st, cfg: cfg, hosts: map[string]bool{}, now: time.Now, ask: ai.Ask}, nil
 }
 
 // SetAddr records the address we listen on. Requests for any other Host are
@@ -80,6 +82,7 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("GET /api/config", s.getConfig)
 	mux.HandleFunc("PUT /api/config", s.putConfig)
 	mux.HandleFunc("POST /api/ai", s.askAI)
+	mux.HandleFunc("POST /api/ai/test", s.testAI)
 	mux.HandleFunc("GET /api/export", s.export)
 	mux.HandleFunc("POST /api/import", s.importZip)
 
@@ -527,23 +530,55 @@ func (s *Server) askAI(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, http.StatusBadRequest, "unknown problem")
 		return
 	}
-	s.mu.Lock()
-	c := s.cfg.AI
-	s.mu.Unlock()
-	if c.APIKey == "" && c.Provider != "ollama" {
-		writeErr(w, http.StatusBadRequest, "Add your API key in Settings to use AI help.")
+	c, ok := s.aiSettings(w)
+	if !ok {
 		return
 	}
-	ctx, cancel := context.WithTimeout(r.Context(), 90*time.Second)
+	ctx, cancel := context.WithTimeout(r.Context(), aiTimeout)
 	defer cancel()
-	text, err := ai.Ask(ctx, ai.Request{
+	text, err := s.ask(ctx, ai.Request{
 		Provider: c.Provider, Model: c.Model, APIKey: c.APIKey, ExplainOnly: c.ExplainOnly,
 		Statement: p.Statement, Language: req.Lang, Code: req.Code,
 		LastReport: req.LastReport, Question: req.Question,
 	})
 	if err != nil {
-		writeErr(w, http.StatusBadGateway, err.Error())
+		writeErr(w, http.StatusBadGateway, scrub(err.Error(), c.APIKey))
 		return
 	}
 	writeJSON(w, http.StatusOK, map[string]string{"answer": text})
+}
+
+// testAI sends a tiny request with the saved settings ("Test connection").
+func (s *Server) testAI(w http.ResponseWriter, r *http.Request) {
+	c, ok := s.aiSettings(w)
+	if !ok {
+		return
+	}
+	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
+	defer cancel()
+	if _, err := s.ask(ctx, ai.Request{Provider: c.Provider, Model: c.Model, APIKey: c.APIKey, Ping: true}); err != nil {
+		writeErr(w, http.StatusBadGateway, scrub(err.Error(), c.APIKey))
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]bool{"ok": true})
+}
+
+func (s *Server) aiSettings(w http.ResponseWriter) (config.AI, bool) {
+	s.mu.Lock()
+	c := s.cfg.AI
+	s.mu.Unlock()
+	if c.APIKey == "" && c.Provider != "ollama" {
+		writeErr(w, http.StatusBadRequest, "Add your API key in Settings to use AI help.")
+		return c, false
+	}
+	return c, true
+}
+
+// scrub removes the key from text going back to the browser. ai.Ask already
+// does this; the server does it again so no other path can leak it.
+func scrub(text, key string) string {
+	if key == "" {
+		return text
+	}
+	return strings.ReplaceAll(text, key, "[your key]")
 }
