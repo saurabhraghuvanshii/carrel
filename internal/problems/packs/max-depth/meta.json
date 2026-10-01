@@ -7,6 +7,6 @@
   "order": 701,
   "tags": ["tree", "recursion"],
   "buildsOn": [],
-  "leadsTo": [],
+  "leadsTo": ["same-tree", "tree-diameter"],
   "generator": "max-depth"
 }

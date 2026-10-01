@@ -1,0 +1,12 @@
+{
+  "id": "best-path-sum",
+  "title": "Best path sum",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 712,
+  "tags": ["tree", "recursion"],
+  "buildsOn": ["lowest-common-ancestor", "tree-diameter"],
+  "leadsTo": ["tree-to-text-and-back"],
+  "generator": "path-sum"
+}

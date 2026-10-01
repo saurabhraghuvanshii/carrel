@@ -1,0 +1,12 @@
+{
+  "id": "same-tree",
+  "title": "Same tree",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 702,
+  "tags": ["tree", "recursion"],
+  "buildsOn": ["max-depth"],
+  "leadsTo": ["mirror-tree", "subtree-check"],
+  "generator": "same-tree"
+}

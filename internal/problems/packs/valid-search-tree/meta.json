@@ -1,0 +1,12 @@
+{
+  "id": "valid-search-tree",
+  "title": "Valid search tree",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 709,
+  "tags": ["tree", "binary search tree"],
+  "buildsOn": ["sorted-to-tree"],
+  "leadsTo": ["kth-smallest-in-tree"],
+  "generator": "valid-bst"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "mirror-tree",
+  "title": "Mirror a tree",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 703,
+  "tags": ["tree", "recursion"],
+  "buildsOn": ["same-tree"],
+  "leadsTo": ["subtree-check"],
+  "generator": "mirror-tree"
+}

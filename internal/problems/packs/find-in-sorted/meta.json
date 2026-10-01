@@ -7,6 +7,6 @@
   "order": 501,
   "tags": ["binary search"],
   "buildsOn": [],
-  "leadsTo": ["integer-square-root"],
+  "leadsTo": ["integer-square-root", "sorted-to-tree"],
   "generator": "find-sorted"
 }

@@ -1,0 +1,13 @@
+// The driver defines the node type:
+//
+// struct TreeNode {
+//     int val;
+//     TreeNode* left;
+//     TreeNode* right;
+//     TreeNode(int v) : val(v), left(nullptr), right(nullptr) {}
+// };
+
+int longestPath(TreeNode* root) {
+    // Write your solution here.
+    return 0;
+}

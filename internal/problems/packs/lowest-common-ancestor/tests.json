@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "10 4 7 1 6 null 3\n1 6",
+      "expected": "4",
+      "display": "tree   = [10, 4, 7, 1, 6, null, 3]\np, q   = 1, 6\noutput = 4"
+    },
+    {
+      "label": "Example 2",
+      "input": "10 4 7 1 6 null 3\n6 3",
+      "expected": "10",
+      "display": "tree   = [10, 4, 7, 1, 6, null, 3]\np, q   = 6, 3\noutput = 10"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one is the ancestor of the other", "input": "10 4 7\n10 7", "expected": "10" },
+    { "label": "Edge 2: two children of the root", "input": "1 2 3\n2 3", "expected": "1" },
+    { "label": "Edge 3: deep in a chain", "input": "1 2 null 3 null 4\n3 4", "expected": "3" }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "4 2 7\n4 2 7",
+      "expected": "true",
+      "display": "first  = [4, 2, 7]\nsecond = [4, 2, 7]\noutput = true"
+    },
+    {
+      "label": "Example 2",
+      "input": "2 1\n1 null 2",
+      "expected": "false",
+      "display": "first  = [2, 1]\nsecond = [1, null, 2]\noutput = false\n\nBoth hold 1 and 2, in the same left-to-right order, but the shapes differ."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: both empty", "input": "null\nnull", "expected": "true" },
+    { "label": "Edge 2: one empty", "input": "null\n1", "expected": "false" },
+    { "label": "Edge 3: same shape, one value differs", "input": "3 1\n3 2", "expected": "false" },
+    { "label": "Edge 4: children swapped", "input": "8 6 9\n8 9 6", "expected": "false" },
+    { "label": "Edge 5: one child on the other side", "input": "6 null 4\n6 4", "expected": "false" }
+  ]
+}

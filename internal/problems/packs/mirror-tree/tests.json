@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "5 3 8 1 4",
+      "expected": "[5, 8, 3, null, null, 4, 1]",
+      "display": "tree   = [5, 3, 8, 1, 4]\noutput = [5, 8, 3, null, null, 4, 1]\n\n      5             5\n     / \\           / \\\n    3   8   ->    8   3\n   / \\               / \\\n  1   4             4   1"
+    },
+    {
+      "label": "Example 2",
+      "input": "2 null 7",
+      "expected": "[2, 7]",
+      "display": "tree   = [2, null, 7]\noutput = [2, 7]"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: empty tree", "input": "null", "expected": "[]" },
+    { "label": "Edge 2: one node", "input": "9", "expected": "[9]" },
+    { "label": "Edge 3: a left chain becomes a right chain", "input": "1 2 null 3", "expected": "[1, null, 2, null, 3]" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "lowest-common-ancestor",
+  "title": "Lowest common ancestor",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 711,
+  "tags": ["tree", "recursion"],
+  "buildsOn": ["kth-smallest-in-tree"],
+  "leadsTo": ["best-path-sum"],
+  "generator": "tree-lca"
+}

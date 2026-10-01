@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "7 2 9 1 3\n2 1 3",
+      "expected": "true",
+      "display": "root   = [7, 2, 9, 1, 3]\nsub    = [2, 1, 3]\noutput = true"
+    },
+    {
+      "label": "Example 2",
+      "input": "7 2 9 1 3 null null 0\n2 1 3",
+      "expected": "false",
+      "display": "root   = [7, 2, 9, 1, 3, null, null, 0]\nsub    = [2, 1, 3]\noutput = false\n\nIn root, the 1 under 2 has a child 0, so that subtree is not the same."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: the whole tree", "input": "1 2\n1 2", "expected": "true" },
+    { "label": "Edge 2: a single leaf", "input": "1 2 3\n3", "expected": "true" },
+    { "label": "Edge 3: same values, other shape", "input": "1 2 3\n1 3 2", "expected": "false" },
+    { "label": "Edge 4: repeated values", "input": "4 4 null 4\n4 4", "expected": "true" }
+  ]
+}

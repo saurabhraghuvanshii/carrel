@@ -1,0 +1,12 @@
+{
+  "id": "tree-to-text-and-back",
+  "title": "Tree to text and back",
+  "difficulty": "hard",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 713,
+  "tags": ["tree", "design"],
+  "buildsOn": ["best-path-sum", "level-by-level"],
+  "leadsTo": [],
+  "generator": "tree-codec"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "tree-diameter",
+  "title": "Longest path in a tree",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 705,
+  "tags": ["tree", "recursion"],
+  "buildsOn": ["subtree-check", "max-depth"],
+  "leadsTo": ["level-by-level", "best-path-sum"],
+  "generator": "tree-diameter"
+}

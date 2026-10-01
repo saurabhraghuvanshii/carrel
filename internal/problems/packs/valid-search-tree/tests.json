@@ -1,0 +1,22 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "8 4 10 2 6",
+      "expected": "true",
+      "display": "tree   = [8, 4, 10, 2, 6]\noutput = true"
+    },
+    {
+      "label": "Example 2",
+      "input": "8 4 10 2 9",
+      "expected": "false",
+      "display": "tree   = [8, 4, 10, 2, 9]\noutput = false\n\n9 is a fine right child of 4, but it is in the left subtree of 8 and larger than 8."
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: empty tree", "input": "null", "expected": "true" },
+    { "label": "Edge 2: an equal child", "input": "5 5", "expected": "false" },
+    { "label": "Edge 3: one node", "input": "3", "expected": "true" },
+    { "label": "Edge 4: too small deep on the right", "input": "10 5 15 null null 6 20", "expected": "false" }
+  ]
+}

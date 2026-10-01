@@ -1,0 +1,21 @@
+{
+  "examples": [
+    {
+      "label": "Example 1",
+      "input": "8 4 10 2 6\n3",
+      "expected": "6",
+      "display": "tree   = [8, 4, 10, 2, 6]\nk      = 3\noutput = 6\n\nIn order: 2, 4, 6, 8, 10."
+    },
+    {
+      "label": "Example 2",
+      "input": "5 3 7 1\n1",
+      "expected": "1",
+      "display": "tree   = [5, 3, 7, 1]\nk      = 1\noutput = 1"
+    }
+  ],
+  "edge": [
+    { "label": "Edge 1: one node", "input": "9\n1", "expected": "9" },
+    { "label": "Edge 2: the largest", "input": "2 1 3\n3", "expected": "3" },
+    { "label": "Edge 3: a right chain", "input": "1 null 2 null 3\n2", "expected": "2" }
+  ]
+}

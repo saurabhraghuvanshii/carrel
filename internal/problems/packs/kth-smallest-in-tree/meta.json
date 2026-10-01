@@ -1,0 +1,12 @@
+{
+  "id": "kth-smallest-in-tree",
+  "title": "Kth smallest in a search tree",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 710,
+  "tags": ["tree", "binary search tree"],
+  "buildsOn": ["valid-search-tree"],
+  "leadsTo": ["lowest-common-ancestor"],
+  "generator": "kth-bst"
+}

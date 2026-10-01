@@ -1,0 +1,12 @@
+{
+  "id": "subtree-check",
+  "title": "Tree inside a tree",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 704,
+  "tags": ["tree", "recursion"],
+  "buildsOn": ["mirror-tree", "same-tree"],
+  "leadsTo": ["tree-diameter"],
+  "generator": "subtree"
+}

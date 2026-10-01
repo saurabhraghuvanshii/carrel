@@ -1,0 +1,12 @@
+{
+  "id": "sorted-to-tree",
+  "title": "Sorted list to search tree",
+  "difficulty": "easy",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 708,
+  "tags": ["tree", "binary search tree", "recursion"],
+  "buildsOn": ["right-side-view", "find-in-sorted"],
+  "leadsTo": ["valid-search-tree"],
+  "generator": "sorted-tree"
+}

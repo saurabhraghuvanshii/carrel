@@ -1,0 +1,12 @@
+{
+  "id": "level-by-level",
+  "title": "Level by level",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 706,
+  "tags": ["tree", "breadth-first search"],
+  "buildsOn": ["tree-diameter"],
+  "leadsTo": ["right-side-view", "tree-to-text-and-back"],
+  "generator": "level-order"
+}

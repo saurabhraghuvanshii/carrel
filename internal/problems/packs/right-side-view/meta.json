@@ -1,0 +1,12 @@
+{
+  "id": "right-side-view",
+  "title": "Right side view",
+  "difficulty": "medium",
+  "sheet": "patterns",
+  "group": "Trees",
+  "order": 707,
+  "tags": ["tree", "breadth-first search"],
+  "buildsOn": ["level-by-level"],
+  "leadsTo": ["sorted-to-tree"],
+  "generator": "right-view"
+}
