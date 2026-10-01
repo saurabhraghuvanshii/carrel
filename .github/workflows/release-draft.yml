@@ -1,0 +1,28 @@
+name: release-draft
+
+# Keeps one draft release up to date with every PR merged into main.
+# pull_request_target only labels PRs (autolabeler); it never checks out PR code.
+on:
+  push:
+    branches: [main]
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: release-drafter/release-drafter@v6
+        with:
+          config-name: release-draft.yml
+          disable-autolabeler: ${{ github.event_name == 'push' }}
+          disable-releaser: ${{ github.event_name != 'push' && github.event_name != 'workflow_dispatch' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

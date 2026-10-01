@@ -1,0 +1,82 @@
+# Config for release-drafter (.github/workflows/release-draft.yml).
+# $RESOLVED_VERSION follows version-resolver: a PR labelled major or minor bumps
+# that part, anything else bumps the patch.
+name-template: 'Carrel v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'kind/feature'
+      - 'kind/enhancement'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'kind/bug'
+  - title: '🧩 Problems'
+    labels:
+      - 'kind/problems'
+  - title: '🧰 Maintenance'
+    labels:
+      - 'kind/chore'
+      - 'chore'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+exclude-labels:
+  - 'skip-changelog'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+# Labels PRs from their title or branch, so most need no manual labelling.
+autolabeler:
+  - label: 'kind/feature'
+    title:
+      - '/^feat/i'
+    branch:
+      - '/^feat(ure)?\/.+/'
+  - label: 'kind/bug'
+    title:
+      - '/^fix/i'
+    branch:
+      - '/^fix\/.+/'
+  - label: 'kind/problems'
+    files:
+      - 'internal/problems/packs/**'
+  - label: 'kind/chore'
+    title:
+      - '/^chore/i'
+      - '/^docs/i'
+      - '/^ci/i'
+template: |
+  ## What's New
+  $CHANGES
+
+  ## Install
+
+  Linux and macOS:
+
+  ```
+  curl -fsSL https://saurabhraghuvanshii.github.io/carrel/install.sh | sh
+  ```
+
+  Windows (PowerShell):
+
+  ```
+  irm https://saurabhraghuvanshii.github.io/carrel/install.ps1 | iex
+  ```
+
+  Or download the archive for your system below and put `carrel` on your `PATH`. `checksums.txt` lists the SHA-256 of every file. Run `carrel doctor` to check that Java and g++ are installed.
+
+  ## Contributors
+
+  Thank you to our contributors for making this release possible:
+  $CONTRIBUTORS
+
+  **Full changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION

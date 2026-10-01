@@ -120,12 +120,18 @@ See `tools/vendor/README.md` for what the bundle exposes. The font licences are 
 
 ## Releases
 
-1. Make sure `main` is green in CI and everything you want is merged.
-2. Tag and push: `git tag v0.1.0 && git push origin v0.1.0`.
-3. The `release` workflow runs the tests, builds with `make dist VERSION=<tag>` and creates a **draft** release with five archives and `checksums.txt`. Drafts are only visible to people with write access.
-4. Open the draft under Releases, check the notes and the six files, then press Publish release.
+Release notes write themselves. The `release-draft` workflow (Release Drafter, configured in `.github/release-draft.yml`) keeps one draft release up to date: every pull request merged into `main` is added to it, grouped by label. Only pull requests are listed, so changes pushed straight to `main` do not appear.
 
-A tag with a hyphen (`v0.1.0-rc1`) is also marked pre-release, so the `latest` download links keep pointing at the last real release. To throw a draft away, delete it on GitHub and remove the tag with `git push origin :refs/tags/v0.1.0 && git tag -d v0.1.0`.
+- Labels are added from the PR title or branch: `feat...` is a feature, `fix...` a bug fix, `chore`, `docs` or `ci` maintenance, and changes under `internal/problems/packs/` go under Problems. `skip-changelog` leaves a PR out.
+- The version is the next patch unless a merged PR has the `minor` or `major` label.
+
+To release:
+
+1. Open Releases on GitHub. The draft "Carrel vX.Y.Z" is only visible to people with write access.
+2. Check the notes and the version, edit if needed, and press Publish release. GitHub creates the tag.
+3. The `release` workflow then runs the tests, builds with `make dist VERSION=<tag>` and attaches five archives and `checksums.txt`. This takes a few minutes; the install scripts work once the files are there.
+
+To test first, tick "Set as a pre-release" before publishing, so the `latest` download links keep pointing at the last real release.
 
 The archive names are fixed, because `scripts/install.sh`, `scripts/install.ps1` and the website depend on them: `carrel_<os>_<arch>.tar.gz` (`.zip` on Windows), each holding the binary, `LICENSE` and `README.md`.
 
