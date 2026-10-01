@@ -1,3 +1,5 @@
+<img src="internal/server/web/icon.svg" width="72" height="72" alt="Carrel icon">
+
 # Carrel
 
 Practice data structures and algorithms in your browser. One small Go program, no account, nothing uploaded. Your solutions are plain files on your own computer.
