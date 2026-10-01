@@ -120,7 +120,12 @@ See `tools/vendor/README.md` for what the bundle exposes. The font licences are 
 
 ## Releases
 
-Push a tag such as `v0.1.0`. The `release` workflow runs the tests, builds with `make dist VERSION=<tag>` and publishes a GitHub release with five archives and `checksums.txt`. A tag with a hyphen (`v0.1.0-rc1`) becomes a pre-release, so the `latest` download links keep pointing at the last real release.
+1. Make sure `main` is green in CI and everything you want is merged.
+2. Tag and push: `git tag v0.1.0 && git push origin v0.1.0`.
+3. The `release` workflow runs the tests, builds with `make dist VERSION=<tag>` and creates a **draft** release with five archives and `checksums.txt`. Drafts are only visible to people with write access.
+4. Open the draft under Releases, check the notes and the six files, then press Publish release.
+
+A tag with a hyphen (`v0.1.0-rc1`) is also marked pre-release, so the `latest` download links keep pointing at the last real release. To throw a draft away, delete it on GitHub and remove the tag with `git push origin :refs/tags/v0.1.0 && git tag -d v0.1.0`.
 
 The archive names are fixed, because `scripts/install.sh`, `scripts/install.ps1` and the website depend on them: `carrel_<os>_<arch>.tar.gz` (`.zip` on Windows), each holding the binary, `LICENSE` and `README.md`.
 

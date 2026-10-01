@@ -28,7 +28,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
-          # A tag with a hyphen (v0.1.0-rc1) becomes a pre-release, so "latest" still points at a real one.
-          flags=""
-          case "$TAG" in *-*) flags="--prerelease" ;; esac
-          gh release create "$TAG" dist/carrel_* dist/checksums.txt --title "$TAG" --generate-notes --verify-tag $flags
+          # Always a draft: nothing is public until someone presses Publish on GitHub.
+          # A tag with a hyphen (v0.1.0-rc1) is also marked pre-release, so "latest" still points at a real one.
+          flags="--draft"
+          case "$TAG" in *-*) flags="$flags --prerelease" ;; esac
+          gh release create "$TAG" dist/carrel_* dist/checksums.txt --title "Carrel $TAG" --generate-notes --verify-tag $flags
